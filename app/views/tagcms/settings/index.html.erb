@@ -1,0 +1,20 @@
+<%- if @settings.empty? -%>
+<h1>Settings</h1>
+<p class="pull-right">
+  <%= link_to "Add Settings", new_setting_path, :class => 'btn btn-small' %>
+</p>
+<div class="hero-unit">
+  <div class="row">
+    <div class="span5">
+      <p>Be the first to add some Settings to your project. The settings in your application can affect various preferences in your website, from the title of your website to the type of editing experience you want to have.</p>
+    </div>
+    <div class="span2">
+      <p class="pull-right">
+        <%= link_to "Add Settings", new_setting_path, :class => 'btn btn-primary btn-large' %>
+      </p>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<%= render @settings %>

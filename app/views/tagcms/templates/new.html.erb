@@ -1,0 +1,16 @@
+<h1>New <%= @template.template_type.capitalize %></h1>
+<%= semantic_form_for @template, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="item-content">
+    <%= f.inputs do %>
+      <%= f.input :name %>
+      <%= f.input :template_type, :as => :hidden %>
+    <% end %>
+  </div>
+  <div class="item-meta">
+    <%= f.actions :submit, :as => "button" %>
+  </div>
+<% end %>
+
+<%= render :partial => "secondary_nav" %>
+
+<% content_for :related,   "Fo bar" %>

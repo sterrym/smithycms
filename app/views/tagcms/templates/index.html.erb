@@ -1,0 +1,18 @@
+<% content_for :title, "Templates" %>
+
+<div class="hero-unit">
+  <h1>Templates</h1>
+<%- if @templates.empty? -%>
+    <p>Be the first to add a Template to your project. Templates are the basic building blocks for your pages. A page's look and feel is defined in the templates that you create.</p>
+<% else %>
+    <p>You can add a template or select one from your left to edit.</p>
+<% end %>
+    <p>
+      <%= link_to "Add Template", new_template_path, :class => 'btn btn-primary btn-large' %>
+    </p>
+  </div>
+
+<%= render :partial => "secondary_nav" %>
+
+<% content_for :related do %>
+<% end %>

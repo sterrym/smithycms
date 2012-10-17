@@ -1,0 +1,23 @@
+<%= render :partial => "secondary_nav" %>
+
+<%= semantic_form_for @template do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :content, :label => "Template Content" %>
+  <% end %>
+  <%= f.actions :class => "meta" do %>
+    <%= f.text_field :name %>
+    <%= f.action :submit, :as => :button, :label => "Save this #{@template.template_type.capitalize}" %>
+  <% end %>
+<% end %>
+
+<% content_for :related do %>
+  <div class="well well-small">
+    Pages:
+    <ul>
+      <li>About Us</li>
+      <li>Contact Us</li>
+    </ul>
+  </div>
+
+  <p class="meta"><%= link_to "Delete Template", @template, :method => :delete, :confirm => "Are you sure you want to delete this template?", :class => 'btn' %></p>
+<% end %>

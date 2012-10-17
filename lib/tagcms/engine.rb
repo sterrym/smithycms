@@ -1,3 +1,5 @@
+require 'tagcms/dependencies'
+
 module Tagcms
   class Engine < ::Rails::Engine
     isolate_namespace Tagcms
