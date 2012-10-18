@@ -13,6 +13,8 @@ end
 
 group :development, :test do
   gem 'debugger', '~> 1.2.1'
+  gem 'fuubar'
+  gem 'guard-rspec'
   gem 'rspec-rails', '~> 2.11'
 end
 
