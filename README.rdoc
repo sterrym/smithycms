@@ -1,3 +1,16 @@
-= Tagcms
+= TagCMS
 
-This project rocks and uses MIT-LICENSE.
+== Templates & Includes
+These are the building blocks of a page. All the markup is written using the Liquid templating engine. This allows anyone to be able to write templates without the dangers of exposing the whole stack to the template editor
+
+== Pages
+On top of its own innate elements (title, permalink, etc), each page belongs to a template and through the template, has a set of available content containers. To each container, pieces of content can be added and organized via various "Content Blocks".
+
+== Content Blocks
+Each content block has to register itself with the Content Block class on application start. Each content block needs to include table migration(s), a model, a _form.html.erb partial (preferably using formtastic) and a default.html.liquid template. Upon content block registration, any *.html.liquid template(s) will be written to the database and further content block templates can be added in the admin area.
+
+== Page Content
+- belongs_to a content_block (polymorphic)
+- belongs_to a page
+- belongs_to a content_block_template
+- is sortable
