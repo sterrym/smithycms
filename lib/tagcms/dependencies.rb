@@ -1,6 +1,9 @@
+require 'awesome_nested_set'
 require 'bootstrap-sass'
+require 'awesome_nested_set'
 require 'formtastic'
 require 'formtastic-bootstrap'
-require 'sass-rails'
-
+require 'friendly_id'
 require 'jquery/rails'
+require 'liquid'
+require 'sass-rails'
