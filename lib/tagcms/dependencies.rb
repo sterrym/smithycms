@@ -1,6 +1,7 @@
 require 'awesome_nested_set'
 require 'bootstrap-sass'
 require 'awesome_nested_set'
+require 'font-awesome-sass-rails'
 require 'formtastic'
 require 'formtastic-bootstrap'
 require 'friendly_id'
