@@ -9,7 +9,7 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require
-require "tagcms"
+require "smithy"
 
 module Dummy
   class Application < Rails::Application

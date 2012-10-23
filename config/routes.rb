@@ -1,5 +1,7 @@
-Tagcms::Engine.routes.draw do
-  resources :templates
-  resources :pages
-  resources :settings
+Smithy::Engine.routes.draw do
+  scope "/smithy" do
+    resources :pages
+    resources :templates
+    resources :settings
+  end
 end

@@ -1,0 +1,17 @@
+<% content_for :secondary_nav do %>
+  <ul class="nav nav-list">
+    <li class="nav-header">Templates</li>
+    <%= render @templates %>
+    <li class="nav-header">Includes</li>
+    <%= render @includes %>
+  </ul>
+
+  <div class="btn-group actions pull-right">
+    <%= link_to "<i class=\"icon-plus\"></i> Add Template <span class=\"caret\"></span>".html_safe, new_template_path, :class => 'dropdown-toggle btn btn-inverse', 'data-toggle' => 'dropdown', 'data-target' => '#', :role => 'button' %>
+    <ul class="dropdown-menu" role="menu">
+    <% Smithy::Template.types.each do |tt| %>
+      <li><%= link_to tt.capitalize, new_template_path(:template => { :template_type => tt }) %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
