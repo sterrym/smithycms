@@ -1,17 +1,19 @@
-<div class="navbar navbar-fixed-top">
+<header id="header">
+  <h1>Smithy CMS</h1>
+</header>
+<div id="main-nav" class="navbar navbar-inverse">
+  <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </a>
   <div class="navbar-inner">
     <div class="container">
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a class="brand" href="#"><%= project_title %> CMS</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Full Sitemap" %></li>
-          <li><%= link_to "Templates", templates_path %></li>
-          <li><%= link_to "Content Blocks" %></li>
+          <li><%= link_to "<i class=\"icon-sitemap\"></i> Full Sitemap".html_safe, pages_path %></li>
+          <li><%= link_to "<i class=\"icon-file\"></i> Templates".html_safe, templates_path %></li>
+          <li><%= link_to "<i class=\"icon-list-alt\"></i> Content Blocks".html_safe %></li>
         </ul>
         <ul class="nav pull-right">
           <li class="pull-right"><%= link_to "Settings", settings_path %></li>
@@ -20,3 +22,4 @@
     </div>
   </div>
 </div>
+

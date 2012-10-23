@@ -1,23 +1,27 @@
 <%= render :partial => "layouts/tagcms/shared/head" %>
 <body>
 <%= render :partial => "layouts/tagcms/shared/nav" %>
-<div class="container-fluid">
-  <%= render :partial => "layouts/tagcms/shared/flash", :locals => { flash: flash } %>
 
-  <section class="row" id="main-container">
+<nav id="side">
+  <%= yield :secondary_nav %>
+</nav>
+<div id="main">
+  <div class="container-fluid">
+    <%= render :partial => "layouts/tagcms/shared/flash", :locals => { flash: flash } %>
 
-    <nav id="secondary-nav" class="span3">
-      <%= yield :secondary_nav %>
-    </nav>
+    <% if content_for? :title %><h1><%= yield :title %></h1><% end %>
+    <%= yield :top_content %>
+    <section class="row-fluid" id="content-container">
 
-    <article id="main" class="span7">
-      <%= yield %>
-    </article>
+      <article id="content" class="span9">
+        <%= yield %>
+      </article>
 
-    <aside id="related" class="span2">
-      <%= yield :related %>
-    </aside>
+      <aside id="related" class="span3">
+        <%= yield :related %>
+      </aside>
 
-  </section>
+    </section>
+  </div>
 </div>
 <%= render :partial => "layouts/tagcms/shared/tail" %>
