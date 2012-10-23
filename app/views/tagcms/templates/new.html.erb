@@ -1,7 +1,8 @@
-<h1>New <%= @template.template_type.capitalize %></h1>
+<% content_for :title, "Templates" %>
+
 <%= semantic_form_for @template, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="item-content">
-    <%= f.inputs do %>
+    <%= f.inputs "New #{@template.template_type.capitalize}" do %>
       <%= f.input :name %>
       <%= f.input :template_type, :as => :hidden %>
     <% end %>
@@ -13,4 +14,4 @@
 
 <%= render :partial => "secondary_nav" %>
 
-<% content_for :related,   "Fo bar" %>
+<% content_for :related, nil %>

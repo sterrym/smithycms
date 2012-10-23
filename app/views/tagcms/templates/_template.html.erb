@@ -1,1 +1,1 @@
-  <li<%= ' class="active"' if action_name == "edit" && @template == template %>><%= link_to template.name, [:edit, template] %></li>
+  <li<%= raw ' class="active"' if action_name == "edit" && @template == template %>><%= link_to template.name, [:edit, template] %></li>

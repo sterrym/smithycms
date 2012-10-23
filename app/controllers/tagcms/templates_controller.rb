@@ -19,7 +19,7 @@ module Tagcms
       @template.save
       flash.notice = "Your template was created" if @template.persisted?
       respond_with @template do |format|
-        format.html { redirect_to templates_path }
+        format.html { redirect_to [:edit, @template] }
       end
     end
 
