@@ -35,7 +35,7 @@ body { background:#444; padding:0; }
     margin:1em 0;
     padding:0;
     .nav-header {
-      color:#888;
+      color:#DDD;
     }
      > li > a,
     .nav-header {
@@ -50,6 +50,7 @@ body { background:#444; padding:0; }
     }
     > li > a:hover {
       background-color:#4f4f4f;
+      color:#CCC;
     }
     > .active {
       background: #292929; /* Old browsers */
