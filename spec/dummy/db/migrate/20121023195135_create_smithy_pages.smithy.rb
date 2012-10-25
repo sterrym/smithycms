@@ -10,7 +10,7 @@ class CreateSmithyPages < ActiveRecord::Migration
       t.datetime :published_at
       t.boolean :show_in_navigation
       t.string :permalink, :null => false
-      t.string :path
+      t.string :path, :null => false
       t.belongs_to :template
       t.belongs_to :parent
       t.integer :lft
@@ -23,6 +23,6 @@ class CreateSmithyPages < ActiveRecord::Migration
     add_index :smithy_pages, :parent_id
     add_index :smithy_pages, :lft
     add_index :smithy_pages, :rgt
-    add_index :smithy_pages, :permalink, :unique => true
+    add_index :smithy_pages, :path, :unique => true
   end
 end

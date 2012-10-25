@@ -14,7 +14,7 @@ describe Smithy::Page do
   it { should_not allow_mass_assignment_of :depth }
 
   it { should validate_presence_of :title }
-  it { should validate_presence_of :permalink }
+  it { should validate_presence_of :path }
   it { should validate_presence_of :template_id }
 
   it { should belong_to :parent }
@@ -89,39 +89,40 @@ describe Smithy::Page do
   end
 
   describe "#permalink and #path auto-generation" do
-    subject { FactoryGirl.create(:page, :title => "Foo Bar", :permalink => nil) }
+    subject { FactoryGirl.create(:page, :title => "Foo Bar") }
     its(:permalink) { should_not be_blank }
     context "when it's the root page" do
-      subject { FactoryGirl.create(:page, :title => "Home", :permalink => nil) }
+      subject { FactoryGirl.create(:page, :title => "Home") }
+      its(:path) { should == '/' }
       its(:permalink) { should == "home" }
-      its(:path) { should == nil }
     end
     context "when it's a child of the root page" do
-      let(:home) { FactoryGirl.create(:page, :title => "Home", :permalink => nil) }
+      let(:home) { FactoryGirl.create(:page, :title => "Home") }
       subject { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-      its(:permalink) { should == 'foo-bar' }
       its(:path) { should == '/foo-bar' }
+      its(:permalink) { should == 'foo-bar' }
     end
     context "when it's a subpage" do
-      let(:home) { FactoryGirl.create(:page, :title => "Home", :permalink => nil) }
-      let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home, :permalink => nil) }
+      let(:home) { FactoryGirl.create(:page, :title => "Home") }
+      let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
       subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage) }
-      its(:permalink) { should == 'baz-qux' }
       its(:path) { should == '/foo-bar/baz-qux' }
+      its(:permalink) { should == 'baz-qux' }
     end
     context "within the same scope as another page" do
-      let!(:home) { FactoryGirl.create(:page, :title => "Home", :permalink => nil) }
-      let!(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :permalink => nil, :parent => home) }
+      let!(:home) { FactoryGirl.create(:page, :title => "Home") }
+      let!(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
       subject { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-      its(:permalink) { should == 'foo-bar--2' }
       its(:path) { should == '/foo-bar--2' }
+      its(:permalink) { should == 'foo-bar--2' }
     end
     context "using a reserved word for the title" do
-      subject { FactoryGirl.build(:page, :title => "new") }
-      it "will have an error on :title" do
+      let!(:home) { FactoryGirl.build(:page, :title => "home") }
+      subject { FactoryGirl.build(:page, :title => "new", :parent => home) }
+      before do
         subject.valid?
-        subject.errors[:title].should_not be_blank
       end
+      specify { subject.errors[:title].should_not be_blank }
     end
   end
 end

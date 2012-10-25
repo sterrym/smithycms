@@ -3,13 +3,19 @@ require_dependency "smithy/application_controller"
 module Smithy
   class PagesController < ApplicationController
     before_filter :initialize_page, :only => [ :new, :create ]
-    before_filter :load_page, :only => [ :edit, :update, :destroy ]
+    before_filter :load_page, :only => [ :show, :edit, :update, :destroy ]
     before_filter :load_parent, :except => [ :index ]
     before_filter :load_root, :only => [ :index ]
     respond_to :html, :json
 
     def index
       respond_with @root
+    end
+
+    def show
+      respond_with @page do |format|
+        format.html { render :text => @page.render, :layout => false }
+      end
     end
 
     def new
@@ -19,7 +25,7 @@ module Smithy
     def create
       @page.save
       flash.notice = "Your page was created" if @page.persisted?
-      respond_with @page do |format|
+      respond_with do |format|
         format.html { edit_page_path(@page.id) }
       end
     end

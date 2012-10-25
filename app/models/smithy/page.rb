@@ -2,8 +2,9 @@ module Smithy
   class Page < ActiveRecord::Base
     attr_accessible :browser_title, :cache_length, :description, :keywords, :permalink, :published_at, :show_in_navigation, :title, :parent_id, :template_id
 
-    validates_presence_of :permalink, :template, :template_id, :title
+    validates_presence_of :path, :template, :template_id, :title
     validate :validate_one_root
+    validate :validate_exclusion_of_reserved_words
 
     belongs_to :template
     has_many :containers, :through => :template
@@ -12,12 +13,11 @@ module Smithy
     acts_as_nested_set :dependent => :destroy
     extend FriendlyId
     friendly_id :title, :use => [:slugged, :scoped],
-                :slug_column => 'permalink',
-                :scope => :parent_id,
-                :reserved_words => %w(index new session login logout users smithy admin)
+                :slug_column => 'path',
+                :scope => :parent_id
 
-    after_validation :move_friendly_id_error_to_title
-    after_move :build_path # this is a acts_as_nested_set callback
+    before_save :build_permalink
+    # after_move :update_path # this is a acts_as_nested_set callback
 
     class << self
       def tree_for_select
@@ -27,6 +27,15 @@ module Smithy
           tree_for_select << [ "#{prepend}#{page.title}", page.id]
         end if root.present?
         tree_for_select
+      end
+    end
+
+    def normalize_friendly_id(value)
+      if self.parent.blank?
+        '/'
+      else
+        self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
+        [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value.to_s.parameterize].join('/')
       end
     end
 
@@ -57,12 +66,18 @@ module Smithy
     end
 
     private
-      def build_path
-        self.update_attribute(:path, self_and_ancestors.map{|page| page.root? ? '' : page.permalink }.join('/'))
+      def build_permalink
+        self.permalink = self.root? ? title.parameterize   : path.split('/').last unless self.permalink?
       end
 
-      def move_friendly_id_error_to_title
-        errors.add :title, *errors.delete(:friendly_id) if errors[:friendly_id].present?
+      # def update_path
+      #   updated_path = self_and_ancestors.map{|page| page.root? ? '' : page.permalink }.join('/')
+      #   self.update_attribute(:path, updated_path)
+      # end
+
+      def validate_exclusion_of_reserved_words
+        reserved = %w(index new session login logout users smithy admin)
+        errors.add(:title, "cannot contain reserved words (#{reserved.join(', ')})") if reserved.include?(self.title.to_s.parameterize)
       end
 
       def validate_one_root
