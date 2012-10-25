@@ -1,0 +1,44 @@
+<% content_for :top_content do %>
+<ul class="breadcrumb">
+<%- breadcrumbs = @page.persisted? ? @page.ancestors : @parent.ancestors -%>
+<% breadcrumbs.each do |p| %>
+  <li>
+    <%= @page == p ? p.title : link_to(p.title, edit_page_path(p.id)) %>
+    <%= content_tag :span, :class => 'divider' do %>/<% end %>
+  </li>
+<% end %>
+  <%= content_tag(:li, @page.title) if @page.persisted? %>
+</ul>
+<% end %>
+
+<%= semantic_form_for @page, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.inputs "Page Information" do %>
+    <%= f.input :title %>
+    <%= f.input :permalink, :hint => "This will be auto-created if blank. Only fill it in if you know what you're doing" %>
+    <%= f.input :parent, :include_blank => false, :collection => Smithy::Page.tree_for_select unless !@page.parent_id? %>
+    <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
+  <% end %>
+  <% if @page.persisted? %>
+  <div class="well">
+    <%= render :partial => "container", :collection => @page.container_names, :locals => { :f => f } %>
+  </div>
+  <% end %>
+  <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
+  <%= content_tag :div, :id => "page-seo", :class => "collapse" do %>
+    <%= f.inputs do %>
+      <%= f.input :browser_title %>
+      <%= f.input :keywords %>
+      <%= f.input :description %>
+    <% end %>
+  <% end %>
+  <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="icon-caret-down"></i></h3>
+  <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
+    <%= f.inputs do %>
+      <%= f.input :show_in_navigation %>
+      <%= f.input :cache_length %>
+      <%# TODO: Add a hint to cache_length showing the default. 600 maybe? %>
+      <%= f.input :published_at, :as => :string, :input_html => { :class => 'datetime-picker' } %>
+    <% end %>
+  <% end %>
+  <%= f.actions :submit %>
+<% end %>

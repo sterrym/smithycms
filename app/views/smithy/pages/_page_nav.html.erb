@@ -1,0 +1,6 @@
+<% content_for :secondary_nav do %>
+  <ul class="nav nav-list page-list">
+    <%= render :partial => "root" if @root %>
+    <%= render :partial => "parent" if @parent %>
+  </ul>
+<% end %>

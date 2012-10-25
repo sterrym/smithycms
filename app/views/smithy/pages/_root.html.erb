@@ -1,0 +1,3 @@
+<li class="active"><%= link_to "<i class=\"icon-home\"></i> #{@root.title}".html_safe, edit_page_path(@root.id) %></li>
+<%= render @root.children %>
+<li class="add-page"><%= link_to "<i class=\"icon-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @root.id }) %></li>

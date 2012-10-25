@@ -1,0 +1,5 @@
+<%= f.inputs container.capitalize do %>
+  <%= @page.contents.for_container(container).each do |content| %>
+    <%= content.label %>
+  <% end %>
+<% end %>

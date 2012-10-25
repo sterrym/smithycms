@@ -1,0 +1,3 @@
+<%= content_tag :li, :id => dom_id(page), :class => (params[:id].to_i == page.id ? "active" : nil) do %>
+  <%= link_to "<i class=\"icon-reorder\"></i> <i class=\"icon-file\"></i>#{page.title}".html_safe + (" <i class=\"icon-caret-right pull-right\"></i>".html_safe unless page.leaf?), edit_page_path(page.id), :class => "indent indent-#{page.level}" %>
+<% end %>

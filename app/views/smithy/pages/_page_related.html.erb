@@ -1,0 +1,19 @@
+<% content_for :related do %>
+<h4>Page Meta</h4>
+<div class="well well-small">
+  <dl class="dl-horizontal">
+    <dt>Status</dt>
+    <dd><%= raw @page.published_at? ? '<i class="icon-check"></i>' : '<i class="icon-check-empty"></i>' %> Published</dd>
+    <dt>Navigation</dt>
+    <dd><%= raw @page.show_in_navigation? ? '<i class="icon-check"></i>' : '<i class="icon-check-empty"></i>' %> Show in Navigation</dd>
+    <dt>Template</dt>
+    <dd><%= @page.template.name %></dd>
+    <dt>Creator</dt>
+    <dd><%= "Tim Glen" %></dd>
+    <dt>Updated</dt>
+    <dd><%= time_ago_in_words @page.updated_at %> ago</dd>
+  </dl>
+</div>
+
+<%= content_tag :p, link_to("Delete Page", page_path(@page.id), :method => :delete, :confirm => "Are you sure you want to delete this page?", :class => 'btn btn-danger') if @page.persisted? %></p>
+<% end %>
