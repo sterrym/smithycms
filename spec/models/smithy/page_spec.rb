@@ -66,6 +66,28 @@ describe Smithy::Page do
     end
   end
 
+  describe ".tree_for_select" do
+    subject { Smithy::Page.tree_for_select }
+    context "when empty" do
+      it { should be_an(Array) }
+      its(:size) { should == 0 }
+    end
+    context "with some pages" do
+      let!(:home) { FactoryGirl.create(:page, :title => "Home") }
+      let!(:page1) { FactoryGirl.create(:page, :title => "Page1", :parent => home) }
+      let!(:page2) { FactoryGirl.create(:page, :title => "Page2", :parent => home) }
+      let!(:page1_1) { FactoryGirl.create(:page, :title => "Page1-1", :parent => page1) }
+      let!(:page1_2) { FactoryGirl.create(:page, :title => "Page1-2", :parent => page1) }
+      it { should be_an(Array) }
+      its(:size) { should == 5 }
+      specify { subject[0].should == ['Home', home.id] }
+      specify { subject[1].should == ['- Page1', page1.id] }
+      specify { subject[2].should == ['-- Page1-1', page1_1.id] }
+      specify { subject[3].should == ['-- Page1-2', page1_2.id] }
+      specify { subject[4].should == ['- Page2', page2.id] }
+    end
+  end
+
   describe "#permalink and #path auto-generation" do
     subject { FactoryGirl.create(:page, :title => "Foo Bar", :permalink => nil) }
     its(:permalink) { should_not be_blank }

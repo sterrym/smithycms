@@ -2,7 +2,7 @@ module Smithy
   class Page < ActiveRecord::Base
     attr_accessible :browser_title, :cache_length, :description, :keywords, :permalink, :published_at, :show_in_navigation, :title, :parent_id, :template_id
 
-    validates_presence_of :permalink, :template_id, :title
+    validates_presence_of :permalink, :template, :template_id, :title
     validate :validate_one_root
 
     belongs_to :template
@@ -19,6 +19,17 @@ module Smithy
     after_validation :move_friendly_id_error_to_title
     after_move :build_path # this is a acts_as_nested_set callback
 
+    class << self
+      def tree_for_select
+        tree_for_select = []
+        each_with_level(root.self_and_descendants) do |page, level|
+          prepend = level == 0 ? "" : "#{'-' * level} "
+          tree_for_select << [ "#{prepend}#{page.title}", page.id]
+        end if root.present?
+        tree_for_select
+      end
+    end
+
     def container_names
       @container_names ||= containers.map(&:name)
     end
@@ -32,9 +43,7 @@ module Smithy
     end
 
     def render_container(container_name)
-      # the code will be something like this
-      # self.contents.where(:container => container_name).map(&:render)
-      nil
+      self.contents.where(:container => container_name).map(&:render).join
     end
 
     def to_liquid
