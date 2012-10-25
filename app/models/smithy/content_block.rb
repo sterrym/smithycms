@@ -6,6 +6,8 @@ module Smithy
 
     has_many :templates, :class_name => "ContentBlockTemplate"
 
+    accepts_nested_attributes_for :templates
+
     default_scope order(:name)
   end
 end

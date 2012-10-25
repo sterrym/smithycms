@@ -6,5 +6,7 @@ describe Smithy::ContentBlock do
 
   it { should validate_presence_of :name }
 
+  it { should accept_nested_attributes_for :templates }
+
   it { should have_many :templates }
 end
