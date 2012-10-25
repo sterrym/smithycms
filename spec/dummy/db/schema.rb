@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025010944) do
+ActiveRecord::Schema.define(:version => 20121025193656) do
+
+  create_table "smithy_content_block_templates", :force => true do |t|
+    t.integer  "content_block_id"
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "smithy_content_block_templates", ["content_block_id"], :name => "index_smithy_content_block_templates_on_content_block_id"
 
   create_table "smithy_content_blocks", :force => true do |t|
     t.string   "name"
@@ -46,7 +56,7 @@ ActiveRecord::Schema.define(:version => 20121025010944) do
     t.datetime "published_at"
     t.boolean  "show_in_navigation"
     t.string   "permalink",          :null => false
-    t.string   "path"
+    t.string   "path",               :null => false
     t.integer  "template_id"
     t.integer  "parent_id"
     t.integer  "lft"
@@ -58,7 +68,7 @@ ActiveRecord::Schema.define(:version => 20121025010944) do
 
   add_index "smithy_pages", ["lft"], :name => "index_smithy_pages_on_lft"
   add_index "smithy_pages", ["parent_id"], :name => "index_smithy_pages_on_parent_id"
-  add_index "smithy_pages", ["permalink"], :name => "index_smithy_pages_on_permalink", :unique => true
+  add_index "smithy_pages", ["path"], :name => "index_smithy_pages_on_path", :unique => true
   add_index "smithy_pages", ["rgt"], :name => "index_smithy_pages_on_rgt"
   add_index "smithy_pages", ["template_id"], :name => "index_smithy_pages_on_template_id"
 
