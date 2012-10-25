@@ -1,0 +1,32 @@
+<% content_for :title, "Content Blocks" %>
+
+<%= render :partial => "secondary_nav" %>
+
+<%= semantic_form_for @content_block do |f| %>
+  <%= f.inputs do %>
+    <dl>
+      <dt>Name</dt>
+      <dd><%= @content_block.name %></dd>
+      <dt>Description</dt>
+      <dd><%= @content_block.description %></dd>
+      <dt>Variables</dt>
+      <dd>{{ title }}</dd>
+      <dd>{{ content }}</dd>
+      <dd>{{ foo }}</dd>
+      <dd>{{ bar }}</dd>
+    </dl>
+  <% end %>
+
+  <div><%= link_to_add_fields "Add a Template", :templates, f %></div>
+  <%= f.semantic_fields_for(:templates) do |builder| %>
+    <%= render :partial => "template_fields", :locals => { :f => builder } %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Save this Content Block" %>
+  <% end %>
+<% end %>
+
+<% content_for :related do %>
+  <p><%= link_to "Delete Content Block", @content_block, :method => :delete, :confirm => "Are you sure you want to delete this Content Block?", :class => 'btn btn-danger' %></p>
+<% end %>

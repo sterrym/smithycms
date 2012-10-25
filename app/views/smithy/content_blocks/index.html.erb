@@ -1,0 +1,17 @@
+<% content_for :title, "Content Blocks" %>
+
+<div class="hero-unit">
+<%- if @content_blocks.empty? -%>
+  <p>Be the first to add a Content Block to your site. Content Blocks are the small pieces of content that fill up a page. You can control the look and feel of content blocks through their individual templates.</p>
+<% else %>
+  <p>Add a content block or select one from your left to edit.</p>
+<% end %>
+  <p>
+    <%= link_to "Add Content Block", new_content_block_path, :class => 'btn btn-primary btn-large' %>
+  </p>
+</div>
+
+<%= render :partial => "secondary_nav" %>
+
+<% content_for :related do %>
+<% end %>

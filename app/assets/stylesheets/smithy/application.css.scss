@@ -13,9 +13,11 @@
  *= depend_on smithy/layout.css.scss
  *= depend_on smithy/pages.css.scss
  *= depend_on smithy/templates.css.scss
+ *= depend_on smithy/content_blocks.css.scss
  */
 
 @import 'bootstrap_and_overrides';
 @import 'layout';
 @import 'pages';
 @import 'templates';
+@import 'content_blocks';

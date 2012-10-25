@@ -1,0 +1,13 @@
+<% content_for :title, "Content Blocks" %>
+
+<%= semantic_form_for @content_block, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.inputs "New Content Block" do %>
+    <%= f.input :name %>
+    <%= f.input :description, :input_html => { :class => 'span6', :rows => 4 } %>
+  <% end %>
+  <%= f.actions :submit %>
+<% end %>
+
+<%= render :partial => "secondary_nav" %>
+
+<% content_for :related, nil %>
