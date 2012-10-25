@@ -67,7 +67,7 @@ module Smithy
 
     private
       def build_permalink
-        self.permalink = self.root? ? title.parameterize   : path.split('/').last unless self.permalink?
+        self.permalink = self.root? ? title.parameterize : path.split('/').last unless self.permalink?
       end
 
       # def update_path

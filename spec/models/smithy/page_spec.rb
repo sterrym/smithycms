@@ -26,8 +26,9 @@ describe Smithy::Page do
   context "won't allow a second root page" do
     let!(:first_home_page) { FactoryGirl.create(:page, :title => "Home1") }
     subject { FactoryGirl.build(:page, :title => "Home", :permalink => nil) }
-    it { subject.save; should_not be_persisted }
-    it { subject.save; subject.errors[:parent_id].should == ['must have a parent'] }
+    before { subject.save; }
+    it { should_not be_persisted }
+    it { subject.errors[:parent_id].should == ['must have a parent'] }
   end
 
   describe  "#generated_browser_title" do
@@ -119,9 +120,7 @@ describe Smithy::Page do
     context "using a reserved word for the title" do
       let!(:home) { FactoryGirl.build(:page, :title => "home") }
       subject { FactoryGirl.build(:page, :title => "new", :parent => home) }
-      before do
-        subject.valid?
-      end
+      before { subject.valid? }
       specify { subject.errors[:title].should_not be_blank }
     end
   end
