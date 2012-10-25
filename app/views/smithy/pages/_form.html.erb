@@ -1,14 +1,16 @@
 <% content_for :top_content do %>
-<ul class="breadcrumb">
-<%- breadcrumbs = @page.persisted? ? @page.ancestors : @parent.ancestors -%>
-<% breadcrumbs.each do |p| %>
-  <li>
-    <%= @page == p ? p.title : link_to(p.title, edit_page_path(p.id)) %>
-    <%= content_tag :span, :class => 'divider' do %>/<% end %>
-  </li>
+<% unless @page.root? %>
+  <ul class="breadcrumb">
+  <%- breadcrumbs = @page.persisted? ? @page.ancestors : @parent.self_and_ancestors -%>
+  <% breadcrumbs.each do |p| %>
+    <li>
+      <%= @page == p ? p.title : link_to(p.title, edit_page_path(p.id)) %>
+      <%= content_tag :span, :class => 'divider' do %>/<% end %>
+    </li>
+  <% end %>
+    <%= content_tag(:li, @page.title) if @page.persisted? %>
+  </ul>
 <% end %>
-  <%= content_tag(:li, @page.title) if @page.persisted? %>
-</ul>
 <% end %>
 
 <%= semantic_form_for @page, :html => { :class => 'form-horizontal' } do |f| %>
