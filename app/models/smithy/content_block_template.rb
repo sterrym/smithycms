@@ -6,6 +6,6 @@ module Smithy
 
     validates_presence_of :name
     validates_uniqueness_of :name, :scope => :content_block_id
-    validates_presence_of :content, :on => :update
+    validates_presence_of :content
   end
 end
