@@ -11,10 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121023195137) do
+ActiveRecord::Schema.define(:version => 20121025010944) do
+
+  create_table "smithy_content_blocks", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "smithy_page_contents", :force => true do |t|
     t.integer  "page_id"
+    t.string   "label"
     t.string   "container"
     t.string   "content_block_type"
     t.integer  "content_block_id"
