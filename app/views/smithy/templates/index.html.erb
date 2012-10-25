@@ -2,14 +2,14 @@
 
 <div class="hero-unit">
 <%- if @templates.empty? -%>
-    <p>Be the first to add a Template to your site. Templates are the basic building blocks for your pages. A page's look and feel is defined in the templates that you create.</p>
+  <p>Be the first to add a Template to your site. Templates are the basic building blocks for your pages. A page's look and feel is defined in the templates that you create.</p>
 <% else %>
-    <p>Add a template or select one from your left to edit.</p>
+  <p>Add a template or select one from your left to edit.</p>
 <% end %>
-    <p>
-      <%= link_to "Add Template", new_template_path, :class => 'btn btn-primary btn-large' %>
-    </p>
-  </div>
+  <p>
+    <%= link_to "Add Template", new_template_path, :class => 'btn btn-primary btn-large' %>
+  </p>
+</div>
 
 <%= render :partial => "secondary_nav" %>
 

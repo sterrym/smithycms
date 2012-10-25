@@ -8,7 +8,7 @@
   <% end %>
   <%= f.actions do %>
     <%= f.text_field :name %>
-    <%= f.action :submit, :as => :button, :label => "Save this #{@template.template_type.capitalize}" %>
+    <%= f.action :submit, :label => "Save this #{@template.template_type.capitalize}" %>
   <% end %>
 <% end %>
 
