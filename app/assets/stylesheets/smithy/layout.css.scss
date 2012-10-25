@@ -29,11 +29,12 @@ body { background:#444; padding:0; }
 
 #side {
   border-top:1px solid #393939; float:left; position:relative; width:220px;
-  .actions { padding:0 15px; }
+  .actions { padding:16px 15px 0 15px ; }
   .nav-list {
     border-top:1px solid #393939;
-    margin:1em 0;
+    margin:16px 0 0 0;
     padding:0;
+    .nav-list { margin:0; }
     li + .nav-header {
       margin-top:16px;
     }
@@ -45,7 +46,8 @@ body { background:#444; padding:0; }
       border-top:1px solid #4e4e4e;
       border-bottom:1px solid #393939;
       text-shadow: 0 1px 0 rgba(0,0,0,.5);
-      padding:8px 0 8px 30px;
+      padding:8px 0 8px 15px;
+      margin:0;
     }
     > li > a {
       background-color:transparent;
@@ -67,15 +69,14 @@ body { background:#444; padding:0; }
       > a,
       > a:hover{ background-color:transparent; }
     }
-
   }
 }
-#main { background:#f9f9f9; margin:-52px 0 0 220px; padding:0px 0; position:relative;
-  -webkit-border-radius: 10px 0px 0px 0px;
-          border-radius: 10px 0px 0px 0px;
-
+#main { background:#f9f9f9; margin:-52px 0 0 220px; padding:0 0 0 0; position:relative;
+  -webkit-border-radius: 10px 0px 0px 10px;
+          border-radius: 10px 0px 0px 10px;
+  > h1 { padding:24px 0 0 12px; }
   > .container-fluid { padding-right:0; }
-  #content { border-right:1px solid #DDD; min-height:500px; }
+  #content { border-right:1px solid #DDD; }
   #related {}
 }
 

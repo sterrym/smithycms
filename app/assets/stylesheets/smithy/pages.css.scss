@@ -1,0 +1,17 @@
+#side .page-list {
+  position:relative; overflow:hidden;
+  .back { background:#444; }
+  .back > a { border-top:1px solid #444; }
+  .add-page a { color:#888; text-align:right; padding-right:45px; }
+
+}
+/*
+#side .page-list > li > {
+  a.indent-0 { padding-left:15px; }
+  a.indent-1 { padding-left:15px; }
+  a.indent-2 { padding-left:21px; }
+  a.indent-3 { padding-left:27px; }
+  a.indent-4 { padding-left:33px; }
+  a.indent-5 { padding-left:39px; }
+}
+*/

@@ -11,9 +11,11 @@
  *= require_self
  *= depend_on smithy/bootstrap_and_overrides.css.scss
  *= depend_on smithy/layout.css.scss
+ *= depend_on smithy/pages.css.scss
  *= depend_on smithy/templates.css.scss
  */
 
 @import 'bootstrap_and_overrides';
 @import 'layout';
+@import 'pages';
 @import 'templates';
