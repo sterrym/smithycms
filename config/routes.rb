@@ -4,4 +4,5 @@ Smithy::Engine.routes.draw do
     resources :templates
     resources :settings
   end
+  # match '*path', :to => 'pages#show'
 end
