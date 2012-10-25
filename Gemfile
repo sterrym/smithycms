@@ -14,8 +14,12 @@ end
 group :development, :test do
   gem 'debugger', '~> 1.2.1'
   gem 'fuubar'
+  gem 'guard-livereload'
   gem 'guard-rspec'
+  gem 'letter_opener'
+  gem 'rack-livereload'
   gem 'rspec-rails', '~> 2.11'
+  gem 'quiet_assets', '~> 1.0.1'
 end
 
 group :test do
