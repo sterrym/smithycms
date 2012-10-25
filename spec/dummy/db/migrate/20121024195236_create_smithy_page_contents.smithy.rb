@@ -3,6 +3,7 @@ class CreateSmithyPageContents < ActiveRecord::Migration
   def change
     create_table :smithy_page_contents do |t|
       t.belongs_to :page
+      t.string :label
       t.string :container
       t.string :content_block_type
       t.integer :content_block_id
