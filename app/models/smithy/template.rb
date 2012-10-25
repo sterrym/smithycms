@@ -13,6 +13,8 @@
     after_save :load_containers
 
     default_scope order(:name)
+    scope :includes, where(:template_type => "include")
+    scope :templates, where(:template_type => "template")
 
     class << self
       def types

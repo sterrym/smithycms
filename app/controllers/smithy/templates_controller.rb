@@ -44,8 +44,8 @@ module Smithy
 
     private
       def load_templates
-        @templates = Template.where(:template_type => "template")
-        @includes = Template.where(:template_type => "include")
+        @templates = Template.templates
+        @includes = Template.includes
       end
   end
 end
