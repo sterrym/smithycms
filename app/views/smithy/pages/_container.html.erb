@@ -1,5 +1,8 @@
+<div class="well">
 <%= f.inputs container.capitalize do %>
-  <%= @page.contents.for_container(container).each do |content| %>
+  <% @page.contents.for_container(container).each do |content| %>
     <%= content.label %>
   <% end %>
+  <div><%= link_to "Add to #{container.capitalize}", new_page_content_path(@page.id, :page_content => { :container => container }), :class => "btn btn-primary btn-mini" %></div>
 <% end %>
+</div>

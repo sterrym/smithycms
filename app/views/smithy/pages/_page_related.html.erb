@@ -10,8 +10,10 @@
     <dd><%= @page.template.name %></dd>
     <dt>Creator</dt>
     <dd><%= "Tim Glen" %></dd>
+    <% if @page.persisted? %>
     <dt>Updated</dt>
     <dd><%= time_ago_in_words @page.updated_at %> ago</dd>
+    <% end %>
   </dl>
 </div>
 

@@ -13,7 +13,7 @@
 <% end %>
 <% end %>
 
-<%= semantic_form_for @page, :html => { :class => 'form-horizontal' } do |f| %>
+<%= semantic_form_for @page, :url => ( @page.persisted? ? page_path(@page.id) : pages_path ), :html => { :class => 'form-horizontal' } do |f| %>
   <%= f.inputs "Page Information" do %>
     <%= f.input :title %>
     <%= f.input :permalink, :hint => "This will be auto-created if blank. Only fill it in if you know what you're doing" %>
@@ -21,9 +21,8 @@
     <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
   <% end %>
   <% if @page.persisted? %>
-  <div class="well">
+    <h3>Content</h3>
     <%= render :partial => "container", :collection => @page.container_names, :locals => { :f => f } %>
-  </div>
   <% end %>
   <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
   <%= content_tag :div, :id => "page-seo", :class => "collapse" do %>
