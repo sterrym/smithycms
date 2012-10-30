@@ -10,8 +10,6 @@ module Smithy
     has_many :containers, :through => :template
     has_many :contents, :class_name => "PageContent"
 
-    accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
-
     acts_as_nested_set :dependent => :destroy
     extend FriendlyId
     friendly_id :title, :use => [:slugged, :scoped],
@@ -19,6 +17,8 @@ module Smithy
                 :scope => :parent_id
 
     before_save :build_permalink
+
+    accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
     class << self
       def tree_for_select
