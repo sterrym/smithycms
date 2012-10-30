@@ -2,13 +2,15 @@ module Smithy
   class Page < ActiveRecord::Base
     attr_accessible :browser_title, :cache_length, :description, :keywords, :permalink, :published_at, :show_in_navigation, :title, :parent_id, :template_id
 
-    validates_presence_of :path, :template, :template_id, :title
+    validates_presence_of :template, :title
     validate :validate_one_root
     validate :validate_exclusion_of_reserved_words
 
     belongs_to :template
     has_many :containers, :through => :template
     has_many :contents, :class_name => "PageContent"
+
+    accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
     acts_as_nested_set :dependent => :destroy
     extend FriendlyId
@@ -17,7 +19,6 @@ module Smithy
                 :scope => :parent_id
 
     before_save :build_permalink
-    # after_move :update_path # this is a acts_as_nested_set callback
 
     class << self
       def tree_for_select
@@ -30,21 +31,22 @@ module Smithy
       end
     end
 
-    def normalize_friendly_id(value)
-      if self.parent.blank?
-        '/'
-      else
-        self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
-        [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value.to_s.parameterize].join('/')
-      end
-    end
-
     def container_names
       @container_names ||= containers.map(&:name)
     end
 
     def generated_browser_title
       self.self_and_ancestors.map(&:title).join(' | ')
+    end
+
+    # normalize_friendly_id overrides the default creator for friendly_id
+    def normalize_friendly_id(value)
+      if self.parent.blank?
+        '/'
+      else
+        value = self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
+        [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/')
+      end
     end
 
     def render
@@ -70,13 +72,8 @@ module Smithy
         self.permalink = self.root? ? title.parameterize : path.split('/').last unless self.permalink?
       end
 
-      # def update_path
-      #   updated_path = self_and_ancestors.map{|page| page.root? ? '' : page.permalink }.join('/')
-      #   self.update_attribute(:path, updated_path)
-      # end
-
       def validate_exclusion_of_reserved_words
-        reserved = %w(index new session login logout users smithy admin)
+        reserved = %w(index new edit session login logout users smithy)
         errors.add(:title, "cannot contain reserved words (#{reserved.join(', ')})") if reserved.include?(self.title.to_s.parameterize)
       end
 

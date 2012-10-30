@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Smithy::Page do
+  subject { FactoryGirl.build(:page) }
+
   it { should allow_mass_assignment_of :browser_title }
   it { should allow_mass_assignment_of :cache_length }
   it { should allow_mass_assignment_of :description }
@@ -14,8 +16,9 @@ describe Smithy::Page do
   it { should_not allow_mass_assignment_of :depth }
 
   it { should validate_presence_of :title }
-  it { should validate_presence_of :path }
-  it { should validate_presence_of :template_id }
+  it { should validate_presence_of :template }
+
+  it { should accept_nested_attributes_for(:contents).allow_destroy(true) }
 
   it { should belong_to :parent }
   it { should belong_to :template }
@@ -23,9 +26,11 @@ describe Smithy::Page do
   it { should have_many(:containers).through(:template) }
   it { should have_many :contents }
 
+  it { should be_valid }
+
   context "won't allow a second root page" do
     let!(:first_home_page) { FactoryGirl.create(:page, :title => "Home1") }
-    subject { FactoryGirl.build(:page, :title => "Home", :permalink => nil) }
+    subject { FactoryGirl.build(:page, :title => "Home") }
     before { subject.save; }
     it { should_not be_persisted }
     it { subject.errors[:parent_id].should == ['must have a parent'] }
@@ -102,6 +107,11 @@ describe Smithy::Page do
       subject { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
       its(:path) { should == '/foo-bar' }
       its(:permalink) { should == 'foo-bar' }
+      context "with a specified permalink" do
+        subject { FactoryGirl.create(:page, :permalink => 'baz', :title => "Foo Bar", :parent => home) }
+        its(:permalink) { should == 'baz' }
+        its(:path) { should == '/baz' }
+      end
     end
     context "when it's a subpage" do
       let(:home) { FactoryGirl.create(:page, :title => "Home") }
@@ -117,11 +127,13 @@ describe Smithy::Page do
       its(:path) { should == '/foo-bar--2' }
       its(:permalink) { should == 'foo-bar--2' }
     end
-    context "using a reserved word for the title" do
-      let!(:home) { FactoryGirl.build(:page, :title => "home") }
-      subject { FactoryGirl.build(:page, :title => "new", :parent => home) }
-      before { subject.valid? }
-      specify { subject.errors[:title].should_not be_blank }
+    %w(index new edit session login logout users smithy).each do |word|
+      context "using a reserved word for the title (#{word})" do
+        let!(:home) { FactoryGirl.build(:page, :title => "home") }
+        subject { FactoryGirl.build(:page, :title => word, :parent => home) }
+        before { subject.valid? }
+        specify { subject.errors[:title].should_not be_blank }
+      end
     end
   end
 end
