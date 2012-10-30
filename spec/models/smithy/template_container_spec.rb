@@ -23,14 +23,14 @@ describe Smithy::TemplateContainer do
     end
     context "increased to 3 containers" do
       before do
-        template.update_attribute(:content, three_containers)
+        template.update_attributes(:content => three_containers)
       end
       its(:size) { should == 3 }
       specify { subject.map(&:name).should == %w(foo bar baz) }
     end
     context "reduced to 0 containers" do
       before do
-        template.update_attribute(:content, '{{ no_containers }}')
+        template.update_attributes(:content => '{{ no_containers }}')
       end
       its(:size) { should == 0 }
       specify { subject.map(&:name).should == [] }

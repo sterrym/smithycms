@@ -7,5 +7,7 @@ module Smithy
     validates_presence_of :name
     validates_uniqueness_of :name, :scope => :content_block_id
     validates_presence_of :content
+
+    default_scope order(:name)
   end
 end

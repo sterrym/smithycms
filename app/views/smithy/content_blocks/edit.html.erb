@@ -9,11 +9,10 @@
       <dd><%= @content_block.name %></dd>
       <dt>Description</dt>
       <dd><%= @content_block.description %></dd>
-      <dt>Variables</dt>
-      <dd>{{ title }}</dd>
-      <dd>{{ content }}</dd>
-      <dd>{{ foo }}</dd>
-      <dd>{{ bar }}</dd>
+      <dt>Variables Available</dt>
+      <% @content_block.content_field_names.each do |field| %>
+        <dd>{{ <%= field %> }}</dd>
+      <% end %>
     </dl>
   <% end %>
 

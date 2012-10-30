@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025193656) do
+ActiveRecord::Schema.define(:version => 20121029181542) do
 
   create_table "smithy_content_block_templates", :force => true do |t|
     t.integer  "content_block_id"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(:version => 20121025193656) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "smithy_contents", :force => true do |t|
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "smithy_page_contents", :force => true do |t|

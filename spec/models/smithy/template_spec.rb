@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+# see template_container_spec for specs on auto-creating containers
+# based on template content
 describe Smithy::Template do
   it { should allow_mass_assignment_of :name }
   it { should allow_mass_assignment_of :content }

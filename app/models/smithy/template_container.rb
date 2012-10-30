@@ -6,5 +6,7 @@ module Smithy
     has_many :pages, :through => :template
 
     attr_accessible :name
+
+    default_scope :order => :name
   end
 end
