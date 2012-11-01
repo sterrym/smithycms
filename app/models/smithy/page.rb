@@ -54,7 +54,13 @@ module Smithy
     end
 
     def render_container(container_name)
-      self.contents.where(:container => container_name).map(&:render).join
+      self.contents.where(:container => container_name).map(&:render).join("\n\n")
+    end
+
+    def rendered_containers
+      rendered_containers = {}
+      self.container_names.each{|cn| rendered_containers[cn] = render_container(cn) }
+      rendered_containers
     end
 
     def to_liquid
@@ -63,7 +69,7 @@ module Smithy
         'title' => title,
         'meta_description' => description,
         'meta_keywords' => keywords,
-        'container' => self.container_names.inject({}) {|container, stack| stack[container] = render_container(container) }
+        'container' => rendered_containers
       }
     end
 
