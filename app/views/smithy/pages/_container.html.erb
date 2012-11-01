@@ -1,8 +1,22 @@
 <div class="well">
 <%= f.inputs container.capitalize do %>
-  <% @page.contents.for_container(container).each do |content| %>
-    <%= content.label %>
+  <table class="table table-striped">
+  <% @page.contents.for_container(container).each do |page_content| %>
+    <%= content_tag_for :tr, page_content do %>
+      <td>
+        <%= link_to "edit", edit_page_content_path(@page.id, page_content), :class => "btn btn-small   btn-primary" %>
+      </td>
+      <td><%= page_content.label %></td>
+      <td><%= page_content.updated_at %></td>
+      <td>
+        <div class="pull-right">
+          <%= link_to "preview", preview_page_content_path(@page.id, page_content), :class => "btn btn-small", "data-toggle" => "modal" %>
+          <%= link_to "<i class=\"icon-trash\"></i> delete".html_safe, page_content_path(@page.id, page_content), :method => :delete, :confirm => "Do you really want to delete this content?", :class => "btn btn-small btn-danger" %>
+        </div>
+      </td>
+    <% end %>
   <% end %>
-  <div><%= link_to "Add to #{container.capitalize}", new_page_content_path(@page.id, :page_content => { :container => container }), :class => "btn btn-primary btn-mini" %></div>
+  </table>
+  <div><%= link_to "Add to #{container.capitalize}", new_page_content_path(@page.id, :page_content => { :container => container }), :class => "btn btn-primary btn-small" %></div>
 <% end %>
 </div>

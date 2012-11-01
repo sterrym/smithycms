@@ -3,8 +3,11 @@ Smithy::Engine.routes.draw do
     # CMS admin
     resources :content_blocks
     resources :pages do
-      resources :contents, :controller => "PageContents",
-        :only => [ :new, :create, :edit, :update, :destroy ]
+      resources :contents, :controller => "PageContents", :only => [ :new, :create, :edit, :update, :destroy ] do
+        member do
+          get :preview
+        end
+      end
     end
     resources :templates
     resources :settings

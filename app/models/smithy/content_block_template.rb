@@ -9,5 +9,9 @@ module Smithy
     validates_presence_of :content
 
     default_scope order(:name)
+
+    def liquid_template
+      @liquid_template ||= Liquid::Template.parse(self.content)
+    end
   end
 end

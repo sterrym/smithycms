@@ -1,0 +1,18 @@
+<% content_for :title, "Page Content" %>
+
+<%= semantic_form_for [@page, @page_content], :url => page_content_path(@page.id, @page_content) do |f| %>
+  <%= f.inputs "Editing #{@page_content.container.capitalize} on &ldquo;#{@page.title}&rdquo;" do %>
+    <%= f.input :label, :hint => "Internal CMS usage only" %>
+    <%= f.input :container, :as => :hidden %>
+    <%= f.input :content_block_type, :as => :hidden %>
+  <% end %>
+
+  <div class="well">
+    <%= f.input :content_block_template, :collection => @page_content.templates, :include_blank => false %>
+    <%= f.semantic_fields_for(:content_block) do |builder| %>
+      <%= render :partial => "#{@page_content.content_block_type.underscore.pluralize}/form_fields", :locals => { :f => builder } %>
+    <% end %>
+  </div>
+
+  <%= f.actions :submit %>
+<% end %>

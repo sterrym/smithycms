@@ -26,7 +26,7 @@ module Smithy
       @page.save
       flash.notice = "Your page was created" if @page.persisted?
       respond_with @page do |format|
-        format.html { @page.persisted? ? redirect_to(edit_page_path(@page.id)) : render(:action => 'edit') }
+        format.html { @page.persisted? ? redirect_to(edit_page_path(@page.id)) : render(:action => 'new') }
       end
     end
 

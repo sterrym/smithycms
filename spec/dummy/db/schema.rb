@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121029181542) do
+ActiveRecord::Schema.define(:version => 20121101152240) do
 
   create_table "smithy_content_block_templates", :force => true do |t|
     t.integer  "content_block_id"
@@ -43,12 +43,14 @@ ActiveRecord::Schema.define(:version => 20121029181542) do
     t.string   "content_block_type"
     t.integer  "content_block_id"
     t.integer  "position"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "content_block_template_id"
   end
 
   add_index "smithy_page_contents", ["container"], :name => "index_smithy_page_contents_on_container"
   add_index "smithy_page_contents", ["content_block_id"], :name => "index_smithy_page_contents_on_content_block_id"
+  add_index "smithy_page_contents", ["content_block_template_id"], :name => "index_smithy_page_contents_on_content_block_template_id"
   add_index "smithy_page_contents", ["content_block_type"], :name => "index_smithy_page_contents_on_content_block_type"
   add_index "smithy_page_contents", ["page_id"], :name => "index_smithy_page_contents_on_page_id"
   add_index "smithy_page_contents", ["position"], :name => "index_smithy_page_contents_on_position"
