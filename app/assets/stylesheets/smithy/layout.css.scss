@@ -41,13 +41,16 @@ body { background:#444; padding:0; }
     .nav-header {
       color:#DDD;
     }
-     > li > a,
-    .nav-header {
+    > li {
       border-top:1px solid #4e4e4e;
       border-bottom:1px solid #393939;
+      color:#AAA;
+    }
+    > li > a,
+    .nav-header {
       text-shadow: 0 1px 0 rgba(0,0,0,.5);
-      padding:8px 0 8px 15px;
       margin:0;
+      padding:8px 15px;
     }
     > li > a {
       background-color:transparent;

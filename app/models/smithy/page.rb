@@ -50,7 +50,7 @@ module Smithy
     end
 
     def render
-      template.liquid_template.render('page' => self)
+      template.liquid_template.render('page' => self, 'site' => { 'root' => self.class.root })
     end
 
     def render_container(container_name)
@@ -65,8 +65,9 @@ module Smithy
 
     def to_liquid
       {
-        'browser_title' => browser_title || generated_browser_title,
+        'browser_title' => (self.browser_title.present? ? self.browser_title : self.generated_browser_title),
         'title' => title,
+        'path' => path,
         'meta_description' => description,
         'meta_keywords' => keywords,
         'container' => rendered_containers

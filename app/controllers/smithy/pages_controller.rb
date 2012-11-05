@@ -3,8 +3,8 @@ require_dependency "smithy/application_controller"
 module Smithy
   class PagesController < ApplicationController
     before_filter :initialize_page, :only => [ :new, :create ]
-    before_filter :load_page, :only => [ :show, :edit, :update, :destroy ]
-    before_filter :load_parent, :except => [ :index ]
+    before_filter :load_page, :only => [ :edit, :update, :destroy ]
+    before_filter :load_parent, :except => [ :index, :show, :root ]
     before_filter :load_root, :only => [ :index ]
     respond_to :html, :json
 
@@ -13,6 +13,7 @@ module Smithy
     end
 
     def show
+      @page ||= Page.find(params[:path].present? ? "/#{params[:path]}" : params[:id])
       respond_with @page do |format|
         format.html { render :text => @page.render, :layout => false }
       end
@@ -44,6 +45,11 @@ module Smithy
     def destroy
       @page.destroy
       respond_with @page
+    end
+
+    def root
+      @page = Page.root
+      show
     end
 
     private

@@ -5,6 +5,13 @@
   .add-page a { color:#888; text-align:right; padding-right:45px; }
 
 }
+
+#side .page-list > li > {
+  .icon-reorder { padding:8px; }
+  a.add-page { color:#666; padding:8px; }
+  a.add-page:hover,
+  a.add-page:active { background:transparent; color:#DDD; }
+}
 /*
 #side .page-list > li > {
   a.indent-0 { padding-left:15px; }

@@ -6,5 +6,5 @@
   <%= render @page.children %>
 <% end %>
 <% if @page.persisted? %>
-  <li class="add-page"><%= link_to "<i class=\"icon-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @page.id }) %></li>
+  <li class="add-page"><%= link_to "<i class=\"icon-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @parent.id }) %></li>
 <% end %>

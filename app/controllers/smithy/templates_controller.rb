@@ -45,7 +45,7 @@ module Smithy
     private
       def load_templates
         @templates = Template.templates
-        @includes = Template.includes
+        @includes = Template.partials
       end
   end
 end

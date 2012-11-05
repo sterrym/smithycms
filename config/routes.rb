@@ -1,4 +1,5 @@
 Smithy::Engine.routes.draw do
+  root :to => 'pages#root'
   scope "/smithy" do
     # CMS admin
     resources :content_blocks
@@ -15,5 +16,5 @@ Smithy::Engine.routes.draw do
     # Content Blocks
     resources :contents, :except => :index
   end
-  # match '*path', :to => 'pages#show'
+  match '*path' => 'pages#show'
 end

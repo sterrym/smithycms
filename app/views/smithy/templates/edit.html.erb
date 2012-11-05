@@ -17,7 +17,7 @@
     Pages using this template:
     <ul>
       <% @template.pages.each do |page| %>
-      <li><%= link_to page.title, page %></li>
+      <li><%= link_to page.title, edit_page_path(page.id) %></li>
       <% end %>
     </ul>
   </div>
