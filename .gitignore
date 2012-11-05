@@ -2,6 +2,7 @@
 log/*.log
 pkg/
 .rvmrc
+.powrc
 spec/dummy/db/*.sqlite3
 spec/dummy/log/*.log
 spec/dummy/tmp/
