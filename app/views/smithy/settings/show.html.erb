@@ -1,0 +1,10 @@
+<% content_for :title, "Settings" %>
+
+<dl>
+  <dt>Name</dt>
+  <dd><%= @setting.name %></dd>
+  <dt>Value</dt>
+  <dd><%= @setting.value %></dd>
+</dl>
+
+<%= link_to "<i class=\"icon-arrow-left\"></i> Return to Settings".html_safe, settings_path, :class => "btn" %>
