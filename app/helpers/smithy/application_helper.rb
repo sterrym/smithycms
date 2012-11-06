@@ -1,9 +1,5 @@
 module Smithy
   module ApplicationHelper
-    def project_title
-
-    end
-
     def link_to_add_fields(name, association, form_builder)
       @fields ||= {}
       model_object = form_builder.object.class.reflect_on_association(association).klass.new
