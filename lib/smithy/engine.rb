@@ -1,3 +1,4 @@
+# libraries
 require 'smithy/dependencies'
 
 module Smithy
@@ -6,6 +7,8 @@ module Smithy
     config.generators do |g|
       g.test_framework :rspec, :view_specs => false
       g.integration_tool :rspec
+    end
+    config.after_initialize do
     end
   end
 end
