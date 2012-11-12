@@ -1,6 +1,6 @@
 module Smithy
   module Dragonfly
-    module Asset
+    module AssetHelper
 
       extend ActiveSupport::Concern
       included do
@@ -36,7 +36,7 @@ module Smithy
         end
 
         def dragonfly_remote_datastore
-          ::Dragonfly::DataStorage::RemoteDataStore.new
+          ::Smithy::Dragonfly::DataStorage::RemoteDataStore.new
         end
 
       end

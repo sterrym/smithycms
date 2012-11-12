@@ -2,7 +2,7 @@ module Smithy
   class Asset < ActiveRecord::Base
     attr_accessible :name, :file, :file_name, :file_url, :retained_file, :uploaded_file_url
 
-    include Smithy::Dragonfly::Asset
+    include Smithy::Dragonfly::AssetHelper
     file_accessor :file
 
     before_validation :set_name
