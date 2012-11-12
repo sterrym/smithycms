@@ -1,0 +1,13 @@
+<%= semantic_form_for @asset do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name, :label => 'Name (Alernative text)' %>
+    <%= f.input :file, :as => :file %>
+    <%= f.input :retained_file, :as => :hidden %>
+    <% if @asset.file %>
+    <div>
+      <%= image_tag @asset.file.thumb("300x200").url, :alt => '' %>
+    </div>
+    <% end %>
+  <% end %>
+  <%= f.actions :submit %>
+<% end %>

@@ -1,0 +1,10 @@
+<li>
+  <div class="thumbnail clearfix">
+    <%= link_to image_tag(asset.file.thumb("170x114#").url, :alt => '', :class => ''), asset.file.url %>
+    <p><strong><%= asset.name %></strong></p>
+    <div class="pull-right">
+      <%= link_to "Edit", [:edit, asset], :class => "btn btn-mini" %>
+      <%= link_to "Delete", asset, :class => "btn btn-mini btn-danger", :method => :delete, :confirm => "Are you sure?" %>
+    </div>
+  </div>
+</li>

@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121101152240) do
+ActiveRecord::Schema.define(:version => 20121106183403) do
+
+  create_table "smithy_assets", :force => true do |t|
+    t.string   "name"
+    t.string   "uploaded_file_url"
+    t.string   "content_type"
+    t.string   "file_uid"
+    t.string   "file_name"
+    t.integer  "file_size"
+    t.integer  "file_width"
+    t.integer  "file_height"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "smithy_content_block_templates", :force => true do |t|
     t.integer  "content_block_id"
