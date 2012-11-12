@@ -29,6 +29,7 @@ group :test do
   gem 'capybara', '~> 1.1.2'
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'faker', '~> 1.1.2'
+  gem 'fakeweb', '~> 1.3.0'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'shoulda-matchers', '~> 1.3.0'
   gem 'sqlite3'

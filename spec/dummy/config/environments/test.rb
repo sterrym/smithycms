@@ -40,3 +40,7 @@ if File.exists?(Rails.root.join('tmp', 'test_debug.txt'))
   Debugger.start_remote
   File.delete(Rails.root.join('tmp', 'test_debug.txt'))
 end
+
+ENV['S3_BUCKET'] = "APPLICATION_BUCKET_NAME_#{Rails.env}"
+ENV['S3_KEY'] = "S3_KEY"
+ENV['S3_SECRET'] = "S3_SECRET"
