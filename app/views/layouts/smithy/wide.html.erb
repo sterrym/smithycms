@@ -11,15 +11,13 @@
   <%= yield :top_content %>
   <div class="container-fluid">
     <section class="row-fluid" id="content-container">
-
-      <article id="content" class="span9">
+      <article id="content" class="span12">
         <%= yield %>
+
+        <aside id="related">
+          <%= yield :related %>
+        </aside>
       </article>
-
-      <aside id="related" class="span3">
-        <%= yield :related %>
-      </aside>
-
     </section>
   </div>
 </div>
