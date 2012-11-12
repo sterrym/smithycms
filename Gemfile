@@ -11,6 +11,8 @@ group :assets do
   gem 'uglifier',     '~> 1.2.4'
 end
 
+gem 'bootstrap-sass', :git => 'https://github.com/sterrym/bootstrap-sass.git', :branch => 'release/2.2.1.0'
+
 group :development, :test do
   gem 'debugger', '~> 1.2.1'
   gem 'fuubar'
@@ -19,6 +21,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'rack-livereload'
   gem 'rspec-rails', '~> 2.11'
+  gem 'ruby_gntp', '~> 0.3.4'
   gem 'quiet_assets', '~> 1.0.1'
 end
 
