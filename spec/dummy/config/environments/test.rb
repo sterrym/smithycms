@@ -35,3 +35,8 @@ Dummy::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+if File.exists?(Rails.root.join('tmp', 'test_debug.txt'))
+  require 'debugger'
+  Debugger.start_remote
+  File.delete(Rails.root.join('tmp', 'test_debug.txt'))
+end
