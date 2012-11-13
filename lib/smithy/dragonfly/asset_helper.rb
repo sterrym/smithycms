@@ -31,8 +31,10 @@ module Smithy
               # c.url_scheme = 'https'                        # defaults to 'http'
               # c.url_host = 'some.custom.host'               # defaults to "<bucket_name>.s3.amazonaws.com"
             end
-            datastore
+          else
+            datastore = ::Dragonfly::DataStorage::FileDataStore.new
           end
+          datastore
         end
 
         def dragonfly_remote_datastore

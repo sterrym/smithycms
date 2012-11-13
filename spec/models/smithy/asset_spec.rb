@@ -45,4 +45,17 @@ describe Smithy::Asset do
     its(:file_width) { should eql 153 }
   end
 
+  context "using the FileDataStore" do
+    before do
+      %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_S3_BUCKET).each{|k| ENV[k] = nil }
+      ::Dragonfly[:files].datastore = Smithy::Asset.dragonfly_datastore
+    end
+    it "saves with a file" do
+      FactoryGirl.create(:asset, :file => file)
+    end
+    it "saves with an uploaded_file_url" do
+      FactoryGirl.create(:asset, :uploaded_file_url => uploaded_file)
+    end
+  end
+
 end
