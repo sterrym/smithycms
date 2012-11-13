@@ -31,7 +31,7 @@ Dragonfly[:files].configure do |c|
   c.url_format = '/uploads/assets/:job/:basename.:format'
 end
 
-app.datastore = Smithy::Asset.dragonfly_datastore if Smithy::Asset.dragonfly_datastore
+app.datastore = Smithy::Asset.dragonfly_datastore
 
 # ### Insert the middleware ###
 rack_cache_already_inserted = Rails.application.config.action_controller.perform_caching && Rails.application.config.action_dispatch.rack_cache
