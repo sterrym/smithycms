@@ -1,3 +1,5 @@
+require 'smithy/dragonfly/asset_helper'
+require 'smithy/dragonfly/remote_data_store'
 module Smithy
   module Dragonfly
 
@@ -11,17 +13,12 @@ module Smithy
         else
           file = self.app.fetch_file(File.join('public', source))
         end
-      elsif source.respond_to?(:url) # carrierwave uploader
-        if source.file.respond_to?(:url)
-          file = self.app.fetch_url(source.url) # amazon s3, cloud files, ...etc
-        else
-          file = self.app.fetch_file(source.path)
-        end
+      elsif source.respond_to?(:url) # dragonfly uploader
+        file = source
       else
         Smithy.log :error, "Unable to resize on the fly: #{source.inspect}"
         return
       end
-
       file.process(:thumb, resize_string).url
     end
 

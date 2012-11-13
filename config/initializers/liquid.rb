@@ -1,2 +1,2 @@
 require 'smithy/liquid/database'
-Liquid::Template.file_system = Liquid::Database.new
+::Liquid::Template.file_system = Smithy::Liquid::Database.new
