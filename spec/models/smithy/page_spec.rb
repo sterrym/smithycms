@@ -78,58 +78,57 @@ describe Smithy::Page do
       it { should be_an(Array) }
       its(:size) { should == 0 }
     end
-    context "with some pages" do
-      let!(:home) { FactoryGirl.create(:page, :title => "Home") }
-      let!(:page1) { FactoryGirl.create(:page, :title => "Page1", :parent => home) }
-      let!(:page2) { FactoryGirl.create(:page, :title => "Page2", :parent => home) }
-      let!(:page1_1) { FactoryGirl.create(:page, :title => "Page1-1", :parent => page1) }
-      let!(:page1_2) { FactoryGirl.create(:page, :title => "Page1-2", :parent => page1) }
+    context "with a pre-built tree" do
+      include_context "a tree of pages"
       it { should be_an(Array) }
-      its(:size) { should == 5 }
+      its(:size) { should == 10 }
       specify { subject[0].should == ['Home', home.id] }
-      specify { subject[1].should == ['- Page1', page1.id] }
-      specify { subject[2].should == ['-- Page1-1', page1_1.id] }
-      specify { subject[3].should == ['-- Page1-2', page1_2.id] }
-      specify { subject[4].should == ['- Page2', page2.id] }
+      specify { subject[1].should == ['- Page 1', page1.id] }
+      specify { subject[2].should == ['-- Page 1-1', page1_1.id] }
+      specify { subject[3].should == ['-- Page 1-2', page1_2.id] }
+      specify { subject[4].should == ['-- Page 1-3', page1_3.id] }
+      specify { subject[5].should == ['--- Page 1-3-1', page1_3_1.id] }
+      specify { subject[6].should == ['- Page 2', page2.id] }
+      specify { subject[7].should == ['-- Page 2-1', page2_1.id] }
+      specify { subject[8].should == ['-- Page 2-2', page2_2.id] }
+      specify { subject[9].should == ['- Page 3', page3.id] }
     end
   end
 
   describe "#permalink and #path auto-generation" do
-    subject { FactoryGirl.create(:page, :title => "Foo Bar") }
+    include_context "a tree of pages"
+    subject { home }
     its(:permalink) { should_not be_blank }
     context "when it's the root page" do
-      subject { FactoryGirl.create(:page, :title => "Home") }
+      subject { home }
       its(:path) { should == '/' }
       its(:permalink) { should == "home" }
     end
     context "when it's a child of the root page" do
-      let(:home) { FactoryGirl.create(:page, :title => "Home") }
-      subject { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-      its(:path) { should == '/foo-bar' }
-      its(:permalink) { should == 'foo-bar' }
+      subject { page1 }
+      its(:path) { should == '/page-1' }
+      its(:permalink) { should == 'page-1' }
       context "with a specified permalink" do
-        subject { FactoryGirl.create(:page, :permalink => 'baz', :title => "Foo Bar", :parent => home) }
+        before do
+          page1.update_attributes(:permalink => "baz")
+        end
+        subject { page1 }
         its(:permalink) { should == 'baz' }
         its(:path) { should == '/baz' }
       end
     end
     context "when it's a subpage" do
-      let(:home) { FactoryGirl.create(:page, :title => "Home") }
-      let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-      subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage) }
-      its(:path) { should == '/foo-bar/baz-qux' }
-      its(:permalink) { should == 'baz-qux' }
+      subject { page1_1 }
+      its(:path) { should == '/page-1/page-1-1' }
+      its(:permalink) { should == 'page-1-1' }
     end
     context "within the same scope as another page" do
-      let!(:home) { FactoryGirl.create(:page, :title => "Home") }
-      let!(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-      subject { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-      its(:path) { should == '/foo-bar--2' }
-      its(:permalink) { should == 'foo-bar--2' }
+      subject { FactoryGirl.create(:page, :title => "Page 1", :parent => home) }
+      its(:path) { should == '/page-1--2' }
+      its(:permalink) { should == 'page-1--2' }
     end
     %w(index new edit session login logout users smithy).each do |word|
       context "using a reserved word for the title (#{word})" do
-        let!(:home) { FactoryGirl.build(:page, :title => "home") }
         subject { FactoryGirl.build(:page, :title => word, :parent => home) }
         before { subject.valid? }
         specify { subject.errors[:title].should_not be_blank }
