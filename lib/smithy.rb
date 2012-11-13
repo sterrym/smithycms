@@ -2,8 +2,7 @@ require "smithy/engine"
 # config
 require 'smithy/logger'
 require 'smithy/dragonfly'
-require 'smithy/dragonfly/asset_helper'
-require 'smithy/dragonfly/remote_data_store'
+require 'smithy/liquid'
 
 module Smithy
 
