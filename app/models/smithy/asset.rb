@@ -10,12 +10,12 @@ module Smithy
     before_validation :set_name
 
     def file
-      # check for the default uploaded file first
-      if dragonfly_attachments[:file].to_value
-        dragonfly_attachments[:file].app.datastore = self.class.dragonfly_datastore
-      elsif self.uploaded_file_url?
+      # check for the jquery uploaded file first
+      if self.uploaded_file_url?
         dragonfly_attachments[:file].app.datastore = self.class.dragonfly_remote_datastore
         self.file_url = self.uploaded_file_url
+      elsif dragonfly_attachments[:file].to_value
+        dragonfly_attachments[:file].app.datastore = self.class.dragonfly_datastore
       end
       dragonfly_attachments[:file].to_value
     end
