@@ -11,6 +11,9 @@ ENGINE_RAILS_ROOT = Pathname.new(File.expand_path(File.join(File.dirname(__FILE_
 Dir[File.join(File.dirname(__FILE__), 'support', '**', '*.rb')].each { |f| require f }
 
 RSpec.configure do |config|
+  # Filter specs to only run focus specs
+  # config.filter_run :focus => true
+
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
