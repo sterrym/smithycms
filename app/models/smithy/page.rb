@@ -20,6 +20,8 @@ module Smithy
 
     accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
+    scope :included_in_navigation, lambda{ where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
+
     class << self
       def tree_for_select
         tree_for_select = []
@@ -50,7 +52,7 @@ module Smithy
     end
 
     def render
-      template.liquid_template.render('page' => self, 'site' => { 'root' => self.class.root })
+      template.liquid_template.render('page' => self, 'site' => Smithy::Site.new )
     end
 
     def render_container(container_name)
