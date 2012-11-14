@@ -1,6 +1,3 @@
-# libraries
-require 'smithy/dependencies'
-
 module Smithy
   class Engine < ::Rails::Engine
     isolate_namespace Smithy

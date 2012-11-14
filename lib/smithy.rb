@@ -1,4 +1,6 @@
 require "smithy/engine"
+# libraries
+require 'smithy/dependencies'
 # config
 require 'smithy/logger'
 require 'smithy/dragonfly'
