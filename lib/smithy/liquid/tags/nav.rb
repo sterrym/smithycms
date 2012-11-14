@@ -4,12 +4,14 @@ module Smithy
       class Nav < ::Liquid::Tag
         Syntax = /(#{::Liquid::Expression}+)?/
 
-        # {% nav site, id: 'main-nav', class: 'nav', active_class: 'on' }
+        # {% nav site, id: 'main-nav', depth: 1, class: 'nav', active_class: 'on' }
         def initialize(tag_name, markup, tokens)
           @options = { :id => 'nav', :depth => 1, :class => '', :active_class => 'on' }
           if markup =~ Syntax
             @source = ($1 || 'site').gsub(/"|'/, '')
-            markup.scan(::Liquid::TagAttributes) { |key, value| @options[key.to_sym] = value.gsub(/"|'/, '') }
+            markup.scan(::Liquid::TagAttributes) do |key, value|
+              @options[key.to_sym] = value.gsub(/"|'/, '')
+            end
             @options[:depth] = @options[:depth].to_i
             @options[:depth] = 100 if @options[:depth] == 0
             @options[:wrapper] == "false" ? false : true
@@ -19,10 +21,14 @@ module Smithy
           super
         end
 
+        def parse(tokens)
+          @tokens = tokens
+        end
+
         def render(context)
           @site = context.registers[:site]
           @page = context.registers[:page]
-          render_root_wrapper(render_list_items(root_node, 1))
+          render_wrapper(render_list_items(root_node, 1), @options[:id])
         end
 
         def render_children(parent, depth)
@@ -46,10 +52,6 @@ module Smithy
           end.join("\n")
         end
 
-        def render_root_wrapper(list_items)
-          render_wrapper(list_items, @options[:id])
-        end
-
         def render_wrapper(list_items, id = nil)
           list_id = id.present? ? " id=\"#{id}\"" : ''
           %Q{<ul#{list_id}>\n#{list_items}\n</ul>}
@@ -57,8 +59,6 @@ module Smithy
 
         def root_node
           case @source
-          when is_a?(Smithy::Page)
-            @source
           when 'site'
             Smithy::Page.root
           when 'page'

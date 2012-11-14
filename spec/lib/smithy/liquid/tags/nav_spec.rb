@@ -42,37 +42,7 @@ describe Smithy::Liquid::Tags::Nav do
     ::Liquid::Template.parse("{% nav #{root} #{tag_options} %}").render(liquid_context).gsub(/\n|\s\s/, '')
   end
 
-  let(:navigation_for_depth_of_1) {
-    %Q{<ul id="nav">
-        <li id="nav-page-1"><a href="/page-1">Page 1</a></li>
-        <li id="nav-page-2"><a href="/page-2">Page 2</a></li>
-      </ul>}.gsub(/\n|\s\s/, '')
-  }
-  let(:navigation_for_depth_of_2) {
-    %Q{<ul id="nav">
-        <li id="nav-page-1"><a href="/page-1">Page 1</a>
-          <ul>
-            <li id="nav-page-1-1"><a href="/page-1/page-1-1">Page 1-1</a></li>
-            <li id="nav-page-1-2"><a href="/page-1/page-1-2">Page 1-2</a></li>
-            <li id="nav-page-1-3"><a href="/page-1/page-1-3">Page 1-3</a></li>
-          </ul>
-        </li>
-        <li id="nav-page-2"><a href="/page-2">Page 2</a></li>
-      </ul>}.gsub(/\n|\s\s/, '')
-  }
-  let(:navigation_for_depth_of_0) {
-    %Q{<ul id="nav">
-        <li id="nav-page-1"><a href="/page-1">Page 1</a><ul>
-            <li id="nav-page-1-1"><a href="/page-1/page-1-1">Page 1-1</a></li>
-            <li id="nav-page-1-2"><a href="/page-1/page-1-2">Page 1-2</a></li>
-            <li id="nav-page-1-3"><a href="/page-1/page-1-3">Page 1-3</a>
-              <ul>
-                <li id="nav-page-1-3-1"><a href="/page-1/page-1-3/page-1-3-1">Page 1-3-1</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li id="nav-page-2"><a href="/page-2">Page 2</a></li>
-      </ul>}.gsub(/\n|\s\s/, '')
-  }
+  let(:navigation_for_depth_of_0) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_0.html')).gsub(/\n|\s\s/, '') }
+  let(:navigation_for_depth_of_1) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_1.html')).gsub(/\n|\s\s/, '') }
+  let(:navigation_for_depth_of_2) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_2.html')).gsub(/\n|\s\s/, '') }
 end
