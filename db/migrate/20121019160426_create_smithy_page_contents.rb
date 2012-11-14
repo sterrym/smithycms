@@ -15,6 +15,7 @@ class CreateSmithyPageContents < ActiveRecord::Migration
     add_index :smithy_page_contents, :container
     add_index :smithy_page_contents, :content_block_type
     add_index :smithy_page_contents, :content_block_id
+    add_index :smithy_page_contents, :content_block_template_id
     add_index :smithy_page_contents, :position
   end
 end
