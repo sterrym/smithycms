@@ -22,10 +22,11 @@ jQuery ->
       file = data.files[0]
       domain = $('#fileupload').attr('action')
       path = $('#fileupload input[name=key]').val().replace('${filename}', file.name)
-      to = $('#fileupload').data('post')
+      to = $('#fileupload').data('post') + ".js"
       content = {}
       content[$('#fileupload').data('as')] = domain + path
       $.post(to, content)
+
       data.context.remove() if data.context # remove progress bar
 
     fail: (e, data) ->
