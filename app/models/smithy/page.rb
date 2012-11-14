@@ -51,10 +51,6 @@ module Smithy
       end
     end
 
-    def render
-      template.liquid_template.render('page' => self, 'site' => Smithy::Site.new )
-    end
-
     def render_container(container_name)
       self.contents.where(:container => container_name).map(&:render).join("\n\n")
     end
