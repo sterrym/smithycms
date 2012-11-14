@@ -81,7 +81,7 @@ describe Smithy::Page do
     context "with a pre-built tree" do
       include_context "a tree of pages"
       it { should be_an(Array) }
-      its(:size) { should == 10 }
+      its(:size) { should == 11 }
       specify { subject[0].should == ['Home', home.id] }
       specify { subject[1].should == ['- Page 1', page1.id] }
       specify { subject[2].should == ['-- Page 1-1', page1_1.id] }
@@ -92,6 +92,7 @@ describe Smithy::Page do
       specify { subject[7].should == ['-- Page 2-1', page2_1.id] }
       specify { subject[8].should == ['-- Page 2-2', page2_2.id] }
       specify { subject[9].should == ['- Page 3', page3.id] }
+      specify { subject[10].should == ['- Page 4', page4.id] }
     end
   end
 
