@@ -18,6 +18,7 @@ group :development, :test do
   gem 'fuubar'
   gem 'guard-livereload'
   gem 'guard-rspec'
+  gem 'guard-spork'
   gem 'letter_opener'
   gem 'rack-livereload'
   gem 'rspec-rails', '~> 2.11'
@@ -26,11 +27,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara', '~> 1.1.2'
+  gem 'capybara', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.1.0'
   gem 'faker', '~> 1.1.2'
   gem 'fakeweb', '~> 1.3.0'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'shoulda-matchers', '~> 1.3.0'
+  gem 'spork', '~> 1.0rc'
   gem 'sqlite3'
 end
