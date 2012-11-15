@@ -1,7 +1,7 @@
 <div class="well">
-<%= f.inputs container.capitalize do %>
+<%= f.inputs container.display_name do %>
   <table class="table table-striped">
-  <% @page.contents.for_container(container).each do |page_content| %>
+  <% @page.contents.for_container(container.name).each do |page_content| %>
     <%= content_tag_for :tr, page_content do %>
       <td>
         <%= link_to "edit", edit_page_content_path(@page.id, page_content), :class => "btn btn-small   btn-primary" %>
@@ -17,6 +17,6 @@
     <% end %>
   <% end %>
   </table>
-  <div><%= link_to "Add to #{container.capitalize}", new_page_content_path(@page.id, :page_content => { :container => container }), :class => "btn btn-primary btn-small" %></div>
+  <div><%= link_to "Add to #{container.display_name}", new_page_content_path(@page.id, :page_content => { :container => container.name }), :class => "btn btn-primary btn-small" %></div>
 <% end %>
 </div>

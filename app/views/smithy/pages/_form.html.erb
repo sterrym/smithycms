@@ -22,7 +22,7 @@
   <% end %>
   <% if @page.persisted? %>
     <h3>Content</h3>
-    <%= render :partial => "container", :collection => @page.container_names, :locals => { :f => f } %>
+    <%= render :partial => "container", :collection => @page.containers, :locals => { :f => f } %>
   <% end %>
   <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
   <%= content_tag :div, :id => "page-seo", :class => "collapse" do %>
