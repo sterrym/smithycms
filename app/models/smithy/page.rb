@@ -63,6 +63,7 @@ module Smithy
 
     def to_liquid
       {
+        'id' => self.id,
         'browser_title' => (self.browser_title.present? ? self.browser_title : self.generated_browser_title),
         'title' => title,
         'path' => path,
