@@ -1,3 +1,6 @@
 require 'smithy/liquid/database'
+require 'smithy/liquid/rendering'
 require 'smithy/liquid/filters/resize'
+require 'smithy/liquid/tags/csrf'
+require 'smithy/liquid/tags/html'
 require 'smithy/liquid/tags/nav'

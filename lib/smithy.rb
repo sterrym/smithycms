@@ -5,6 +5,8 @@ require 'smithy/dependencies'
 require 'smithy/logger'
 require 'smithy/dragonfly'
 require 'smithy/liquid'
+#
+require 'smithy/content_blocks'
 
 module Smithy
 
