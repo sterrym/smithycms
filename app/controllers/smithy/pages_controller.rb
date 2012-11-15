@@ -2,6 +2,7 @@ require_dependency "smithy/application_controller"
 
 module Smithy
   class PagesController < ApplicationController
+    include Smithy::Liquid::Rendering
     before_filter :initialize_page, :only => [ :new, :create ]
     before_filter :load_page, :only => [ :edit, :update, :destroy ]
     before_filter :load_parent, :except => [ :index, :show, :root ]
@@ -68,33 +69,6 @@ module Smithy
 
       def load_root
         @root = Page.root
-      end
-
-      def render_smithy_page
-        context = ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, false)
-        output = @page.template.liquid_template.render(context)
-        render :text => output, :layout => false
-      end
-
-      def smithy_default_assigns
-        {
-          'page'              => @page,
-          'current_page'      => self.params[:path],
-          'params'            => self.params,
-          'path'              => request.path,
-          'fullpath'          => request.fullpath,
-          'url'               => request.url,
-          'now'               => Time.now.utc,
-          'today'             => Date.today,
-        }
-      end
-
-      def smithy_default_registers
-        {
-          :controller => self,
-          :page => @page,
-          :site => Smithy::Site.new,
-        }
       end
   end
 end
