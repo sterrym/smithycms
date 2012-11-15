@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106183403) do
+ActiveRecord::Schema.define(:version => 20121115215420) do
 
   create_table "smithy_assets", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,19 @@ ActiveRecord::Schema.define(:version => 20121106183403) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "smithy_images", :force => true do |t|
+    t.integer  "asset_id"
+    t.string   "alternate_text"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "image_scaling"
+    t.string   "link_url"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "smithy_images", ["asset_id"], :name => "index_smithy_images_on_asset_id"
 
   create_table "smithy_page_contents", :force => true do |t|
     t.integer  "page_id"
