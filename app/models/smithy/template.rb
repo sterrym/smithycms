@@ -28,6 +28,7 @@
 
     private
       def load_containers
+        return unless self.template_type == 'template'
         container_names = liquid_template.root.nodelist.select{|n| n.is_a?(::Liquid::Variable) && n.name.match(/^page\.container\.(.*)/) }.map{|n| n.name.match(/^page\.container\.(.*)/)[1] }
         self.containers = container_names.map{|container_name| Smithy::TemplateContainer.new(:name => container_name) }
       end
