@@ -8,5 +8,9 @@ module Smithy
     attr_accessible :name
 
     default_scope :order => :name
+
+    def display_name
+      name.titleize
+    end
   end
 end

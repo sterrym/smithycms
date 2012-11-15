@@ -13,6 +13,13 @@ describe Smithy::TemplateContainer do
   # auto-created via the containers in the content of a template
   # therefore, we test the creation and destruction of containers
   # via the templates themselves
+  # see Template#load_containers
+  context "when the template is not a regular 'template'" do
+    let(:template) { FactoryGirl.create(:template, :content => one_container, :template_type => "include") }
+    subject { template.containers }
+    its(:size) { should == 0 }
+  end
+
   context "a template with a single container" do
     let(:template) { FactoryGirl.create(:template, :content => one_container) }
     subject { template.containers }
@@ -26,7 +33,6 @@ describe Smithy::TemplateContainer do
         template.update_attributes(:content => three_containers)
       end
       its(:size) { should == 3 }
-      specify { subject.map(&:name).should == %w(foo bar baz) }
     end
     context "reduced to 0 containers" do
       before do
@@ -41,7 +47,8 @@ describe Smithy::TemplateContainer do
     let(:template) { FactoryGirl.create(:template, :content => three_containers) }
     subject { template.containers }
     its(:size) { should == 3 }
-    specify { subject.map(&:name).should == %w(foo bar baz) }
+    specify { subject.map(&:name).should == %w(foo bar baz_qux) }
+    specify { subject.map(&:display_name).should == ['Foo', 'Bar', 'Baz Qux'] }
     context "reduced to 1 containers" do
       before do
         template.update_attribute(:content, one_container)
