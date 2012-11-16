@@ -33,11 +33,11 @@ describe Smithy::PageContent do
   end
 
   describe "#templates" do
-    let(:content_block) { FactoryGirl.create(:content_block, :name => 'Content' ) }
-    let(:content_block_template1) { FactoryGirl.create(:content_block_template, :content => '{{ content }}', :content_block => content_block ) }
-    let(:content_block_template2) { FactoryGirl.create(:content_block_template, :content => '<div>{{ content }}', :content_block => content_block ) }
-    let(:content_block_template3) { FactoryGirl.create(:content_block_template, :content => '<div>{{ content }}' ) }
-    let(:content) { FactoryGirl.create(:content, :content => "This is the content") }
+    let!(:content_block) { Smithy::ContentBlock.find_or_create_by_name('Content') }
+    let!(:content_block_template1) { FactoryGirl.create(:content_block_template, :content => '{{ content }}', :content_block => content_block ) }
+    let!(:content_block_template2) { FactoryGirl.create(:content_block_template, :content => '<div>{{ content }}', :content_block => content_block ) }
+    let!(:content_block_template3) { FactoryGirl.create(:content_block_template, :content => '<div>{{ content }}' ) }
+    let!(:content) { FactoryGirl.create(:content, :content => "This is the content") }
     subject { FactoryGirl.create(:page_content, :content_block => content, :content_block_template => content_block_template1).templates }
     it { should == [content_block_template1, content_block_template2].sort_by{|cb| cb.name } }
   end
