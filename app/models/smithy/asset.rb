@@ -20,6 +20,20 @@ module Smithy
       dragonfly_attachments[:file].to_value
     end
 
+    def to_liquid
+      {
+        'id' => self.id,
+        'name' => self.name,
+        'content_type' => self.content_type,
+        'file' => self.file,
+        'file_name' => self.file_name,
+        'file_width' => self.file_width,
+        'file_height' => self.file_height,
+        'file_size' => self.file_size,
+        'file_url' => self.file.url
+      }
+    end
+
     private
       def set_name
         if self.uploaded_file_url?
