@@ -1,2 +1,6 @@
 <dt><%= setting.name %></dt>
-<dd><%= setting.value %></dd>
+<dd>
+  <%= setting.value %>
+  <%= link_to "edit", [:edit, setting], :class => 'btn btn-mini' %>
+  <%= link_to "delete", setting, :class => 'btn btn-mini btn-danger', :confirm => "Are you sure?", :method => :delete %>
+</dd>
