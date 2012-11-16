@@ -33,13 +33,13 @@ module Smithy
 
     def update
       @setting = Setting.find(params[:id])
-      flash.notice "Your setting was saved" if @setting.update_attributes(params[:setting])
+      flash.notice = "Your setting was saved" if @setting.update_attributes(params[:setting])
       respond_with @setting
     end
 
     def destroy
       @setting = Setting.find(params[:id])
-      @tempalte.destroy
+      @setting.destroy
       respond_with @setting
     end
   end
