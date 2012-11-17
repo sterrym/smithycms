@@ -30,7 +30,7 @@ module Smithy
         'file_width' => self.file_width,
         'file_height' => self.file_height,
         'file_size' => self.file_size,
-        'file_url' => self.file.url
+        'url' => self.file.url
       }
     end
 
