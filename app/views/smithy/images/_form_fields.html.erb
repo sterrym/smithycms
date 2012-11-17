@@ -1,0 +1,12 @@
+<%= f.inputs do %>
+  <%= f.input :asset %>
+  <%= f.input :alternate_text %>
+<% end %>
+<%= f.inputs "Image Sizing (optional)" do %>
+  <%= f.input :width %>
+  <%= f.input :height %>
+  <%= f.input :image_scaling, :as => :select, :collection => Smithy::Image.image_scaling_options %>
+<% end %>
+<%= f.inputs "Linked Image (optional)" do %>
+  <%= f.input :link_url %>
+<% end %>
