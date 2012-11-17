@@ -13,7 +13,11 @@ module Smithy
     end
 
     def create
-      @page_content = Smithy::PageContent.new(params[:page_content])
+      @page_content = Smithy::PageContent.new
+      # we have to ensure that the content_block_type gets added before the content_block_attributes
+      # see PageContent#content_block_attributes=
+      @page_content.content_block_type = params[:page_content][:content_block_type]
+      @page_content.attributes = params[:page_content]
       @page_content.page = @page
       @page_content.save
       respond_with @page_content do |format|
