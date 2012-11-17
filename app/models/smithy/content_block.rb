@@ -11,7 +11,14 @@ module Smithy
     default_scope order(:name)
 
     def content_field_names
-      @content_field_names ||= klass.column_names.delete_if{|column_name| ["id", "created_at", "updated_at"].include?(column_name) }
+      unless @content_field_names
+        if klass.new.respond_to?(:to_liquid)
+          @content_field_names = klass.new.to_liquid.keys
+        else
+          @content_field_names = klass.column_names.delete_if{|column_name| ["id", "created_at", "updated_at"].include?(column_name) }
+        end
+      end
+      @content_field_names
     end
 
     private
