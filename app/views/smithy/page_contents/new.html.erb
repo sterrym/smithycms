@@ -1,7 +1,7 @@
 <% content_for :title, "Page Content" %>
 
 <%= semantic_form_for [@page, @page_content], :url => page_contents_path(@page.id), :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.inputs "Adding to #{@page_content.container.capitalize} on &ldquo;#{@page.title}&rdquo;" do %>
+  <%= f.inputs "Adding to #{@page_content.container.titleize} on &ldquo;#{@page.title}&rdquo;" do %>
     <%= f.input :label, :hint => "Please enter a label for your content (internal CMS usage only)" %>
     <%= f.input :container, :as => :hidden %>
     <%= f.input :content_block_type, :as => :hidden %>
