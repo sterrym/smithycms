@@ -33,7 +33,11 @@ module Smithy
     end
 
     def to_liquid
-      content_block.attributes
+      if content_block.respond_to?(:to_liquid)
+        content_block.to_liquid
+      else
+        content_block.attributes
+      end
     end
 
     def templates
