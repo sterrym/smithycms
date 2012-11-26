@@ -4,7 +4,7 @@ module Smithy
       extend ActiveSupport::Concern
       included do
         has_many :page_contents, :as => :content_block
-        Smithy::ContentBlocks::Registry.register self.to_s.demodulize, self.content_block_description
+        Smithy::ContentBlocks::Registry.register self, self.content_block_description
       end
 
       module ClassMethods
