@@ -1,5 +1,4 @@
 require 'active_support/concern'
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'app', 'models', 'smithy', 'content_block')
 
 module Smithy
   module ContentBlocks
