@@ -6,19 +6,21 @@
 
 }
 
-#side .page-list > li > {
-  .icon-reorder { padding:8px; }
-  a.add-page { color:#666; padding:8px; }
-  a.add-page:hover,
-  a.add-page:active { background:transparent; color:#DDD; }
+#side .page-list > li {
+  position:relative;
+
+  > .handle { cursor:move; position:absolute; left:6px; top:50%; margin-top:-0.75em; }
+  > a.edit-page {
+    padding:8px 28px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  > a.add-page {
+    color:#666; padding:6px; position:absolute; right:0px; top:50%; margin-top:-1.25em;
+    &:hover,
+    &:active { background:transparent; color:#DDD; }
+  }
 }
-/*
-#side .page-list > li > {
-  a.indent-0 { padding-left:15px; }
-  a.indent-1 { padding-left:15px; }
-  a.indent-2 { padding-left:21px; }
-  a.indent-3 { padding-left:27px; }
-  a.indent-4 { padding-left:33px; }
-  a.indent-5 { padding-left:39px; }
-}
-*/

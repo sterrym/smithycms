@@ -1,6 +1,6 @@
 <%= content_tag :li, :id => dom_id(page), :class => ["clearfix", (params[:id].to_i == page.id ? "active" : nil)].join(' ') do %>
-  <i class="icon-reorder pull-left"></i>
-  <%= link_to "<i class=\"icon-file\"></i>#{page.title}#{'<i class="icon-caret-right pull-right"></i>' unless page.leaf?}".html_safe, edit_page_path(page.id), :class => " pull-left" %>
-  <%= link_to "<i class=\"icon-plus pull-right\"></i>".html_safe, new_page_path(:page => {:parent_id => page.id}), :class => "add-page pull-right" %>
-  <%=  %>
+  <%= link_to "<i class=\"icon-#{ page.leaf? ? 'file' : 'folder-close'}\"></i><span>#{page.title}</span>".html_safe, edit_page_path(page.id), :class => "edit-page" %>
+  <%#= raw '<i class="icon-caret-right pull-right"></i>' unless page.leaf? %>
+  <%= link_to "<i class=\"icon-plus\"></i>".html_safe, new_page_path(:page => {:parent_id => page.id}), :class => "add-page" %>
+  <i class="icon-reorder handle"></i>
 <% end %>
