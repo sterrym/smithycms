@@ -1,6 +1,6 @@
 module Smithy
   class Page < ActiveRecord::Base
-    attr_accessible :browser_title, :cache_length, :description, :keywords, :permalink, :published_at, :show_in_navigation, :title, :parent_id, :template_id
+    attr_accessible :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :published_at, :show_in_navigation, :title, :parent_id, :template_id
 
     validates_presence_of :template, :title
     validate :validate_one_root
@@ -66,11 +66,15 @@ module Smithy
         'id' => self.id,
         'browser_title' => (self.browser_title.present? ? self.browser_title : self.generated_browser_title),
         'title' => title,
-        'path' => path,
+        'path' => url,
         'meta_description' => description,
         'meta_keywords' => keywords,
         'container' => rendered_containers
       }
+    end
+
+    def url
+      self.external_link.present? ? self.external_link : self.path
     end
 
     private

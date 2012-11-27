@@ -24,21 +24,22 @@
     <h3>Content</h3>
     <%= render :partial => "container", :collection => @page.containers, :locals => { :f => f } %>
   <% end %>
+  <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="icon-caret-down"></i></h3>
+  <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
+    <%= f.inputs do %>
+      <%= f.input :external_link %>
+      <%= f.input :show_in_navigation %>
+      <%= f.input :cache_length %>
+      <%# TODO: Add a hint to cache_length showing the default. 600 maybe? %>
+      <%= f.input :published_at, :as => :string, :input_html => { :class => 'datetime-picker' } %>
+    <% end %>
+  <% end %>
   <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
   <%= content_tag :div, :id => "page-seo", :class => "collapse" do %>
     <%= f.inputs do %>
       <%= f.input :browser_title %>
       <%= f.input :keywords %>
       <%= f.input :description %>
-    <% end %>
-  <% end %>
-  <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="icon-caret-down"></i></h3>
-  <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
-    <%= f.inputs do %>
-      <%= f.input :show_in_navigation %>
-      <%= f.input :cache_length %>
-      <%# TODO: Add a hint to cache_length showing the default. 600 maybe? %>
-      <%= f.input :published_at, :as => :string, :input_html => { :class => 'datetime-picker' } %>
     <% end %>
   <% end %>
   <%= f.actions :submit %>
