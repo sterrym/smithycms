@@ -9,7 +9,7 @@
 #side .page-list > li {
   position:relative;
 
-  > .handle { cursor:move; position:absolute; left:6px; top:50%; margin-top:-0.75em; }
+  > .handle { color:#777; cursor:move; position:absolute; left:6px; top:50%; margin-top:-0.75em; }
   > a.edit-page {
     padding:8px 28px;
     display: block;
@@ -17,10 +17,12 @@
     text-overflow: ellipsis;
     overflow: hidden;
   }
-
   > a.add-page {
     color:#666; padding:6px; position:absolute; right:0px; top:50%; margin-top:-1.25em;
     &:hover,
     &:active { background:transparent; color:#DDD; }
+  }
+  &.home > a {
+    padding-left:6px;
   }
 }
