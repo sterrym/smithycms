@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe Smithy::TemplateContainer do
-  let(:one_container) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
-  let(:three_containers) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
+  let(:one_container) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
+  let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:template) }

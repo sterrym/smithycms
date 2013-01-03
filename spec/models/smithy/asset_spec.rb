@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe Smithy::Asset do
-  let(:file) { ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'assets', 'treats-and_stuff.png') }
+  let(:file) { Smithy::Engine.root.join('spec', 'fixtures', 'assets', 'treats-and_stuff.png') }
   let(:uploaded_file) { 'https://s3.amazonaws.com/tag-smithy-dev/test/treats-and_stuff.png' }
   before do
     base_path = "http://s3.amazonaws.com/"
     path = "^#{base_path}#{ENV['AWS_S3_BUCKET']}/([^/.]+/)*#{File.basename(file)}$"
     FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
-    FakeWeb.register_uri(:get, base_path, :body => File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'assets', 'aws_buckets.html')))
+    FakeWeb.register_uri(:get, base_path, :body => File.read(Smithy::Engine.root.join('spec', 'fixtures', 'assets', 'aws_buckets.html')))
     FakeWeb.register_uri(:get, uploaded_file, :body => File.read(file))
   end
 
