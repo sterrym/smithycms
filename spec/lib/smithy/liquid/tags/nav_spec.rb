@@ -42,7 +42,7 @@ describe Smithy::Liquid::Tags::Nav do
     ::Liquid::Template.parse("{% nav #{root} #{tag_options} %}").render(liquid_context).gsub(/\n|\s\s/, '')
   end
 
-  let(:navigation_for_depth_of_0) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_0.html')).gsub(/\n|\s\s/, '') }
-  let(:navigation_for_depth_of_1) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_1.html')).gsub(/\n|\s\s/, '') }
-  let(:navigation_for_depth_of_2) { File.read(ENGINE_RAILS_ROOT.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_2.html')).gsub(/\n|\s\s/, '') }
+  let(:navigation_for_depth_of_0) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_0.html')).gsub(/\n|\s\s/, '') }
+  let(:navigation_for_depth_of_1) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_1.html')).gsub(/\n|\s\s/, '') }
+  let(:navigation_for_depth_of_2) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'nav', 'navigation_for_depth_of_2.html')).gsub(/\n|\s\s/, '') }
 end
