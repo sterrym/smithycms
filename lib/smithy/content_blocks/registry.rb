@@ -1,5 +1,5 @@
 require 'active_support/concern'
-require File.join(File.dirname(__FILE__), '..', '..', '..', 'app', 'models', 'smithy', 'content_block')
+require_dependency Smithy::Engine.root.join('app', 'models', 'smithy', 'content_block').to_s
 
 module Smithy
   module ContentBlocks

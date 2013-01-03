@@ -27,7 +27,7 @@ module Smithy
         {
           :controller => self,
           :page => @page,
-          :site => Smithy::Site.new,
+          :site => Smithy::Site.new
         }
       end
     end
