@@ -2,10 +2,11 @@ require_dependency "smithy/application_controller"
 
 module Smithy
   class PagesController < ApplicationController
+    skip_before_filter :authenticate_smithy_admin, :only => [ :show ]
     include Smithy::Liquid::Rendering
     before_filter :initialize_page, :only => [ :new, :create ]
     before_filter :load_page, :only => [ :edit, :update, :destroy ]
-    before_filter :load_parent, :except => [ :index, :show, :root ]
+    before_filter :load_parent, :except => [ :index, :show ]
     before_filter :load_root, :only => [ :index ]
     respond_to :html, :json
 
@@ -14,7 +15,8 @@ module Smithy
     end
 
     def show
-      @page ||= Page.find(params[:path].present? ? "/#{params[:path]}" : params[:id])
+      params[:path] = '' if params[:id].nil? && params[:path].nil?
+      @page = Page.find(params[:path].nil? ? params[:id] : "/#{params[:path]}")
       respond_with @page do |format|
         format.html { render_smithy_page }
       end
@@ -46,11 +48,6 @@ module Smithy
     def destroy
       @page.destroy
       respond_with @page
-    end
-
-    def root
-      @page = Page.root
-      show
     end
 
     private

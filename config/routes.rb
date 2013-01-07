@@ -1,5 +1,5 @@
 Smithy::Engine.routes.draw do
-  root :to => 'pages#root'
+  root :to => 'pages#show'
   scope "/smithy" do
     # CMS admin
     resources :assets
