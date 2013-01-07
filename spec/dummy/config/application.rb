@@ -10,8 +10,8 @@ require "sprockets/railtie"
 
 Bundler.require
 require "smithy"
+require "devise"
 require "quiet_assets"
-
 
 module Dummy
   class Application < Rails::Application
