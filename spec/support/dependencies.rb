@@ -1,7 +1,7 @@
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'factory_girl_rails'
-require 'faker'
+require 'ffaker'
 require 'fakeweb'
 require 'shoulda-matchers'
 

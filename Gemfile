@@ -34,7 +34,7 @@ end
 group :test do
   gem 'capybara', '~> 2.0.0'
   gem 'factory_girl_rails', '~> 4.1.0'
-  gem 'faker', '~> 1.1.2'
+  gem 'ffaker', '~> 1.15.0'
   gem 'fakeweb', '~> 1.3.0'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'shoulda-matchers', '~> 1.3.0'
