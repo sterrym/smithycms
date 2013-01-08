@@ -24,7 +24,7 @@ module Smithy
             if markup =~ Syntax
               @javascript = $1.gsub('\'', '')
             else
-              raise ::Liquid::SyntaxError.new("Syntax Error in 'javascript_include_tag' - Valid syntax: stylesheet_link_tag <javascript>")
+              raise ::Liquid::SyntaxError.new("Syntax Error in 'javascript_include_tag' - Valid syntax: javascript_include_tag <javascript>")
             end
             super
           end
