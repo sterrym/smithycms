@@ -45,6 +45,6 @@ describe Smithy::PageContent do
   describe "#to_liquid" do
     let(:content) { FactoryGirl.create(:content, :content => "This is the content") }
     subject { FactoryGirl.create(:page_content, :content_block => content).to_liquid }
-    it { should == content.attributes }
+    it { should == content.to_liquid }
   end
 end
