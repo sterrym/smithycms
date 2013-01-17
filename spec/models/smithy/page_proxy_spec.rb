@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Smithy::PageProxy, :focus => true do
+describe Smithy::PageProxy do
   let(:page) { Smithy::PageProxy.new(:path => 'test', :title => "Foo Bar") }
   subject { page }
 
