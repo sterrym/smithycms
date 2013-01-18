@@ -7,10 +7,17 @@ module Smithy
     # You can even render your views in erb and pass the results along for the
     # Smithy template containers you've already created from within Smithy
     # Eg:
-    # def index
-    #   @page = Smithy::PageProxy.new(:path => request.path, :title => "Test")
-    #   @page.add_to_container(:main_content, render_to_string(:action => 'index', :layout => false))
-    #   render_as_smithy_page('Default')
+    # class ExamplesController < ApplicationController
+    #   respond_to :html
+    #   layout false
+    #   include Smithy::Liquid::Rendering
+    #   def index
+    #     @page = Smithy::PageProxy.new(:path => request.path, :title => "Test")
+    #     @page.add_to_container(:main_content, render_to_string(:action => 'index'))
+    #     respond_with @page do |format|
+    #       format.html { render_as_smithy_page('Default') }
+    #     end
+    #   end
     # end
 
 
