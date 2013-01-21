@@ -13,6 +13,7 @@
  *= depend_on smithy/content_blocks.css.scss
  *= depend_on smithy/layout.css.scss
  *= depend_on smithy/forms.css.scss
+ *= depend_on smithy/guides.css.scss
  *= depend_on smithy/pages.css.scss
  *= depend_on smithy/templates.css.scss
  */
@@ -20,6 +21,7 @@
 @import 'bootstrap_and_overrides';
 @import 'layout';
 @import 'forms';
+@import 'guides';
 @import 'pages';
 @import 'templates';
 @import 'content_blocks';

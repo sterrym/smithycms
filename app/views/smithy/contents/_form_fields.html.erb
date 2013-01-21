@@ -1,3 +1,4 @@
 <%= f.inputs do %>
-  <%= f.input :content, :as => :text, :input_html => { :class => "span12" } %>
+  <%= f.input :content, :as => :text, :input_html => { :class => "span12" }, :hint => "Use markdown syntax for formatting. You can also use HTML directly. <a href=\"#{guide_path('markdown')}\" data-toggle=\"remote-load\" data-target=\"#content-guide\">See our markdown syntax reference</a>".html_safe %>
+  <div id="content-guide"></div>
 <% end %>

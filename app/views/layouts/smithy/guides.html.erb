@@ -1,0 +1,16 @@
+<%= render :partial => "layouts/smithy/shared/head" %>
+<body>
+
+<div id="main-wide">
+  <% if content_for? :title %><h1><%= yield :title %></h1><% end %>
+  <%= render :partial => "layouts/smithy/shared/flash", :locals => { flash: flash } %>
+  <%= yield :top_content %>
+  <div class="container-fluid">
+    <section class="row-fluid" id="content-container">
+      <article id="content" class="span12">
+        <%= yield %>
+      </article>
+    </section>
+  </div>
+</div>
+<%= render :partial => "layouts/smithy/shared/tail" %>

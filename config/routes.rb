@@ -4,6 +4,7 @@ Smithy::Engine.routes.draw do
     # CMS admin
     resources :assets
     resources :content_blocks
+    resources :guides, :only => :show
     resources :pages do
       resources :contents, :controller => "PageContents", :except => [ :index ] do
         member do
