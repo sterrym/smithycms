@@ -28,6 +28,7 @@ module Smithy
         def render(context)
           @site = context.registers[:site]
           @page = context.registers[:page]
+          @controller = context.registers[:controller]
           render_wrapper(render_list_items(root_node, 1), @options[:id])
         end
 
@@ -41,7 +42,7 @@ module Smithy
           item_id = "nav-#{item.permalink}"
           href = item.url
           label = item.title
-          css_class = " class=\"#{@options[:active_class]}\"" if @page.id == item.id
+          css_class = " class=\"#{@options[:active_class]}\"" if @page.id == item.id || [item.path, item.external_link].include?(@controller.request.path)
           %Q{#{"  " * depth}<li id="#{item_id}"#{css_class}><a href="#{href}">#{label}</a>#{render_children(item, depth.succ)}</li>}
         end
 
