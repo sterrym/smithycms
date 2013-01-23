@@ -70,7 +70,7 @@ describe Smithy::Page do
       let(:home) { FactoryGirl.create(:page, :title => "Home") }
       let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
       subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage).generated_browser_title }
-      it { should == 'Home | Foo Bar | Baz Qux'}
+      it { should == 'Foo Bar | Baz Qux'}
     end
   end
 

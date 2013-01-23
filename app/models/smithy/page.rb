@@ -41,7 +41,12 @@ module Smithy
     end
 
     def generated_browser_title
-      self.self_and_ancestors.map(&:title).join(' | ')
+      unless @generated_browser_title
+        titles = self.self_and_ancestors.map(&:title)
+        titles = titles[1..-1] unless root?
+        @generated_browser_title = titles.join(' | ')
+      end
+      @generated_browser_title
     end
 
     # normalize_friendly_id overrides the default creator for friendly_id
