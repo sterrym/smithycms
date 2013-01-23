@@ -35,10 +35,10 @@ describe Smithy::Liquid::Tags::Nav do
   end
 
   def render_nav(root = 'site', tag_options = '', registers = {})
-    registers = { :site => site, :page => home }.merge(registers)
+    controller = double(ApplicationController)
+    controller.stub_chain(:request, :path).and_return('/')
+    registers = { :site => site, :page => home, :controller => controller }.merge(registers)
     liquid_context = ::Liquid::Context.new({}, {}, registers)
-    # output = Liquid::Template.parse("{% nav #{source} #{template_option} %}").render(liquid_context)
-    # output.gsub(/\n\s{0,}/, '')
     ::Liquid::Template.parse("{% nav #{root} #{tag_options} %}").render(liquid_context).gsub(/\n|\s\s/, '')
   end
 
