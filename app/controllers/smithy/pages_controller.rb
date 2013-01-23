@@ -53,11 +53,13 @@ module Smithy
     private
       def initialize_page
         @page = Page.new(params[:page])
+        set_publish
       end
 
       def load_page
         @page = Page.find(params[:id])
         @root = @page if Page.root == @page
+        set_publish
       end
 
       def load_parent
@@ -67,5 +69,11 @@ module Smithy
       def load_root
         @root = Page.root
       end
+
+      def set_publish
+        @page.publish = true if params[:publish].present?
+        @page.publish = false if params[:draft].present?
+      end
+
   end
 end

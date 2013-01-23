@@ -42,5 +42,9 @@
       <%= f.input :description %>
     <% end %>
   <% end %>
-  <%= f.actions :submit %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :label => "Save and Publish", :button_html => { :name => "publish" } %>
+    <%= f.action :submit, :label => "Save as Draft", :button_html => { :name => "draft" } %>
+  <% end %>
 <% end %>
