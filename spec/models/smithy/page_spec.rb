@@ -28,6 +28,10 @@ describe Smithy::Page do
 
   it { should be_valid }
 
+  # defaults
+  its(:show_in_navigation) { should be_true }
+  its(:cache_length) { should eql 600 }
+
   context "won't allow a second root page" do
     let!(:first_home_page) { FactoryGirl.create(:page, :title => "Home1") }
     subject { FactoryGirl.build(:page, :title => "Home") }
