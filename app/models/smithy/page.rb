@@ -1,6 +1,6 @@
 module Smithy
   class Page < ActiveRecord::Base
-    attr_accessible :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :published_at, :show_in_navigation, :title, :parent_id, :template_id
+    attr_accessible :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id
 
     validates_presence_of :template, :title
     validate :validate_one_root
@@ -16,11 +16,14 @@ module Smithy
                 :slug_column => 'path',
                 :scope => :parent_id
 
+    before_save :set_published_at
     before_save :build_permalink
 
     accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
     scope :included_in_navigation, lambda{ where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
+
+    attr_accessor :publish
 
     class << self
       def tree_for_select
@@ -82,13 +85,18 @@ module Smithy
         self.permalink = self.root? ? title.parameterize : path.split('/').last unless self.permalink?
       end
 
+      def set_published_at
+        self.published_at = Time.now if self.publish.present?
+        self.published_at = nil if self.publish == false
+      end
+
       def validate_exclusion_of_reserved_words
         reserved = %w(index new edit session login logout users smithy)
         errors.add(:title, "cannot contain reserved words (#{reserved.join(', ')})") if reserved.include?(self.title.to_s.parameterize)
       end
 
       def validate_one_root
-        errors.add(:parent_id, 'must have a parent') if self.class.root && self.parent_id.blank?
+        errors.add(:parent_id, 'must have a parent') if self.class.root && self.class.root != self && self.parent_id.blank?
       end
 
   end

@@ -38,6 +38,29 @@ describe Smithy::Page do
     before { subject.save; }
     it { should_not be_persisted }
     it { subject.errors[:parent_id].should == ['must have a parent'] }
+    it "can still update itself" do
+      first_home_page.update_attributes(:published_at => Time.now).should be_true
+    end
+  end
+
+  context "publishing" do
+    subject { FactoryGirl.create(:page, :title => "Home", :published_at => nil) }
+    its(:published_at) { should be_nil }
+    context "with publish attribute" do
+      context "and published_at unset" do
+        subject { FactoryGirl.create(:page, :title => "Home", :published_at => nil, :publish => true) }
+        its(:published_at) { should_not be_nil }
+      end
+      context "and published_at set" do
+        subject { FactoryGirl.create(:page, :title => "Home", :published_at => Time.now) }
+        it "should set published_at to nil if publish is false" do
+          expect{ subject.update_attributes(:publish => false) }.to change{subject.published_at}
+        end
+        it "shouldn't change published_at to nil if publish is nil" do
+          expect{ subject.update_attributes(:publish => nil) }.to_not change{subject.published_at}
+        end
+      end
+    end
   end
 
   describe  "#generated_browser_title" do
