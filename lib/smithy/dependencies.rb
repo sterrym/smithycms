@@ -13,6 +13,6 @@ require 'httparty'
 require 'jquery-fileupload-rails'
 require 'jquery/rails'
 require 'liquid'
-require 'redcarpet'
 require 'sass-rails'
+require 'slodown'
 
