@@ -77,6 +77,7 @@ module Smithy
         'path' => url,
         'meta_description' => description,
         'meta_keywords' => keywords,
+        'breadcrumbs' => self.ancestors.where(["#{self.class.quoted_table_name}.#{self.class.primary_key} != ?", self.class.root]),
         'container' => rendered_containers
       }
     end
