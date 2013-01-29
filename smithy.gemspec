@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'httparty', '~> 0.8.3'
   s.add_dependency 'jquery-fileupload-rails', '~> 0.3.5'
   s.add_dependency 'liquid', '~> 2.4.1'
-  s.add_dependency 'slodown', '~> 0.1.3'
+  s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'
   s.add_dependency 'sass-rails', '~> 3.1'
 
