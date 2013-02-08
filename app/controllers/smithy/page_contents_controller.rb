@@ -10,6 +10,7 @@ module Smithy
 
     def new
       @page_content = Smithy::PageContent.new(params[:page_content])
+      @page_content.label = [@page.title, @page_content.container].join(' - ') unless @page_content.label?
     end
 
     def create
