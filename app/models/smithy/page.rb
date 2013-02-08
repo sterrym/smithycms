@@ -59,6 +59,10 @@ module Smithy
       end
     end
 
+    def published?
+      self.published_at?
+    end
+
     def render_container(container_name)
       self.contents.where(:container => container_name).map(&:render).join("\n\n")
     end
