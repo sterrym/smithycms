@@ -17,14 +17,12 @@ module Smithy
     def show
       params[:path] = '' if params[:id].nil? && params[:path].nil? # sets the root path when nothing else is passed
       @page = Page.find(params[:path].nil? ? params[:id] : "/#{params[:path]}")
-      # TODO: this caching scheme may be naive. Need to see how it works out
+      # TODO: more exploration is needed around caching. Some server-side caching as well, for instance
       expires_in(@page.cache_length.to_i.seconds)
       if stale?(@page)
         respond_with @page do |format|
           format.html {
-            Rails.cache.fetch(@page.cache_key, :expires_in => 7.days) do
-              render_smithy_page
-            end
+            render_smithy_page
           }
         end
       end
