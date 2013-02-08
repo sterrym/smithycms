@@ -20,7 +20,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'debugger', '~> 1.2.1'
+  gem 'debugger', '~> 1.3.1'
   gem 'fuubar'
   gem 'guard-livereload'
   gem 'guard-rspec'
