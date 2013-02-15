@@ -44,7 +44,12 @@
   <% end %>
 
   <%= f.actions do %>
-    <%= f.action :submit, :label => "Save and Publish", :button_html => { :name => "publish" } %>
-    <%= f.action :submit, :label => "Save as Draft", :button_html => { :name => "draft" } %>
+    <% if @page.published? %>
+      <%= f.action :submit, :label => "Save and Publish", :button_html => { :name => "publish" } %>
+      <%= f.action :submit, :label => "Save as Draft", :button_html => { :name => "draft" } %>
+    <% else %>
+      <%= f.action :submit, :label => "Save as Draft", :button_html => { :name => "draft" } %>
+      <%= f.action :submit, :label => "Save and Publish", :button_html => { :name => "publish" } %>
+    <% end %>
   <% end %>
 <% end %>
