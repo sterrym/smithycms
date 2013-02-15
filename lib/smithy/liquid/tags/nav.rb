@@ -1,4 +1,4 @@
-]module Smithy
+module Smithy
   module Liquid
     module Tags
       class Nav < ::Liquid::Tag
