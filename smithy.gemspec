@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'friendly_id', '~> 4.0.8'
   s.add_dependency 'httparty', '~> 0.8.3'
   s.add_dependency 'jquery-fileupload-rails', '~> 0.3.5'
+  s.add_dependency 'json', '~> 1.7.7'
   s.add_dependency 'liquid', '~> 2.4.1'
   s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'
