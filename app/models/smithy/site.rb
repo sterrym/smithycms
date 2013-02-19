@@ -7,7 +7,7 @@ module Smithy
 
     def to_liquid
       {
-        :root => self.root.to_liquid
+        'root' => self.root.to_liquid
       }
     end
   end

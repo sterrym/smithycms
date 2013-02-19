@@ -6,5 +6,10 @@ describe Smithy::Site do
   subject { Smithy::Site.new }
 
   its(:root) { should == home }
-  its(:to_liquid) { should == { :root => home.to_liquid }}
+  describe "#to_liquid" do
+    specify "calls to_liquid on the root" do
+      subject.root.should_receive(:to_liquid)
+      subject.to_liquid
+    end
+  end
 end
