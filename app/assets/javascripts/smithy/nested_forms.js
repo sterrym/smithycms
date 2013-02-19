@@ -2,7 +2,7 @@
   Nested Forms
 */
 $(function() {
-  $('form a.add_nested_fields').live('click', function() {
+  $("form a.add_nested_fields").on('click', function() {
     // Setup
     var assoc   = $(this).attr('data-association');           // Name of child
     var content = $('#' + assoc + '_fields_blueprint').html(); // Fields template
@@ -38,7 +38,7 @@ $(function() {
     return false;
   });
 
-  $('form a.remove_nested_fields').live('click', function() {
+  $('form a.remove_nested_fields').on('click', function() {
     var container = $(this).closest('.destroy');
     var hidden_field = $('input[type=hidden]', container).val('1');
     $(this).closest('.nested').hide();
