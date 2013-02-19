@@ -6,6 +6,9 @@ Smithy::Engine.routes.draw do
     resources :content_blocks
     resources :guides, :only => :show
     resources :pages do
+      collection do
+        get :order
+      end
       resources :contents, :controller => "PageContents", :except => [ :index ] do
         member do
           get :preview

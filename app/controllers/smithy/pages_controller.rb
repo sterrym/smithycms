@@ -6,7 +6,7 @@ module Smithy
     include Smithy::Liquid::Rendering
     before_filter :initialize_page, :only => [ :new, :create ]
     before_filter :load_page, :only => [ :edit, :update, :destroy ]
-    before_filter :load_parent, :except => [ :index, :show ]
+    before_filter :load_parent, :except => [ :index, :show, :order ]
     before_filter :load_root, :only => [ :index ]
     respond_to :html, :json
 
@@ -54,6 +54,23 @@ module Smithy
     def destroy
       @page.destroy
       respond_with @page
+    end
+
+    def order
+      first = Smithy::Page.find(params[:order].shift)
+      @parent = first.parent
+      return unless @parent && @parent.children.count > 1 # Only need to order if there are multiple children.
+      left = first.id
+      params[:order].each do |page_id|
+        page = Smithy::Page.find(page_id)
+        page.move_to_right_of(left)
+        left = page.id
+      end
+      if request.xhr?
+        render :nothing => true, :status => 200
+      else
+        redirect_to pages_path
+      end
     end
 
     private

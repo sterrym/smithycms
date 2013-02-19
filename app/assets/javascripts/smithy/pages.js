@@ -12,4 +12,19 @@ $(function() {
       }).success(function() { $('input:text:visible:first').focus(); });
     }
   });
+
+  $(".page-list").sortable({
+    distance: 20,
+    handle: ".handle",
+    items: "> li.child",
+    update: function(e, ui) {
+      $.ajax("/smithy/pages/order", {
+        data: $(".page-list").sortable("serialize", { key: "order[]" }),
+        // highlight on failure?
+        // failure: function(xhr, status, error) {}
+      });
+    }
+  });
 });
+
+
