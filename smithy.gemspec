@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
 
   s.add_dependency 'awesome_nested_set', '~> 2.1.5'
-  s.add_dependency 'bootstrap-sass'
+  s.add_dependency 'bootstrap-sass', '~> 2.3.0.0'
   s.add_dependency 'dragonfly', '~> 0.9.12'
   s.add_dependency 'font-awesome-sass-rails', '~> 2.0.0'
   s.add_dependency 'fog', '~> 1.7.0'

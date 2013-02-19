@@ -11,7 +11,6 @@ group :assets do
   gem 'uglifier',     '~> 1.2.4'
 end
 
-gem 'bootstrap-sass', :git => 'https://github.com/sterrym/bootstrap-sass.git', :branch => 'release/2.2.1.0'
 gem 'slodown', :git => 'https://github.com/sterrym/slodown.git'
 
 group :development do
