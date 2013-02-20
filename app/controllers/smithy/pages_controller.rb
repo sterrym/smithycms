@@ -45,7 +45,7 @@ module Smithy
     end
 
     def update
-      flash.notice = "Your page was saved" if @page.update_attributes(params[:page])
+      flash.notice = "Your page was saved #{@page.published? ? 'and published' : 'as a draft'}" if @page.update_attributes(params[:page])
       respond_with @page do |format|
         format.html { redirect_to edit_page_path(@page.id) }
       end
