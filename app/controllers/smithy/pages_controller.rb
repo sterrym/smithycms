@@ -53,7 +53,7 @@ module Smithy
 
     def destroy
       @page.destroy
-      respond_with @page
+      respond_with @page.parent ? @page.parent : @page
     end
 
     def order
