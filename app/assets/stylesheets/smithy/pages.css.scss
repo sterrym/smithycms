@@ -9,7 +9,9 @@
 #side .page-list > li {
   position:relative;
 
-  > .handle { color:#777; cursor:move; position:absolute; left:6px; top:50%; margin-top:-0.75em; }
+  > .handle { color:#777; cursor:move; position:absolute; left:6px; top:50%; margin-top:-0.75em;
+    &:hover { color:#DDD; }
+  }
   > a.edit-page {
     padding:8px 28px;
     display: block;
