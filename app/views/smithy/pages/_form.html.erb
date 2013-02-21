@@ -20,17 +20,20 @@
     <%= f.input :parent, :include_blank => false, :collection => Smithy::Page.tree_for_select unless !@page.parent_id? %>
     <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
   <% end %>
-  <% if @page.persisted? %>
+  <% if @page.persisted? && @page.external_link.blank? %>
     <h3>Content</h3>
     <%= render :partial => "container", :collection => @page.containers, :locals => { :f => f } %>
+  <% elsif @page.external_link? %>
+    <%= f.inputs "Redirect" do %>
+      <%= f.input :external_link, :hint => "This page is currently being redirected to #{link_to @page.external_link, @page.external_link}".html_safe %>
+    <% end %>
   <% end %>
   <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="icon-caret-down"></i></h3>
   <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
     <%= f.inputs do %>
-      <%= f.input :external_link %>
+      <%= f.input(:external_link) unless @page.external_link? %>
       <%= f.input :show_in_navigation %>
-      <%= f.input :cache_length %>
-      <%# TODO: Add a hint to cache_length showing the default. 600 maybe? %>
+      <%= f.input :cache_length, :hint => "In seconds (eg. 600 is 10 minutes)" %>
       <%= f.input :published_at, :as => :string, :input_html => { :class => 'datetime-picker' } %>
     <% end %>
   <% end %>
