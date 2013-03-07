@@ -5,7 +5,7 @@
     <%= f.input :retained_file, :as => :hidden %>
     <% if @asset.file %>
     <div>
-      <img src="<%= asset.file.thumb("300x300").url %>" alt="">
+      <img src="<%= @asset.file.thumb("300x300").url %>" alt="">
     </div>
     <% end %>
   <% end %>
