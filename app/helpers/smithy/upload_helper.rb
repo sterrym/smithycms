@@ -60,7 +60,7 @@ module Smithy
 
       def policy_data
         {
-          expiration: @options[:expiration],
+          expiration: @options[:expiration].utc.iso8601,
           conditions: [
             ["starts-with", "$utf8", ""],
             ["starts-with", "$key", ""],
