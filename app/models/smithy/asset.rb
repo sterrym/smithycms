@@ -4,6 +4,8 @@ module Smithy
 
     validates_presence_of :file, :name
 
+    has_many :images, :dependent => :destroy
+
     file_accessor :file
     include Smithy::Dragonfly::AssetHelper
 
