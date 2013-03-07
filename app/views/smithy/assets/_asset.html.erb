@@ -1,6 +1,6 @@
 <li>
   <div class="thumbnail clearfix">
-    <%= link_to "<img src=\"#{asset.file.thumb("170x114#").url}\" width=\"170\" height=\"114\" alt=\"\">", asset.file.url %>
+    <%= link_to "<img src=\"#{asset.file.thumb("170x114#").url}\" width=\"170\" height=\"114\" alt=\"\">".html_safe, asset.file.url %>
     <p><strong><%= asset.name %></strong></p>
     <div class="pull-right">
       <%= link_to "Edit", [:edit, asset], :class => "btn btn-mini" %>
