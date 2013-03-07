@@ -1,7 +1,7 @@
 $(function() {
   // Support for AJAX loaded modal window.
   // Focuses on first input textbox after it loads the window.
-  $("[data-toggle='modal']").on('click', function(e) {
+  $("[data-previewtoggle='modal']").on('click', function(e) {
     e.preventDefault();
     var url = $(this).attr('href');
     if (url.indexOf('#') == 0) {
