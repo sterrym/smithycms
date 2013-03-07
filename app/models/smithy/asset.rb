@@ -13,7 +13,7 @@ module Smithy
       # check for the jquery uploaded file first
       if self.uploaded_file_url?
         dragonfly_attachments[:file].app.datastore = self.class.dragonfly_remote_datastore
-        self.file_url = self.uploaded_file_url
+        self.file_url = URI.escape(self.uploaded_file_url)
       elsif dragonfly_attachments[:file].to_value
         dragonfly_attachments[:file].app.datastore = self.class.dragonfly_datastore
       end
