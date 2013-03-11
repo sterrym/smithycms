@@ -2,7 +2,7 @@ require_dependency "smithy/application_controller"
 
 module Smithy
   class AssetsController < ApplicationController
-    before_filter :load_assets
+    before_filter :load_assets, :only => :index
     respond_to :html, :json, :js
 
     def index
@@ -44,7 +44,7 @@ module Smithy
 
     private
       def load_assets
-        @assets = Asset.all
+        @assets = Asset.order(:name).page(params[:page])
       end
   end
 end
