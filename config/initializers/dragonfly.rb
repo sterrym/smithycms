@@ -14,6 +14,9 @@ app = Dragonfly[:files]
 app.configure_with(:rails)
 app.configure_with(:imagemagick)
 
+# set the cache lifetime
+app.cache_duration = 3600*24*365*3  # 3 years in seconds
+
 ### Extend active record ###
 app.define_macro(ActiveRecord::Base, :image_accessor)
 app.define_macro(ActiveRecord::Base, :file_accessor)
