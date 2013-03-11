@@ -10,6 +10,7 @@
  *
  *= require_self
  *= depend_on smithy/bootstrap_and_overrides.css.scss
+ *= depend_on smithy/assets.css.scss
  *= depend_on smithy/content_blocks.css.scss
  *= depend_on smithy/layout.css.scss
  *= depend_on smithy/forms.css.scss
@@ -25,3 +26,4 @@
 @import 'pages';
 @import 'templates';
 @import 'content_blocks';
+@import 'assets';
