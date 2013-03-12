@@ -15,13 +15,12 @@ module Smithy
           @@content_blocks
         end
 
-        def register(content_block, description = nil)
+        def register(content_block)
           return unless ActiveRecord::Base.connection.table_exists?(Smithy::ContentBlock.table_name)
           return unless ActiveRecord::Base.connection.table_exists?(content_block.table_name)
           content_block_name = content_block.to_s.demodulize
           @@content_blocks << content_block_name unless @@content_blocks.include?(content_block_name)
           cb = Smithy::ContentBlock.find_or_initialize_by_name(content_block_name)
-          cb.description = description
           cb.save
           @@content_blocks
         end
