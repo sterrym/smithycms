@@ -1,0 +1,52 @@
+module Smithy
+  class PageList < ActiveRecord::Base
+    include Smithy::ContentBlocks::Model
+
+    attr_accessible :count, :page_template_id, :parent_id, :include_children, :sort
+
+    validates_presence_of :parent_id
+
+    belongs_to :parent, :class_name => "Page"
+
+    class << self
+      def sort_options
+        [
+          ['Sitemap Order', 'sitemap'],
+          ['Most Recently Created First', 'created_desc'],
+          ['Earliest Created First', 'created_asc'],
+          ['Alphabetical Order', 'title_asc'],
+          ['Reverse Alphabetical Order', 'title_desc']
+        ]
+      end
+    end
+
+    def pages
+      unless @pages
+        @pages = self.parent.children
+        @pages = @pages.except(:order).order(sort_sql) if self.sort?
+        @pages = @pages.limit(self.count) if self.count?
+        @pages = @pages.where(:template_id => self.page_template_id) if self.page_template_id?
+      end
+      @pages
+    end
+
+    def to_liquid
+      attributes
+    end
+
+    private
+      def sort_sql
+        case self.sort
+        when 'created_desc'
+          'created_at DESC'
+        when 'created_asc'
+          'created_at ASC'
+        when 'title_asc'
+          'title ASC'
+        when 'title_desc'
+          'title DESC'
+        end
+      end
+
+  end
+end

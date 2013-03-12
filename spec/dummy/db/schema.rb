@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130123173144) do
+ActiveRecord::Schema.define(:version => 20130311204227) do
 
   create_table "smithy_assets", :force => true do |t|
     t.string   "name"
@@ -81,6 +81,19 @@ ActiveRecord::Schema.define(:version => 20130123173144) do
   add_index "smithy_page_contents", ["content_block_type"], :name => "index_smithy_page_contents_on_content_block_type"
   add_index "smithy_page_contents", ["page_id"], :name => "index_smithy_page_contents_on_page_id"
   add_index "smithy_page_contents", ["position"], :name => "index_smithy_page_contents_on_position"
+
+  create_table "smithy_page_lists", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "page_template_id"
+    t.boolean  "include_children"
+    t.integer  "count"
+    t.string   "sort"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "smithy_page_lists", ["page_template_id"], :name => "index_smithy_page_lists_on_page_template_id"
+  add_index "smithy_page_lists", ["parent_id"], :name => "index_smithy_page_lists_on_parent_id"
 
   create_table "smithy_pages", :force => true do |t|
     t.string   "title",                                :null => false
