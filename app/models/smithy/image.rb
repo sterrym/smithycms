@@ -10,6 +10,10 @@ module Smithy
     has_many :page_contents, :as => :content_block, :dependent => :destroy
 
     class << self
+      def content_block_description
+        "Images are primarily used for adding image-based content to your pages"
+      end
+
       def image_scaling_options
         [
           ['Keep to Scale', ''],

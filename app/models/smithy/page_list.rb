@@ -9,6 +9,10 @@ module Smithy
     belongs_to :parent, :class_name => "Page"
 
     class << self
+      def content_block_description
+        "Page Lists are primarily used to provide a sub-navigation for parent pages or cross-navigation to other sections of your website."
+      end
+
       def sort_options
         [
           ['Sitemap Order', 'sitemap'],
