@@ -1,6 +1,6 @@
 module Smithy
   class ContentBlock < ActiveRecord::Base
-    attr_accessible :name, :description, :templates_attributes
+    attr_accessible :name, :templates_attributes
 
     validates_presence_of :name
 
@@ -9,6 +9,10 @@ module Smithy
     accepts_nested_attributes_for :templates, :reject_if => lambda {|a| a['name'].blank? || a['content'].blank? }, :allow_destroy => true
 
     default_scope order(:name)
+
+    def description
+      klass.content_block_description if klass
+    end
 
     def content_field_names
       unless @content_field_names

@@ -1,14 +1,18 @@
 require 'spec_helper'
 
-class SampleContentModel
+class Smithy::SampleContentModel
+  class << self
+    def content_block_description
+    end
+  end
   def self.column_names
     %w(id foo bar baz created_at updated_at)
   end
+
 end
 
 describe Smithy::ContentBlock do
   it { should allow_mass_assignment_of :name }
-  it { should allow_mass_assignment_of :description }
   it { should allow_mass_assignment_of :templates_attributes }
 
   it { should validate_presence_of :name }
@@ -18,14 +22,11 @@ describe Smithy::ContentBlock do
   it { should have_many :templates }
 
   describe "#content_field_names" do
-    let(:content_block) { FactoryGirl.create(:content_block) }
+    let(:content_block) { FactoryGirl.create(:content_block, :name => "SampleContentModel") }
     subject { content_block.content_field_names }
-    before do
-      content_block.stub(:klass => SampleContentModel)
-    end
     it { should == %w(foo bar baz) }
     context "when #to_liquid exists" do
-      let(:sample_content_model) { SampleContentModel.new }
+      let(:sample_content_model) { Smithy::SampleContentModel.new }
       subject { content_block.content_field_names }
       before do
         sample_content_model.stub(:to_liquid).and_return({
@@ -34,7 +35,7 @@ describe Smithy::ContentBlock do
           'baz' => 'baz_value',
           'file' => 'something_else'
         })
-        SampleContentModel.stub(:new).and_return(sample_content_model)
+        Smithy::SampleContentModel.stub(:new).and_return(sample_content_model)
       end
       it { should == %w(foo bar baz file) }
     end
