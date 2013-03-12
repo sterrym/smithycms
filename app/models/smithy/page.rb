@@ -74,16 +74,7 @@ module Smithy
     end
 
     def to_liquid
-      {
-        'id' => self.id,
-        'browser_title' => (self.browser_title.present? ? self.browser_title : self.generated_browser_title),
-        'title' => title,
-        'path' => url,
-        'meta_description' => description,
-        'meta_keywords' => keywords,
-        'breadcrumbs' => self.ancestors.where(["#{self.class.quoted_table_name}.#{self.class.primary_key} != ?", self.class.root]),
-        'container' => rendered_containers
-      }
+      Smithy::Liquid::Drops::Page.new(self)
     end
 
     def url

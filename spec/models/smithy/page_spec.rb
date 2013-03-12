@@ -86,17 +86,7 @@ describe Smithy::Page do
 
   describe "#to_liquid" do
     subject { FactoryGirl.create(:page, :title => "Foo Bar").to_liquid }
-    it { should be_a(Hash) }
-    it { should have_key('title') }
-    it { should have_key('browser_title') }
-    it { should have_key('meta_description') }
-    it { should have_key('meta_keywords') }
-    it { should have_key('container') }
-    describe "['container']" do
-      let(:page){ FactoryGirl.create(:page, :title => "Foo Bar") }
-      subject { page.to_liquid['container'] }
-      its(:keys) { should == page.containers.map(&:name) }
-    end
+    it { should be_a(Smithy::Liquid::Drops::Page) }
   end
 
   describe ".tree_for_select" do
