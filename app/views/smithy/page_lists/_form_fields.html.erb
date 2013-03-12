@@ -1,0 +1,6 @@
+<%= f.inputs do %>
+  <%= f.input :count, :label => "Limit number of pages to", :hint => "Leave blank for all pages" %>
+  <%= f.input :page_template_id, :label => "Only show these page types", :as => :select, :collection => Smithy::Template.templates.map{|t| [t.name, t.id] } %>
+  <%= f.input :parent_id, :label => "Show pages below", :as => :select, :collection => Smithy::Page.tree_for_select, :include_blank => false %>
+  <%= f.input :sort, :label => 'Pages should appear in this order', :as => :select, :collection => Smithy::PageList.sort_options, :include_blank => false %>
+<% end %>

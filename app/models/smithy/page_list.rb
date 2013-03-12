@@ -26,6 +26,7 @@ module Smithy
 
     def pages
       unless @pages
+        return unless self.parent
         @pages = self.parent.children
         @pages = @pages.except(:order).order(sort_sql) if self.sort?
         @pages = @pages.limit(self.count) if self.count?
@@ -35,7 +36,11 @@ module Smithy
     end
 
     def to_liquid
-      attributes
+      {
+        'id' => self.id,
+        'parent' => self.parent,
+        'pages' => self.pages
+      }
     end
 
     private
