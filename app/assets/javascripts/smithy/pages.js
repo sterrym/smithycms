@@ -13,13 +13,24 @@ $(function() {
     }
   });
 
+  $(".page-contents").sortable({
+    distance: 20,
+    handle: ".handle",
+    items: "tr.page_content",
+    update: function() {
+      $.ajax($(this).attr('data-reorder-href'), {
+        data: $(this).sortable("serialize", { key: "order[]" })
+      });
+    }
+  });
+
   $(".page-list").sortable({
     distance: 20,
     handle: ".handle",
     items: "> li.child",
-    update: function(e, ui) {
+    update: function() {
       $.ajax("/smithy/pages/order", {
-        data: $(".page-list").sortable("serialize", { key: "order[]" }),
+        data: $(".page-list").sortable("serialize", { key: "order[]" })
         // highlight on failure?
         // failure: function(xhr, status, error) {}
       });

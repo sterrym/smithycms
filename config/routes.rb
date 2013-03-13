@@ -13,6 +13,9 @@ Smithy::Engine.routes.draw do
         member do
           get :preview
         end
+        collection do
+          get :order
+        end
       end
     end
     resources :templates

@@ -52,6 +52,18 @@ module Smithy
       end
     end
 
+    def order
+      params[:order].each_with_index do |page_content_id, index|
+        page_content = @page.contents.find(page_content_id)
+        page_content.update_attribute(:position, index)
+      end
+      if request.xhr?
+        render :nothing => true, :status => 200
+      else
+        redirect_to edit_page_path(@page.id)
+      end
+    end
+
     private
       def build_content_block
         unless @page_content.content_block.present?
