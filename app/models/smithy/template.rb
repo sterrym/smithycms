@@ -13,12 +13,14 @@
     after_save :load_containers
 
     default_scope order(:name)
+    scope :javascripts, where(:template_type => "javascript")
     scope :partials, where(:template_type => "include")
+    scope :stylesheets, where(:template_type => "stylesheet")
     scope :templates, where(:template_type => "template")
 
     class << self
       def types
-        %w(template include)
+        %w(template include javascript stylesheet)
       end
     end
 
