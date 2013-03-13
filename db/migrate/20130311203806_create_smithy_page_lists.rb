@@ -9,7 +9,7 @@ class CreateSmithyPageLists < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :smithy_page_list, :parent_id
-    add_index :smithy_page_list, :page_template_id
+    add_index :smithy_page_lists, :parent_id
+    add_index :smithy_page_lists, :page_template_id
   end
 end
