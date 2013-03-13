@@ -48,8 +48,7 @@ module Smithy
           end
 
           def render(context)
-            controller  = context.registers[:controller]
-            controller.view_context.send(:javascript_include_tag, "/templates/javascripts/#{@javascript}")
+            "<script src=\"/templates/javascripts/#{@javascript}\" type=\"text/javascript\"></script>"
           end
         end
         class SmithyStylesheetLinkTag < ::Liquid::Tag
@@ -65,8 +64,7 @@ module Smithy
           end
 
           def render(context)
-            controller  = context.registers[:controller]
-            controller.view_context.send(:stylesheet_link_tag, "/templates/stylesheets/#{@stylesheet}")
+            "<link href=\"/templates/stylesheets/#{@stylesheet}\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">"
           end
         end
       end
