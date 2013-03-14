@@ -2,6 +2,7 @@ require_dependency "smithy/application_controller"
 
 module Smithy
   class TemplatesController < ApplicationController
+    skip_before_filter :authenticate_smithy_admin, :only => [ :javascript, :stylesheet ]
     before_filter :load_templates
     respond_to :html, :json
 
@@ -44,14 +45,12 @@ module Smithy
 
     def javascript
       @javascript = Template.javascripts.find_by_name(params[:javascript].sub(/\.js$/, ''))
-      raise ActiveRecord::RecordNotFound, "No such javascript '#{params[:javascript]}'" unless @javascript.present?
-      render :text => @javascript.content, :content_type => "text/javascript"
+      render_asset_template(@javascript, params[:javascript], 'text/javascript')
     end
 
     def stylesheet
       @stylesheet = Template.stylesheets.find_by_name(params[:stylesheet].sub(/\.css$/, ''))
-      raise ActiveRecord::RecordNotFound, "No such stylesheet '#{params[:stylesheet]}'" unless @stylesheet.present?
-      render :text => @stylesheet.content, :content_type => "text/css"
+      render_asset_template(@stylesheet, params[:stylesheet], 'text/css')
     end
 
     private
@@ -60,6 +59,13 @@ module Smithy
         @includes = Template.partials
         @javascripts = Template.javascripts
         @stylesheets = Template.stylesheets
+      end
+
+      def render_asset_template(template, template_name, content_type)
+        raise ActiveRecord::RecordNotFound, "No such stylesheet '#{template_name}'" unless template.present?
+        headers['Cache-Control'] = 'public; max-age=2592000' # cache for 30 days
+        headers['X-Content-Digest'] = Digest::SHA1.hexdigest(template.content) # digest of the content for cache control when the template changes
+        render :text => template.content, :content_type => content_type
       end
   end
 end
