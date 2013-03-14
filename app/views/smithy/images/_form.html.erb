@@ -1,6 +1,6 @@
 <%= semantic_form_for @image do |f| %>
   <%= f.inputs do %>
-    <%= f.input :asset %>
+    <%= f.input :asset, :collection => Smithy::Asset.order(:name) %>
   <% end %>
   <%= f.actions :submit %>
 <% end %>

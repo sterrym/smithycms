@@ -1,5 +1,5 @@
 <%= f.inputs do %>
-  <%= f.input :asset %>
+  <%= f.input :asset, :collection => Smithy::Asset.order(:name) %>
   <%= f.input :alternate_text %>
 <% end %>
 <%= f.inputs "Image Sizing (optional)" do %>
