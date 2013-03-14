@@ -18,8 +18,8 @@ module Smithy
       params[:path] = '' if params[:id].nil? && params[:path].nil? # sets the root path when nothing else is passed
       @page = Page.find(params[:path].nil? ? params[:id] : "/#{params[:path]}")
       redirect_to @page.external_link and return if @page.external_link?
-      # TODO: more exploration is needed around caching. Some server-side caching as well, for instance
-      expires_in(@page.cache_length.to_i.seconds)
+      # adding :public param allow Rack::Cache to cache the result
+      expires_in(@page.cache_length.to_i.seconds, :public => true)
       if stale?(@page)
         respond_with @page do |format|
           format.html {
