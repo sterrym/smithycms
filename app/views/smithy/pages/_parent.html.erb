@@ -2,7 +2,7 @@
 <%- if !@page.persisted? || @page.leaf? -%>
   <%= render @parent.children %>
 <% elsif @page.persisted? %>
-  <li<%= ' class="active"'.html_safe if params[:id].to_i == @page.id %>><%= link_to "<i class=\"icon-file\"></i> #{@page.title}".html_safe, edit_page_path(@page.id) %></li>
+  <li<%= ' class="active"'.html_safe if params[:id].to_i == @page.id %>><%= link_to "<i class=\"icon-folder-close\"></i> #{@page.title}".html_safe, edit_page_path(@page.id) %></li>
   <%= render @page.children %>
 <% end %>
 <% if @page.persisted? %>
