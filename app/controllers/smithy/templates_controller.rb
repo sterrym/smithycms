@@ -43,13 +43,13 @@ module Smithy
     end
 
     def javascript
-      @javascript = Template.find_by_name(params[:javascript].sub(/\.js$/, ''))
+      @javascript = Template.javascripts.find_by_name(params[:javascript].sub(/\.js$/, ''))
       raise ActiveRecord::RecordNotFound, "No such javascript '#{params[:javascript]}'" unless @javascript.present?
       render :text => @javascript.content, :content_type => "text/javascript"
     end
 
     def stylesheet
-      @stylesheet = Template.find_by_name(params[:stylesheet].sub(/\.css$/, ''))
+      @stylesheet = Template.stylesheets.find_by_name(params[:stylesheet].sub(/\.css$/, ''))
       raise ActiveRecord::RecordNotFound, "No such stylesheet '#{params[:stylesheet]}'" unless @stylesheet.present?
       render :text => @stylesheet.content, :content_type => "text/css"
     end
