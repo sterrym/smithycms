@@ -20,11 +20,9 @@ module Smithy
       redirect_to @page.external_link and return if @page.external_link?
       # adding :public param allow Rack::Cache to cache the result
       expires_in(@page.cache_length.to_i.seconds, :public => true)
-      if stale?(@page, :public => true)
+      if stale?(:etag => @page, :last_modified => @page.updated_at, :public => true)
         respond_with @page do |format|
-          format.html {
-            render_smithy_page
-          }
+          format.html { render_smithy_page }
         end
       end
     end
