@@ -63,7 +63,7 @@ module Smithy
 
       def render_asset_template(template, template_name, content_type)
         raise ActiveRecord::RecordNotFound, "No such stylesheet '#{template_name}'" unless template.present?
-        headers['Cache-Control'] = 'public; max-age=2592000' # cache for 30 days
+        expires_in(2592000.seconds, :public => true) # cache for 30 days
         headers['X-Content-Digest'] = Digest::SHA1.hexdigest(template.content) # digest of the content for cache control when the template changes
         render :text => template.content, :content_type => content_type
       end
