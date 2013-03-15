@@ -11,6 +11,7 @@
 
     before_save :uncache_liquid_template_if_content_changed
     after_save :load_containers
+    after_save :touch_pages
 
     default_scope order(:name)
     scope :javascripts, where(:template_type => "javascript")
@@ -33,6 +34,10 @@
         return unless self.template_type == 'template'
         container_names = liquid_template.root.nodelist.select{|n| n.is_a?(::Liquid::Variable) && n.name.match(/^page\.container\.(.*)/) }.map{|n| n.name.match(/^page\.container\.(.*)/)[1] }
         self.containers = container_names.map{|container_name| Smithy::TemplateContainer.new(:name => container_name) }
+      end
+
+      def touch_pages
+        self.pages.each(&:touch)
       end
 
       def uncache_liquid_template_if_content_changed

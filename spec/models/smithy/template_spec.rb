@@ -18,4 +18,10 @@ describe Smithy::Template do
 
   it { should have_many :pages }
   it { should have_many :containers }
+
+  context "with connected pages" do
+    let(:template) { FactoryGirl.create(:template) }
+    let!(:page) { FactoryGirl.create(:page, :template => template) }
+    specify { template.pages.each{|p| p.should_receive(:touch)} }
+  end
 end
