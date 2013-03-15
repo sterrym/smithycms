@@ -20,6 +20,7 @@ Smithy::Engine.routes.draw do
     end
     resources :templates
     resources :settings
+    resource :cache
 
     # Content Blocks
     resources :contents, :except => :index
