@@ -29,6 +29,18 @@ module Smithy
       context "#sort" do
         subject { FactoryGirl.create(:page_list, :parent => page1).pages }
         specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
+        context "by sitemap" do
+          let(:page_list) { FactoryGirl.create(:page_list, :parent => page1, :sort => "sitemap") }
+          subject { page_list.pages }
+          specify { page_list.parent.children.should_not_receive(:except) }
+          specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
+          context "after reordering" do
+            before do
+              page1_3.move_left
+            end
+            specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-3', 'Page 1-2'] }
+          end
+        end
         context "by title ascending" do
           subject { FactoryGirl.create(:page_list, :parent => page1, :sort => "title_asc").pages }
           specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
