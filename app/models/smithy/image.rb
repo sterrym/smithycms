@@ -2,7 +2,7 @@ module Smithy
   class Image < ActiveRecord::Base
     include Smithy::ContentBlocks::Model
 
-    attr_accessible :alternate_text, :asset_id, :height, :image_scaling, :link_url, :width
+    attr_accessible :alternate_text, :asset_id, :height, :html_attributes, :image_scaling, :link_url, :width
 
     validates_presence_of :asset
 
