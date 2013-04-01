@@ -13,8 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "A good CMS written in Rails."
   s.description = "Better than the rest."
 
-  # s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 
   s.add_dependency 'rails', '~> 3.2.11'
   s.add_dependency 'jquery-rails'
