@@ -10,8 +10,6 @@ require "sprockets/railtie"
 
 Bundler.require
 require "smithy"
-require "binding_of_caller"
-require "better_errors"
 require "devise"
 require "quiet_assets"
 
