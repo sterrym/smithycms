@@ -18,4 +18,9 @@ module NavSteps
   def set_nav_to(template)
     Smithy::Page.all.each{|p| p.template.update_attributes(:content => template) }
   end
+
+  def render_page(page)
+    context = ::Liquid::Context.new({}, {}, { :page => page, :site => Smithy::Site.new }, false)
+    page.template.liquid_template.render(context)
+  end
 end
