@@ -5,12 +5,10 @@ describe "NavigationMenus" do
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
   before do
     set_nav_to(default_site_nav)
-    visit home.path
   end
-  subject { page }
-
-  specify { find('ul#nav').all('li').count.should eql 2 }
+  subject { render_page(home) }
   it { should have_selector 'ul#nav' }
+  it { should have_selector 'ul#nav li', :count => 2 }
   it { should have_selector 'li#nav-page-1'}
   it { should have_selector 'li#nav-page-2'}
 
@@ -18,9 +16,10 @@ describe "NavigationMenus" do
   context "using a depth of 2" do
     before do
       set_nav_to(site_nav_with_depth_of_2)
-      visit home.path
     end
-    specify { find('ul#nav').all('li').count.should eql 5 }
+    subject { render_page(home) }
+    it { should have_selector 'ul#nav' }
+    it { should have_selector 'ul#nav li', :count => 5 }
     it { should have_selector 'li#nav-page-1'}
     it { should have_selector 'li#nav-page-2'}
     it { should have_selector 'li#nav-page-1-1'}
@@ -31,9 +30,10 @@ describe "NavigationMenus" do
   context "using a depth of 0" do
     before do
       set_nav_to(site_nav_with_depth_of_0)
-      visit home.path
     end
-    specify { find('ul#nav').all('li').count.should eql 6 }
+    subject { render_page(home) }
+    it { should have_selector 'ul#nav' }
+    it { should have_selector 'ul#nav li', :count => 6 }
     it { should have_selector 'li#nav-page-1'}
     it { should have_selector 'li#nav-page-2'}
     it { should have_selector 'li#nav-page-1-1'}
@@ -44,21 +44,25 @@ describe "NavigationMenus" do
 
   context "on a subpage" do
     before do
-      visit page1.path
+      set_nav_to(default_site_nav)
     end
-    specify { find('ul#nav').all('li').count.should eql 2 }
+    subject { render_page(page1) }
+    it { should have_selector 'ul#nav' }
+    it { should have_selector 'ul#nav li', :count => 2 }
     it { should have_selector 'li#nav-page-1'}
     it { should have_selector 'li#nav-page-2'}
+  end
 
-    context "when using page nav" do
-      before do
-        set_nav_to(default_page_nav)
-        visit page1.path
-      end
-      specify { find('ul#nav').all('li').count.should eql 3 }
-      it { should have_selector 'li#nav-page-1-1'}
-      it { should have_selector 'li#nav-page-1-2'}
-      it { should have_selector 'li#nav-page-1-3'}
+  context "when using page nav" do
+    before do
+      page1.reload # the rgt/lft columns were reporting incorrectly
+      set_nav_to(default_page_nav)
     end
+    subject { render_page(page1) }
+    it { should have_selector 'ul#nav' }
+    it { should have_selector 'ul#nav li', :count => 3 }
+    it { should have_selector 'li#nav-page-1-1'}
+    it { should have_selector 'li#nav-page-1-2'}
+    it { should have_selector 'li#nav-page-1-3'}
   end
 end
