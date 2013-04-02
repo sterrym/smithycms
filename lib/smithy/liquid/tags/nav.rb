@@ -42,7 +42,7 @@ module Smithy
           item_id = "nav-#{item.permalink}"
           href = item.url
           label = item.title
-          css_class = " class=\"#{@options[:active_class]}\"" if (@page && @page.id == item.id) || [item.path, item.external_link].include?(@controller.request.path)
+          css_class = " class=\"#{@options[:active_class]}\"" if (@page && @page.id == item.id) || (@controller && [item.path, item.external_link].include?(@controller.request.path))
           %Q{#{"  " * depth}<li id="#{item_id}"#{css_class}><a href="#{href}">#{label}</a>#{render_children(item, depth.succ)}</li>}
         end
 
