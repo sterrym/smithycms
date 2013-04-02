@@ -7,6 +7,5 @@ FactoryGirl.define do
     description { Faker::Lorem.sentence }
     keywords { Faker::Lorem.words(10).join(' ') }
     published_at 1.day.ago
-    cache_length 0
   end
 end
