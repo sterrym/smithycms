@@ -28,8 +28,11 @@ Spork.prefork do
     # if none are focused, run everything
     config.run_all_when_everything_filtered = true
     # include the routes url_helpers
-    config.include Smithy::Engine.routes.url_helpers
-    config.include Rails.application.routes.url_helpers
+    config.before do
+      @routes = Smithy::Engine.routes
+      # for rspec >= 2.13
+      assertion_instance.instance_variable_set(:@routes, Smithy::Engine.routes) if respond_to?(:assertion_instance)
+    end
   end
 end
 
