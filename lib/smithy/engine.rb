@@ -25,6 +25,13 @@ module Smithy
     end
 
     config.after_initialize do
+      # We need to reload the routes here due to how Smithy sets them up.
+      # The different facets of Smithy (auth) append/prepend routes to Smithy
+      # *after* the main engine has been loaded.
+      #
+      # So we wait until after initialization is complete to do one final reload.
+      # This then makes the appended/prepended routes available to the application.
+      Rails.application.routes_reloader.reload!
       # we need to require all our model files so that ContentBlocks
       # are registered with the engine
       Dir[Smithy::Engine.root.join('app', 'models', 'smithy', '*.rb')].each do |file|
