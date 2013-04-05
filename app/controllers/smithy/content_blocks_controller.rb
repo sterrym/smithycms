@@ -1,4 +1,4 @@
-require_dependency "smithy/application_controller"
+require_dependency "smithy/base_controller"
 
 module Smithy
   class ContentBlocksController < BaseController

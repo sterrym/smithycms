@@ -1,3 +1,5 @@
+require_dependency "smithy/base_controller"
+
 module Smithy
   class GuidesController < BaseController
     def show
