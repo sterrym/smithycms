@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class ContentsController < ApplicationController
+  class ContentsController < BaseController
     respond_to :html, :json
 
     def show

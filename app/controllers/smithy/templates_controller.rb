@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class TemplatesController < ApplicationController
+  class TemplatesController < BaseController
     skip_before_filter :authenticate_smithy_admin, :only => [ :javascript, :stylesheet ]
     before_filter :load_templates
     respond_to :html, :json

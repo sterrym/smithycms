@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class ContentBlocksController < ApplicationController
+  class ContentBlocksController < BaseController
     before_filter :load_content_blocks
     respond_to :html, :json
 

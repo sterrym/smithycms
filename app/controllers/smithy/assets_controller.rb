@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class AssetsController < ApplicationController
+  class AssetsController < BaseController
     before_filter :load_assets, :only => :index
     respond_to :html, :json, :js
 

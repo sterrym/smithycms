@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class SettingsController < ApplicationController
+  class SettingsController < BaseController
     respond_to :html, :json
 
     def index

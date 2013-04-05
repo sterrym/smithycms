@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class ImagesController < ApplicationController
+  class ImagesController < BaseController
     respond_to :html, :json
 
     def show

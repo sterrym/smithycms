@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class CachesController < ApplicationController
+  class CachesController < BaseController
     def show
     end
 

@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class PagesController < ApplicationController
+  class PagesController < BaseController
     skip_before_filter :authenticate_smithy_admin, :only => [ :show ]
     include Smithy::Liquid::Rendering
     before_filter :initialize_page, :only => [ :new, :create ]

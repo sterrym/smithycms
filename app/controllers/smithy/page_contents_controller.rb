@@ -1,7 +1,7 @@
 require_dependency "smithy/application_controller"
 
 module Smithy
-  class PageContentsController < ApplicationController
+  class PageContentsController < BaseController
     before_filter :load_page
     before_filter :load_page_content, :only => [ :edit, :update, :destroy, :preview ]
     before_filter :build_content_block, :only => [ :edit, :update ]

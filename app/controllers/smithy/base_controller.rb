@@ -1,4 +1,4 @@
-class Smithy::ApplicationController < ApplicationController
+class Smithy::BaseController < ApplicationController
   before_filter :authenticate_smithy_admin
 
   private
