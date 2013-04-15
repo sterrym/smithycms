@@ -5,6 +5,8 @@ require 'smithy/dependencies'
 require 'smithy/logger'
 require 'smithy/dragonfly'
 require 'smithy/liquid'
+# content formatting
+require 'smithy/formatter'
 #
 require 'smithy/content_blocks'
 

@@ -28,8 +28,8 @@ module Smithy
 
     private
       def render_markdown_content
-        formatter = ::Slodown::Formatter.new(self.content)
-        self.markdown_content = formatter.complete.to_s
+        formatter = Smithy::Formatter.new(self.content)
+        self.markdown_content = formatter.render
       end
   end
 end
