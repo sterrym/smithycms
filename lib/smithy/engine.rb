@@ -38,5 +38,11 @@ module Smithy
         require_dependency file if ActiveRecord::Base.connection.table_exists?(file.pluralize)
       end
     end
+
+    # TODO: Abstract out the configuration
+    # initializer "smithy.config", :before => :load_config_initializers do |app|
+    #   Smithy::Config = app.config.smithy.preferences
+    # end
+
   end
 end
