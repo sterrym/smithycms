@@ -32,6 +32,8 @@ describe Smithy::Page do
   its(:show_in_navigation) { should be_true }
   its(:cache_length) { should eql 600 }
 
+  its(:site) { should be_a Smithy::Site }
+
   context "won't allow a second root page" do
     let!(:first_home_page) { FactoryGirl.create(:page, :title => "Home1") }
     subject { FactoryGirl.build(:page, :title => "Home") }
@@ -64,13 +66,20 @@ describe Smithy::Page do
   end
 
   describe  "#generated_browser_title" do
-    subject { FactoryGirl.create(:page, :title => "Foo Bar").generated_browser_title }
-    it { should == 'Foo Bar' }
+    let(:home) { FactoryGirl.create(:page, :title => "Home") }
+    let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
+    subject { home.generated_browser_title }
+    it { should == 'Home' }
     context "when it's a child page" do
-      let(:home) { FactoryGirl.create(:page, :title => "Home") }
-      let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
       subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage).generated_browser_title }
       it { should == 'Foo Bar | Baz Qux'}
+    end
+    context "with a site title" do
+      before do
+        Smithy::Site.title = 'CoolSite'
+      end
+      subject { home.generated_browser_title }
+      it { should == 'Home | CoolSite' }
     end
   end
 

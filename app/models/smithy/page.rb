@@ -44,6 +44,9 @@ module Smithy
       unless @generated_browser_title
         titles = self.self_and_ancestors.map(&:title)
         titles = titles[1..-1] unless root?
+        if site.title.present?
+          titles << site.title
+        end
         @generated_browser_title = titles.join(' | ')
       end
       @generated_browser_title
@@ -71,6 +74,10 @@ module Smithy
       rendered_containers = {}
       self.container_names.each{|cn| rendered_containers[cn] = render_container(cn) }
       rendered_containers
+    end
+
+    def site
+      @site ||= Smithy::Site.new
     end
 
     def to_liquid
