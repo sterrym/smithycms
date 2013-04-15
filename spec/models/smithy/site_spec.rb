@@ -13,6 +13,9 @@ describe Smithy::Site do
       Smithy::Site.title = 'FooBar'
     end
     its(:title) { should eql 'FooBar' }
+    after do
+      Smithy::Site.title = nil
+    end
   end
 
   describe "#to_liquid" do

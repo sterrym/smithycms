@@ -80,6 +80,9 @@ describe Smithy::Page do
       end
       subject { home.generated_browser_title }
       it { should == 'Home | CoolSite' }
+      after do
+        Smithy::Site.title = nil
+      end
     end
   end
 
