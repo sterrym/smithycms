@@ -21,7 +21,7 @@ module Smithy
           ),
           attributes: {
             :all     => ['class', 'style', 'title', 'id'],
-            'a'      => ['href', 'rel', 'name'],
+            'a'      => ['href', 'rel', 'name', 'target'],
             'li'     => ['id'],
             'sup'    => ['id'],
             'img'    => ['src', 'title', 'alt', 'width', 'height'],
