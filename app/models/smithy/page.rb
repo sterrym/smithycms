@@ -67,7 +67,9 @@ module Smithy
     end
 
     def render_container(container_name)
-      self.contents.where(:container => container_name).map(&:render).join("\n\n")
+      Rails.cache.fetch("#{self.cache_key}-#{container_name}-container") do
+        self.contents.where(:container => container_name).map(&:render).join("\n\n")
+      end
     end
 
     def rendered_containers
