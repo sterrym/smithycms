@@ -12,7 +12,7 @@ module Smithy
 
       def render_as_smithy_page(template_name)
         context = ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, false)
-        output = Smithy::Template.find_by_name(template_name).liquid_template.render(context)
+        output = Smithy::Template.templates.find_by_name(template_name).liquid_template.render(context)
         render :text => output, :layout => false
       end
 
