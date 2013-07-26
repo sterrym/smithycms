@@ -18,7 +18,7 @@ module Smithy
       params[:path] = '' if params[:id].nil? && params[:path].nil? # sets the root path when nothing else is passed
       @page = Page.find(params[:path].nil? ? params[:id] : "/#{params[:path]}")
       redirect_to @page.external_link and return if @page.external_link?
-      if smithy_current_user # no caching if you're the admin
+      if smithy_current_user # no caching if you're editing
         respond_with @page do |format|
           format.html { render_smithy_page }
         end
