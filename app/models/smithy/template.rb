@@ -26,7 +26,9 @@
     end
 
     def liquid_template
-      @liquid_template ||= ::Liquid::Template.parse(self.content)
+      @liquid_template ||= Rails.cache.fetch("#{self.cache_key}-liquid_template") do
+        ::Liquid::Template.parse(self.content)
+      end
     end
 
     private
