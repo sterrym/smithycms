@@ -5,15 +5,19 @@ module Smithy
       private
 
       def render_smithy_page
-        context = ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, false)
-        output = @page.template.liquid_template.render(context)
+        output = Rails.cache.fetch("#{@page.cache_key}-render_smithy_page") do
+          @page.template.liquid_template.render(liquid_context)
+        end
         render :text => output, :layout => false
       end
 
       def render_as_smithy_page(template_name)
-        context = ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, false)
-        output = Smithy::Template.templates.find_by_name(template_name).liquid_template.render(context)
+        output = Smithy::Template.templates.find_by_name(template_name).liquid_template.render(liquid_context)
         render :text => output, :layout => false
+      end
+
+      def liquid_context
+        ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, false)
       end
 
       def smithy_default_assigns
