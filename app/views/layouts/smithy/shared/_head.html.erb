@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield :title %><%= " | " if content_for?(:title) %>Smithy</title>
+  <title><% if content_for?(:browser_title) %><%= yield :browser_title %><% else %><%= yield :title %><% end %><%= " | " if content_for?(:browser_title) || content_for?(:title) %>Smithy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "smithy/application", :media => "all" %>
   <%= csrf_meta_tags %>
