@@ -21,9 +21,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
 
   s.add_dependency 'awesome_nested_set', '~> 2.1.5'
-  s.add_dependency 'bootstrap-sass', '~> 2.3.0.0'
-  s.add_dependency 'dragonfly', '~> 0.9.12'
-  s.add_dependency 'font-awesome-sass-rails', '~> 2.0.0'
+  s.add_dependency 'bootstrap-sass', '~> 2.3.2.1'
+  s.add_dependency 'dragonfly', '~> 0.9.15'
+  s.add_dependency 'font-awesome-sass-rails', '~> 3.0.2'
   s.add_dependency 'fog', '~> 1.7.0'
   s.add_dependency 'formtastic', '~> 2.2'
   s.add_dependency 'formtastic-bootstrap', '~> 2.0'
