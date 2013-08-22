@@ -5,8 +5,12 @@ module Smithy
       private
 
       def render_smithy_page
-        output = Rails.cache.fetch("#{@page.cache_key}-render_smithy_page") do
-          @page.template.liquid_template.render(liquid_context)
+        if smithy_current_user
+          output = @page.template.liquid_template.render(liquid_context)
+        else
+          output = Rails.cache.fetch("#{@page.cache_key}-render_smithy_page") do
+            @page.template.liquid_template.render(liquid_context)
+          end
         end
         render :text => output, :layout => false
       end
