@@ -5,11 +5,18 @@
 
 <%= semantic_form_for @template do |f| %>
   <%= f.inputs do %>
-    <%= f.input :content, :label => "Template Content" %>
+    <%= f.input :content, :label => "Template Content", :input_html => { :id => "template_content-#{@template.id}" } %>
+    <div id="template_content_editor-<%= @template.id %>" class="template_content_editor"></div>
   <% end %>
   <%= f.actions do %>
     <%= f.text_field :name %>
     <%= f.action :submit, :label => "Save this #{@template.template_type.capitalize}" %>
+  <% end %>
+<% end %>
+
+<% content_for :javascript do %>
+  <%= javascript_tag do %>
+    ace_edit(<%= @template.id %>, '<%= @template_editor_type %>');
   <% end %>
 <% end %>
 

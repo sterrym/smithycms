@@ -26,6 +26,14 @@ module Smithy
 
     def edit
       @template = Template.find(params[:id])
+      @template_editor_type = case @template.template_type
+      when 'javascript'
+        'javascript'
+      when 'stylesheet'
+        'css'
+      else
+        'liquid'
+      end
       respond_with @template
     end
 

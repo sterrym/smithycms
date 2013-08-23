@@ -1,3 +1,13 @@
 .template_types {}
+
+textarea[name="template[content]"],
+textarea[name="content[content]"],
 #template_content,
 #content_content { height:100%; width:97%; }
+
+.template_content_editor {
+  display:none;
+  min-height:40em;
+  width:97%;
+  position:relative;
+}
