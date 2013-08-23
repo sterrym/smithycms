@@ -1,0 +1,6 @@
+v0.0.5
+Integrated the ace editor into template editing. So much nicer than a textarea.
+
+This is the basic functionality of the CMS. While I wouldn't precisely call it rock-stable, I am using it in production on my own projects.
+
+Currently, all file uploads require AWS/S3 to be set up. Clearly, this needs to be extended to other solutions - we'll get there.
