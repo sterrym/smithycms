@@ -34,7 +34,7 @@ Now start up your server and go to http://localhost:nnnn/smithy/templates
 
 ### Templates
 
-Create your first Template, naming it whatever you want ("Home" or "Default" or something equally original). In the content, add `{{ page.container.main_content }}`. In the background, this will auto-create a container that will be used by any page using your template. You can name your container whatever you would like: `{{ page.container.foo }}` works as well.
+Create your first Template, naming it whatever you want ("Home" or "Default" or something equally original). In the content, add `{{ page.container.main_content }}`. In the background, this will auto-create a container that will be used by any page using your template. You can name your container whatever you would like: `{{ page.container.foo }}` works as well. After you have created new page containers, they will automatically show up on the Page edit screen and allow you to add content to the container.
 
 If you want, you can create Includes. For instance, if you create an Include named "header", you can utilize it in your Template via `{% include 'header' %}`.
 
