@@ -5,7 +5,7 @@ module Smithy
       model_object = form_builder.object.class.reflect_on_association(association).klass.new
       form_builder.template.concat(raw %Q[<div id="#{association}_fields_blueprint" style="display:none;">])
       fields = form_builder.semantic_fields_for(association, model_object, :child_index => "new_#{association}") do |builder|
-        form_builder.template.concat(raw render(association.to_s.singularize + "_fields", :f => builder))
+        form_builder.template.concat(raw render("#{form_builder.object.class.to_s.tableize}/#{association.to_s.singularize}_fields", :f => builder))
       end
       form_builder.template.concat(fields)
       form_builder.template.concat(raw '</div>')
