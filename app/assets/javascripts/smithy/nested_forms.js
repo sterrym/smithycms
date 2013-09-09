@@ -2,7 +2,7 @@
   Nested Forms
 */
 $(function() {
-  $("form a.add_nested_fields").on('click', function() {
+  $('form').on('click', 'a.add_nested_fields', function() {
     // Setup
     var assoc   = $(this).attr('data-association');           // Name of child
     var content = $('#' + assoc + '_fields_blueprint').html(); // Fields template
@@ -38,7 +38,7 @@ $(function() {
     return false;
   });
 
-  $('form a.remove_nested_fields').on('click', function() {
+  $('form').on('click', 'a.remove_nested_fields', function() {
     var container = $(this).closest('.destroy');
     var hidden_field = $('input[type=hidden]', container).val('1');
     $(this).closest('.nested').hide();
@@ -50,8 +50,6 @@ $(function() {
   $('form .destroy .controls label').each(function(i) {
     link = $('<a href="javascript:void(0);" class="btn btn-danger btn-mini">Delete</a>').addClass("remove_nested_fields");
     $(this).empty().append($(link));
-    // hidden_field = $("input[type=hidden]", $(this).parent("li"));
-    // $(this).empty().append($(hidden_field)).append($(link));
   });
 
 });
