@@ -2,9 +2,18 @@
   <%= f.inputs "Template", :class => "inputs content_block_template_fields" do %>
     <%= f.input :id, :as => :hidden %>
     <%= f.input :name %>
-    <%= f.input :content, :input_html => { :rows => 10 } %>
+    <%= f.input :content, :label => "Template Content", :input_html => { :id => "template_content-#{f.object.id}" } %>
+    <div id="template_content_editor-<%= f.object.id %>" class="template_content_editor"></div>
     <% unless f.object.new_record? %>
       <%= f.input :_destroy, :label => "Delete", :as => :boolean, :wrapper_html => {:class => "destroy inline"} %>
     <% end %>
   <% end %>
 </div>
+
+<% content_for :javascript do %>
+<%- if f.object.id.present? -%>
+  <%= javascript_tag do %>
+    ace_edit(<%= f.object.id %>, 'liquid');
+  <% end %>
+<%- end -%>
+<% end %>
