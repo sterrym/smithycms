@@ -21,7 +21,3 @@ var ace_edit = function(id, template_type) {
   });
   return this;
 }
-
-$(function() {
-
-});
