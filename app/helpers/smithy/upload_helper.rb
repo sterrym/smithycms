@@ -1,11 +1,44 @@
 module Smithy
   module UploadHelper
     def uploader_form(object, options = {}, &block)
+      # s3_uploader = S3Uploader.new(options)
+      # uploader = s3_uploader.s3_available? ? s3_uploader : FileUploader.new(options)
       uploader = S3Uploader.new(options)
       form_tag(uploader.url, uploader.form_options) do
         uploader.fields.map do |name, value|
           hidden_field_tag(name, value)
         end.join.html_safe + capture(&block)
+      end
+    end
+
+    class FileUploader
+      def initialize(options)
+        @options = options.reverse_merge( id: "fileupload" )
+      end
+
+      def fields
+        { :key => key }
+      end
+
+      def form_options
+        {
+          id: @options[:id],
+          method: "post",
+          authenticity_token: false,
+          multipart: true,
+          data: {
+            post: @options[:post],
+            as: @options[:as]
+          }
+        }
+      end
+
+      def key
+        @key ||= "uploads/assets/${filename}"
+      end
+
+      def url
+        @options[:post]
       end
     end
 
@@ -78,6 +111,10 @@ module Smithy
             @options[:aws_secret_access_key], policy
           )
         ).gsub("\n", "")
+      end
+
+      def s3_available?
+        @options[:aws_access_key_id].present? && @options[:aws_secret_access_key].present? && @options[:bucket].present?
       end
     end
   end
