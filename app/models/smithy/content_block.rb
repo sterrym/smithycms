@@ -5,6 +5,9 @@ module Smithy
     validates_presence_of :name
 
     has_many :templates, :class_name => "ContentBlockTemplate"
+    has_many :page_contents
+
+    after_save :touch_page_contents
 
     accepts_nested_attributes_for :templates, :reject_if => lambda {|a| a['name'].blank? || a['content'].blank? }, :allow_destroy => true
 
@@ -27,7 +30,12 @@ module Smithy
 
     private
       def klass
-        @klass ||= "Smithy::#{self.name}".constantize
+        @klass ||= "#{self.name}".safe_constantize || "Smithy::#{self.name}".safe_constantize
       end
+
+      def touch_page_contents
+        self.page_contents.each(&:touch)
+      end
+
   end
 end
