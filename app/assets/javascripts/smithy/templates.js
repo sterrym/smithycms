@@ -2,13 +2,13 @@ var ace_edit = function(id, template_type) {
   $('#template_content_editor-'+id).show();
   var editor = ace.edit('template_content_editor-'+id);
   var textarea = $('textarea[id="template_content-'+id+'"]').hide();
-  // textarea.closest('.control-group').hide();
-  editor.getSession().setMode("ace/mode/" + template_type);
-  editor.getSession().setValue(textarea.val());
-  editor.getSession().setTabSize(2);
-  editor.getSession().setUseSoftTabs(true);
-  editor.getSession().setUseWrapMode(true);
-  editor.getSession().on('change', function(){
+  var session = editor.getSession();
+  session.setMode("ace/mode/" + template_type);
+  session.setValue(textarea.val());
+  session.setTabSize(2);
+  session.setUseSoftTabs(true);
+  session.setUseWrapMode(true);
+  session.on('change', function(){
     textarea.val(editor.getSession().getValue());
   });
   editor.commands.addCommand({
@@ -19,5 +19,5 @@ var ace_edit = function(id, template_type) {
     },
     readOnly: false
   });
-  return this;
+  return editor;
 }
