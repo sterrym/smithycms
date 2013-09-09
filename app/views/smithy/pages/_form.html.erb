@@ -18,6 +18,7 @@
     <%= f.input :title %>
     <%= f.input :permalink, :hint => "This will be auto-created if blank. Only fill it in if you know what you're doing" %>
     <%= f.input :parent, :include_blank => false, :collection => Smithy::Page.tree_for_select unless !@page.parent_id? %>
+    <%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
     <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
   <% end %>
   <% if @page.persisted? && @page.external_link.blank? %>
@@ -32,9 +33,7 @@
   <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
     <%= f.inputs do %>
       <%= f.input(:external_link) unless @page.external_link? %>
-      <%= f.input :show_in_navigation %>
       <%= f.input :cache_length, :hint => "In seconds (eg. 600 is 10 minutes)" %>
-      <%= f.input :published_at, :as => :string, :input_html => { :class => 'datetime-picker' } %>
     <% end %>
   <% end %>
   <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
