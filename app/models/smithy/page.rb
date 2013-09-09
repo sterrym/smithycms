@@ -40,6 +40,20 @@ module Smithy
       @container_names ||= containers.map(&:name)
     end
 
+    def contents_for_container_name(container_name)
+      self.contents.where(:container => container_name)
+    end
+
+    def container_cache_key(container_name)
+      # fetch the most recently adjusted content and add the updated_at timestamp to the cache_key
+      content_last_updated = if self.contents_for_container_name(container_name).size > 0
+        self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at.utc.to_s(cache_timestamp_format)
+      else
+        self.updated_at.utc.to_s(cache_timestamp_format)
+      end
+      "#{self.cache_key}/#{container_name}-container/#{content_last_updated}"
+    end
+
     def generated_browser_title
       unless @generated_browser_title
         titles = self.self_and_ancestors.map(&:title)
@@ -67,8 +81,8 @@ module Smithy
     end
 
     def render_container(container_name)
-      Rails.cache.fetch("#{self.cache_key}-#{container_name}-container") do
-        self.contents.where(:container => container_name).map(&:render).join("\n\n")
+      Rails.cache.fetch(self.container_cache_key(container_name)) do
+        self.contents_for_container_name(container_name).map(&:render).join("\n\n")
       end
     end
 
