@@ -10,9 +10,12 @@ module Smithy
     include Smithy::Dragonfly::AssetHelper
 
     before_validation :set_name
+    before_save :set_file_uid_manually
+
+    default_scope order(:name)
 
     def file
-      # check for the jquery uploaded file first
+      # check for the jquery uploaded file first, just in case one got past the manual check. Also keeps backwards-compatibility
       if self.uploaded_file_url?
         dragonfly_attachments[:file].app.datastore = self.class.dragonfly_remote_datastore
         self.file_url = URI.escape(self.uploaded_file_url)
@@ -37,6 +40,15 @@ module Smithy
     end
 
     private
+      # this allows dragonfly to take over management of the uploaded file. We are
+      # assuming that jquery-upload and dragonfly are using the same data storage...
+      def set_file_uid_manually
+        if self.uploaded_file_url? # this means it was uploaded via jquery-upload
+          self.file_uid = URI.parse(self.uploaded_file_url).path.sub(/^\//, '')
+          self.uploaded_file_url = nil
+        end
+      end
+
       def set_name
         if self.uploaded_file_url?
           self.name = File.basename(self.uploaded_file_url, '.*').titleize unless self.name?
