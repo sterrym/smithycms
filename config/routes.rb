@@ -1,8 +1,9 @@
 Smithy::Engine.routes.draw do
   root :to => 'pages#show'
   scope "/smithy" do
-    match "/login" => redirect("/"), :as => :login
-    match '/logout' => redirect("/"), :as => :logout
+    match '/' => redirect('/smithy/pages')
+    match '/login'  => redirect('/'), :as => :login
+    match '/logout' => redirect('/'), :as => :logout
     # CMS admin
     resources :assets
     resources :content_blocks
@@ -27,8 +28,6 @@ Smithy::Engine.routes.draw do
     # Content Blocks
     resources :contents, :except => :index
     resources :images, :except => :index
-
-    root :to => 'pages#index'
   end
   match '/templates/javascripts/*javascript' => 'templates#javascript', :defaults => { :format => 'js' }
   match '/templates/stylesheets/*stylesheet' => 'templates#stylesheet', :format => 'css'
