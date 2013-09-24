@@ -16,11 +16,15 @@ To get started, add this to your Gemfile
 gem 'smithy', :github => 'sterrym/smithy'
 ```
 
+If you need basic authentication and don't want to integrate with existing auth in your system, add this to your Gemfile too:
+gem 'smithy-auth', :github => 'sterrym/smithy-auth'
+
 Installing the CMS is simple, you can just
 
 ```shell
 bundle install
 rake smithy:install:migrations
+rake smithy_auth:install:migrations # (if you are using smithy-auth)
 rake db:migrate
 ```
 
@@ -30,7 +34,29 @@ To your routes file, you need to mount Smithy - typically, this would be done at
 mount Smithy::Engine => "/"
 ```
 
-Now start up your server and go to http://localhost:nnnn/smithy/templates
+Now start up your server and go to http://localhost:nnnn/smithy
+
+## Integrating with third-party authentication
+
+Add this to your routes file (below the `mount Smithy::Engine` line). It will redirect smithy/login|logout (the built-in paths) to your existing authentication paths.
+
+```ruby
+scope "/smithy" do
+  match "/login" => redirect("/your/login/path"), :as => :login
+  match '/logout' => redirect("/"), :as => :logout
+end
+```
+
+Add the following to your application controller:
+
+```ruby
+def smithy_current_user
+  current_user # use whichever method name you have implemented to return the current_user
+end
+helper_method :smithy_current_user
+```
+
+Restart your local server and you should be good to go.
 
 ### Templates
 
