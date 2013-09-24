@@ -7,7 +7,7 @@ class Smithy::BaseController < ApplicationController
 
     def authenticate_smithy_admin
       if !smithy_current_user || !smithy_current_user.smithy_admin?
-        flash.alert = "You are not allowed to do that."
+        flash.alert = "Please login to continue."
         redirect_to smithy_login_path
       end
     end
