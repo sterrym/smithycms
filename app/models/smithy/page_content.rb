@@ -9,10 +9,13 @@ module Smithy
     belongs_to :content_block, :polymorphic => true
     belongs_to :content_block_template
 
+    before_update :set_publishable
+
     accepts_nested_attributes_for :content_block, :allow_destroy => true
 
     default_scope order(:position).order(:id)
     scope :for_container, lambda {|container| where(:container => container) }
+    scope :publishable, lambda { where(:publishable => true) }
 
     def attributes=(attributes = {})
       self.content_block_type = attributes[:content_block_type]
@@ -49,5 +52,10 @@ module Smithy
       end
       @templates
     end
+
+    private
+      def set_publishable
+        self.publishable = true if self.content_block
+      end
   end
 end

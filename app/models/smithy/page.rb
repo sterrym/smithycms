@@ -41,7 +41,7 @@ module Smithy
     end
 
     def contents_for_container_name(container_name)
-      self.contents.where(:container => container_name)
+      self.contents.publishable.for_container(container_name)
     end
 
     def container_cache_key(container_name)
