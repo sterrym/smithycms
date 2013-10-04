@@ -4,7 +4,7 @@ module Smithy
       class Nav < ::Liquid::Tag
         Syntax = /(#{::Liquid::Expression}+)?/
 
-        # {% nav site, id: 'main-nav', depth: 1, class: 'nav', active_class: 'on' }
+        # {% nav site|page, id: 'main-nav', depth: 1, class: 'nav', active_class: 'on' }
         def initialize(tag_name, markup, tokens)
           @options = { :id => 'nav', :depth => 1, :class => '', :active_class => 'on' }
           if markup =~ Syntax
@@ -64,6 +64,8 @@ module Smithy
             Smithy::Page.root
           when 'page'
             @page
+          when 'section'
+            @page == Smithy::Page.root ? @page : @page.self_and_ancestors.second
           end
         end
 
