@@ -56,6 +56,16 @@ end
 helper_method :smithy_current_user
 ```
 
+If you wish for all of your users to have access to smithy, simply add this method to your user model:
+
+```ruby
+def smithy_admin?
+  true
+end
+```
+
+Alternatively, you can add a boolean field (via migration) named `smithy_admin` to your users table and manage the field with with your existing user management.
+
 Restart your local server and you should be good to go.
 
 ### Templates
