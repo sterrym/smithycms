@@ -19,7 +19,7 @@ describe Smithy::Liquid::Tags::Csrf do
   end
 
   def render_tag(tag_name = 'csrf_param')
-    controller = mock('controller', {
+    controller = double('controller', {
       :request_forgery_protection_token => 'token',
       :form_authenticity_token          => '42'
     })
