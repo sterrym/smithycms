@@ -55,12 +55,26 @@ describe "NavigationMenus" do
 
   context "when using page nav" do
     before do
-      page1.reload # the rgt/lft columns were reporting incorrectly
       set_nav_to(default_page_nav)
+      page1.reload # the pages weren't reporting properly
     end
     subject { render_page(page1) }
     it { should have_selector 'ul#nav' }
     it { should have_selector 'ul#nav li', :count => 3 }
+    it { should have_selector 'li#nav-page-1-1'}
+    it { should have_selector 'li#nav-page-1-2'}
+    it { should have_selector 'li#nav-page-1-3'}
+  end
+
+  context "when using section nav" do
+    before do
+      set_nav_to(default_section_nav)
+      page1.reload # the pages weren't reporting properly
+    end
+    subject { render_page(page1_3_1) }
+    it { should have_selector 'ul#nav' }
+    it { should have_selector 'ul#nav li', :count => 3 }
+    it { should_not have_selector 'li#nav-page-2'}
     it { should have_selector 'li#nav-page-1-1'}
     it { should have_selector 'li#nav-page-1-2'}
     it { should have_selector 'li#nav-page-1-3'}
