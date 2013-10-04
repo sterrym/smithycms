@@ -83,3 +83,58 @@ Follow the "Manage Content" link in the header and create your first page. Add a
 ### Content Blocks
 
 Smithy comes with some useful Content Blocks already created, though you may need to add them to your system: Content, Image, PageList. After adding a Content Block, you must also create at least one template for it before you can use it on a page. Once you have added a template, you can utilize that Content Block in any available Page container.
+
+### Adding Custom Content Blocks
+
+While Smithy has some default Content Blocks, you will often want to add your own structured content, allowing you to manage templates for more structured content. To add a custom Content Block, do the following:
+
+1. create a new table & model or use an existing one from your app. This can be a single, stand-alone model or a model with associations, Smithy doesn't really care.
+2. Add `include Smithy::ContentBlocks::Model` to the top of your model. This gives some extra functionality for Smithy.
+2. Add a views/mymodel/_form_fields.html.erb to your app, replacing "mymodel" with your new model name. This is identical to adding your own view/partial for the model. An "f" variable is passed to the partial, which represents a formtastic form. While formtastic is outside the scope of this document (look it up!), you can also just create your form however you want though it will be way simpler to just use formtastic syntax!
+3. Smithy will automatically look for your _form_fields.html.erb partial to manage the Content Block when adding Page Content to a page.
+4. Register your Content Block by entering the Smithy admin, clicking on Content Blocks and adding a new Content Block with your new model name, creating a template for your new Content Block at the same time.
+
+Your _form_fields.html.erb file could look something like this:
+
+```ruby
+<%= f.inputs "Client Story" do %>
+  <%= f.input :client_name %>
+  <%= f.input :project_name %>
+  <%= f.input :content, :as => :text, :input_html => { :class => "span12" } %>
+<% end %>
+```
+
+If you want to customize which columns are available to your liquid template, you can add a #to_liquid method to your model. Eg.:
+
+```ruby
+def to_liquid
+  {
+    'id' => self.id,
+    'client_name' => self.client_name,
+    'project_name' => self.project_name,
+    'content' => self.content,
+    'story_images' => self.images.map(&:to_liquid),
+    'formatted_content' => self.formatted_content
+  }
+end
+```
+Using the above #to_liquid method, your template could look like this:
+
+```html
+<article class="client_story" id="client_story-{{ id }}">
+  <div class="content">
+    <h3>{{ client_name }}</h3>
+    {% unless project_name == blank %}<h4>{{ project_name }}</h4>{% endunless %}
+    {{ formatted_content }}
+  </div>
+  <div class="images">
+    <div class="cycle-slideshow">
+      {% for story_image in story_images %}
+      <img src="{{ story_image.thumbnail.url }}" alt="">
+      {% endfor %}
+    </div>
+  </div>
+</article>
+```
+
+If you want to be able to represent your ContentBlock uniquely in different contexts, you can simply create more templates and choose which template to use in each context.
