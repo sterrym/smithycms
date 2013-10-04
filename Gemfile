@@ -19,25 +19,25 @@ group :development do
 end
 
 group :development, :test do
-  gem 'debugger', '~> 1.5.0'
+  gem 'debugger'
   gem 'fuubar'
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'guard-spork'
   gem 'letter_opener'
   gem 'rack-livereload'
-  gem 'rspec-rails', '~> 2.11'
+  gem 'rspec-rails', '~> 2.14'
   gem 'ruby_gntp', '~> 0.3.4'
-  gem 'quiet_assets', '~> 1.0.1'
+  gem 'quiet_assets', '~> 1.0.2'
 end
 
 group :test do
   gem 'capybara', '~> 2.0.0'
-  gem 'factory_girl_rails', '~> 4.1.0'
-  gem 'ffaker', '~> 1.15.0'
-  gem 'fakeweb', '~> 1.3.0'
-  gem 'rb-fsevent', '~> 0.9.1'
-  gem 'shoulda-matchers', '~> 1.3.0'
+  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'ffaker'
+  gem 'fakeweb'
+  gem 'rb-fsevent'
+  gem 'shoulda-matchers'
   gem 'spork', '~> 1.0rc'
   gem 'sqlite3'
 end
