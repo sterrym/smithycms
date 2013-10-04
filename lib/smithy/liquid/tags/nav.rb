@@ -16,7 +16,7 @@ module Smithy
             @options[:depth] = 100 if @options[:depth] == 0
             @options[:wrapper] == "false" ? false : true
           else
-            raise ::Liquid::SyntaxError.new("Syntax Error in 'nav' - Valid syntax: nav <page|site> <options>")
+            raise ::Liquid::SyntaxError.new("Syntax Error in 'nav' - Valid syntax: nav <site|page|section> <options>")
           end
           super
         end
