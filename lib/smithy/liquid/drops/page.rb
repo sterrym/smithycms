@@ -44,6 +44,17 @@ module Smithy
           self._source.show_in_navigation?
         end
 
+        def root?
+          self._source.root?
+        end
+
+        def leaf?
+          self._source.leaf?
+        end
+
+        def child?
+          self._source.child?
+        end
       end
     end
   end
