@@ -44,6 +44,10 @@ module Smithy
       @containers
     end
 
+    def site
+      @site ||= Smithy::Site.new
+    end
+
     def to_liquid
       {
         'id' => self.id,
