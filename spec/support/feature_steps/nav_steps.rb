@@ -7,6 +7,10 @@ module NavSteps
     "{% nav 'page' %}"
   end
 
+  def default_section_nav
+    "{% nav 'section' %}"
+  end
+
   def site_nav_with_depth_of_2
     "{% nav 'site', depth: 2 %}"
   end
