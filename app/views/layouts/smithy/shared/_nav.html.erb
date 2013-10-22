@@ -10,19 +10,23 @@
   <div class="navbar-inner">
     <div class="container">
       <div class="nav-collapse">
+        <%- if smithy_current_user -%>
         <ul class="nav">
           <li><%= link_to "<i class=\"icon-sitemap\"></i> Manage Content".html_safe, pages_path %></li>
           <li><%= link_to "<i class=\"icon-file\"></i> Images &amp; Files".html_safe, assets_path %></li>
           <li><%= link_to "<i class=\"icon-book\"></i> Templates".html_safe, templates_path %></li>
           <li><%= link_to "<i class=\"icon-list-alt\"></i> Content Blocks".html_safe, content_blocks_path %></li>
         </ul>
+        <%- end -%>
+        <%- if smithy_current_user -%>
         <ul class="nav pull-right">
           <li class="pull-right"><%= link_to "<i class=\"icon-arrow-right\"></i> View Site".html_safe, root_path %></li>
           <li class="pull-right"><%= link_to "<i class=\"icon-cog\"></i> Settings".html_safe, settings_path %></li>
-          <% if smithy_current_user && respond_to?(:logout_path) %>
-            <li class="pull-right"><%= link_to "<i class=\"icon-signout\"></i> Logout".html_safe, logout_path %></li>
+          <% if respond_to?(:logout_path) %>
+          <li class="pull-right"><%= link_to "<i class=\"icon-signout\"></i> Logout".html_safe, logout_path, :method => :delete %></li>
           <% end %>
         </ul>
+        <%- end -%>
       </div>
     </div>
   </div>
