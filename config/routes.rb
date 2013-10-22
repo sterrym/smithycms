@@ -3,7 +3,7 @@ Smithy::Engine.routes.draw do
   scope "/smithy" do
     match '/' => redirect('/smithy/pages')
     match '/login'  => redirect('/'), :as => :login
-    match '/logout' => redirect('/'), :as => :logout
+    match '/logout' => redirect('/'), :as => :logout, :via => :delete
     # CMS admin
     resources :assets
     resources :content_blocks
