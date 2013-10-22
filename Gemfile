@@ -36,6 +36,7 @@ group :test do
   gem 'factory_girl_rails', '~> 4.2.1'
   gem 'ffaker'
   gem 'fakeweb'
+  gem 'launchy'
   gem 'rb-fsevent'
   gem 'shoulda-matchers'
   gem 'spork', '~> 1.0rc'

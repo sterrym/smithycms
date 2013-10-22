@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'guard-livereload'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'guard-spork'
+  s.add_development_dependency 'launchy'
   s.add_development_dependency 'letter_opener'
   s.add_development_dependency 'rack-livereload'
   s.add_development_dependency 'rspec-rails'
