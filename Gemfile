@@ -21,6 +21,7 @@ end
 group :development, :test do
   gem 'debugger'
   gem 'fuubar'
+  gem 'guard', :github => 'sterrym/guard' # this allows us to update guard because of pry depending on an old coderay gem (nested dependencies)
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'guard-spork'
