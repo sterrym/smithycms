@@ -34,7 +34,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-fileupload-rails', '~> 0.4.1'
   s.add_dependency 'json', '~> 1.7.7'
   s.add_dependency 'kaminari', '~> 0.14.1'
-  s.add_dependency 'liquid', '~> 2.5.2'
+  s.add_dependency 'liquid', '~> 2.5.3'
   s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'
   s.add_dependency 'sass-rails', '~> 3.1'
