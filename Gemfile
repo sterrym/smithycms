@@ -11,7 +11,7 @@ group :assets do
   gem 'uglifier',     '~> 1.2.4'
 end
 
-gem 'slodown', :git => 'https://github.com/sterrym/slodown.git'
+gem 'slodown'
 
 group :development do
   gem 'better_errors'
@@ -21,7 +21,7 @@ end
 group :development, :test do
   gem 'debugger'
   gem 'fuubar'
-  gem 'guard', :github => 'sterrym/guard' # this allows us to update guard because of pry depending on an old coderay gem (nested dependencies)
+  gem 'guard', '~> 2.2.3'
   gem 'guard-livereload'
   gem 'guard-rspec'
   gem 'guard-spork'
@@ -40,6 +40,7 @@ group :test do
   gem 'launchy'
   gem 'rb-fsevent'
   gem 'shoulda-matchers'
+  gem 'simplecov', :require => false
   gem 'spork', '~> 1.0rc'
   gem 'sqlite3'
 end
