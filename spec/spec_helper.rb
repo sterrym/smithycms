@@ -5,6 +5,11 @@ require 'spork'
 require 'spork/ext/ruby-debug'
 
 Spork.prefork do
+  # simplecov
+  # unless ENV['DRB']
+  #   require 'simplecov'
+  #   SimpleCov.start 'rails'
+  # end
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
@@ -37,5 +42,10 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  # simplecov
+  # if ENV['DRB']
+  #   require 'simplecov'
+  #   SimpleCov.start 'rails'
+  # end
   FactoryGirl.reload
 end
