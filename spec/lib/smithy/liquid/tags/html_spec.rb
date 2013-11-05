@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Smithy::Liquid::Tags::Html do
+describe Smithy::Liquid::Tags::Html, :focus => true do
   it 'renders the stylesheet link tag' do
     html = render_tag('stylesheet_link_tag', 'application')
     html.should eql '<link href="/assets/application.css" media="screen" rel="stylesheet" type="text/css" />'

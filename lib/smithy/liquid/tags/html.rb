@@ -2,69 +2,56 @@ module Smithy
   module Liquid
     module Tags
       module Html
-        class StylesheetLinkTag < ::Liquid::Tag
+        class Base < ::Liquid::Tag
           Syntax = /(#{::Liquid::Expression}+)?/
           def initialize(tag_name, markup, tokens)
             if markup =~ Syntax
-              @stylesheet = $1.gsub('\'', '')
+              @tag = $1.gsub('\'', '')
             else
-              raise ::Liquid::SyntaxError.new("Syntax Error in 'stylesheet_link_tag' - Valid syntax: stylesheet_link_tag <stylesheet>")
+              raise ::Liquid::SyntaxError.new("Syntax Error in '#{tag_name}' - Valid syntax: #{tag_name} <path_to/your_file>")
             end
             super
           end
 
+          def tag
+            @tag
+          end
+
+          def render(context)
+            raise Error.new("please override Smithy::Liquid::Tag::Html::Base#render")
+          end
+        end
+
+        class StylesheetLinkTag < Base
           def render(context)
             controller  = context.registers[:controller]
-            controller.view_context.send(:stylesheet_link_tag, @stylesheet)
+            controller.view_context.send(:stylesheet_link_tag, tag)
           end
         end
-        class JavascriptIncludeTag < ::Liquid::Tag
-          Syntax = /(#{::Liquid::Expression}+)?/
-          def initialize(tag_name, markup, tokens)
-            if markup =~ Syntax
-              @javascript = $1.gsub('\'', '')
-            else
-              raise ::Liquid::SyntaxError.new("Syntax Error in 'javascript_include_tag' - Valid syntax: javascript_include_tag <javascript>")
-            end
-            super
-          end
-
+        class JavascriptIncludeTag < Base
           def render(context)
             controller  = context.registers[:controller]
-            controller.view_context.send(:javascript_include_tag, @javascript)
+            controller.view_context.send(:javascript_include_tag, tag)
           end
         end
-
-        class SmithyJavascriptIncludeTag < ::Liquid::Tag
-          Syntax = /(#{::Liquid::Expression}+)?/
-          def initialize(tag_name, markup, tokens)
-            if markup =~ Syntax
-              @javascript = $1.gsub('\'', '')
-              @javascript = "#{@javascript}.js" unless @javascript.match(/\.js$/)
-            else
-              raise ::Liquid::SyntaxError.new("Syntax Error in 'smithy_javascript_include_tag' - Valid syntax: smithy_javascript_include_tag <javascript>")
-            end
-            super
+        class SmithyJavascriptIncludeTag < Base
+          def render(context)
+            "<script src=\"/templates/javascripts/#{tag}\" type=\"text/javascript\"></script>"
           end
 
-          def render(context)
-            "<script src=\"/templates/javascripts/#{@javascript}\" type=\"text/javascript\"></script>"
+          def tag
+            @tag = "#{@tag}.js" unless @tag.match(/\.js$/)
+            @tag
           end
         end
-        class SmithyStylesheetLinkTag < ::Liquid::Tag
-          Syntax = /(#{::Liquid::Expression}+)?/
-          def initialize(tag_name, markup, tokens)
-            if markup =~ Syntax
-              @stylesheet = $1.gsub('\'', '')
-              @stylesheet = "#{@stylesheet}.css" unless @stylesheet.match(/\.css$/)
-            else
-              raise ::Liquid::SyntaxError.new("Syntax Error in 'stylesheet_link_tag' - Valid syntax: stylesheet_link_tag <stylesheet>")
-            end
-            super
+        class SmithyStylesheetLinkTag < Base
+          def render(context)
+            "<link href=\"/templates/stylesheets/#{tag}\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">"
           end
 
-          def render(context)
-            "<link href=\"/templates/stylesheets/#{@stylesheet}\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">"
+          def tag
+            @tag = "#{@tag}.css" unless @tag.match(/\.css$/)
+            @tag
           end
         end
       end
