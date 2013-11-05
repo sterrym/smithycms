@@ -12,3 +12,5 @@ spec/dummy/.sass-cache
 spec/dummy/.rvmrc
 Gemfile.lock
 tmp/
+# ignore simplecov output
+coverage
