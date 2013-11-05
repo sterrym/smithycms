@@ -2,8 +2,9 @@ module Smithy
   class PageContent < ActiveRecord::Base
     attr_accessible :label, :container, :content_block_type, :content_block_attributes, :content_block_template_id, :position
 
-    validates_presence_of :label, :container, :page
     validates_presence_of :content_block, :content_block_template, :on => :update
+    validates_presence_of :content_block_type, :on => :create
+    validates_presence_of :label, :container, :page
 
     belongs_to :page, :touch => true
     belongs_to :content_block, :polymorphic => true

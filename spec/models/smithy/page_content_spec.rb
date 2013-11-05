@@ -10,6 +10,7 @@ describe Smithy::PageContent do
 
   it { should validate_presence_of :label }
   it { should validate_presence_of :container }
+  it { should validate_presence_of :content_block_type }
   it { should_not validate_presence_of(:content_block) }
   it { should_not validate_presence_of(:content_block_template) }
   context "on update" do
