@@ -28,7 +28,7 @@ group :development, :test do
   gem 'letter_opener'
   gem 'rack-livereload'
   gem 'rspec-rails', '~> 2.14'
-  gem 'ruby_gntp', '~> 0.3.4'
+  gem 'terminal-notifier-guard'
   gem 'quiet_assets', '~> 1.0.2'
 end
 
