@@ -1,5 +1,7 @@
 # Smithy CMS
 
+[![Code Climate](https://codeclimate.com/github/sterrym/smithy.png)](https://codeclimate.com/github/sterrym/smithy)
+
 ## Templates & Includes
 These are the building blocks of a page. All the markup is written using the Liquid templating engine. This allows anyone to be able to write templates without the dangers of exposing the whole stack to the template editor.
 
