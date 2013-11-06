@@ -4,6 +4,7 @@ module Smithy
   class PagesController < BaseController
     skip_before_filter :authenticate_smithy_admin, :only => [ :show ]
     include Smithy::Liquid::Rendering
+    before_filter :load_page_from_path, :only => [ :show ]
     before_filter :initialize_page, :only => [ :new, :create ]
     before_filter :load_page, :only => [ :edit, :update, :destroy ]
     before_filter :load_parent, :except => [ :index, :show, :order ]
@@ -15,22 +16,10 @@ module Smithy
     end
 
     def show
-      params[:path] = '' if params[:id].nil? && params[:path].nil? # sets the root path when nothing else is passed
-      @page = Page.find(params[:path].nil? ? params[:id] : "/#{params[:path]}")
-      redirect_to @page.external_link and return if @page.external_link?
-      if smithy_current_user # no caching if you're editing
-        respond_with @page do |format|
-          format.html { render_smithy_page }
-        end
-      else
-        # adding :public param allow Rack::Cache to cache the result
-        @page.cache_length == 0 ? expires_now : expires_in(@page.cache_length.to_i.seconds, :public => true)
-        if stale?(:etag => @page, :last_modified => @page.updated_at.utc, :public => true)
-          respond_with @page do |format|
-            format.html { render_smithy_page }
-          end
-        end
-      end
+      render_page and return if smithy_current_user # no caching if you're editing
+      # adding :public param allow Rack::Cache to cache the result
+      @page.cache_length == 0 ? expires_now : expires_in(@page.cache_length.to_i.seconds, :public => true)
+      render_page if stale?(:etag => @page, :last_modified => @page.updated_at.utc, :public => true)
     end
 
     def new
@@ -90,12 +79,28 @@ module Smithy
         set_publish
       end
 
+      def load_page_from_path
+        @page = Page.find(page_path)
+        redirect_to @page.external_link and return false if @page.external_link?
+      end
+
       def load_parent
         @parent = @page.parent
       end
 
       def load_root
         @root = Page.root
+      end
+
+      def page_path
+        params[:path] = '' if params[:id].nil? && params[:path].nil? # sets the root path when nothing else is passed
+        params[:path].nil? ? params[:id] : "/#{params[:path]}"
+      end
+
+      def render_page
+        respond_with @page do |format|
+          format.html { render_smithy_page }
+        end
       end
 
       def set_publish
