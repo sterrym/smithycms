@@ -60,11 +60,8 @@ module Smithy
         page.move_to_right_of(left)
         left = page.id
       end
-      if request.xhr?
-        render :nothing => true, :status => 200
-      else
-        redirect_to pages_path
-      end
+      render :nothing => true, :status => 200 and return if request.xhr?
+      redirect_to pages_path
     end
 
     private
