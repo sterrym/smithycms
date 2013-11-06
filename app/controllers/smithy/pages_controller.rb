@@ -53,12 +53,13 @@ module Smithy
     def order
       first = Smithy::Page.find(params[:order].shift)
       @parent = first.parent
-      return unless @parent && @parent.children.count > 1 # Only need to order if there are multiple children.
-      left = first.id
-      params[:order].each do |page_id|
-        page = Smithy::Page.find(page_id)
-        page.move_to_right_of(left)
-        left = page.id
+      if @parent && @parent.children.count > 1 # Only need to order if there are multiple children.
+        left = first.id
+        params[:order].each do |page_id|
+          page = Smithy::Page.find(page_id)
+          page.move_to_right_of(left)
+          left = page.id
+        end
       end
       render :nothing => true, :status => 200 and return if request.xhr?
       redirect_to pages_path
