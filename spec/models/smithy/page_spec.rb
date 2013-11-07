@@ -165,4 +165,13 @@ describe Smithy::Page do
       end
     end
   end
+
+  describe "#render_container" do
+    # TODO: describe render_container
+  end
+
+  describe "#rendered_containers" do
+    subject { subject.rendered_containers }
+    it { should be_an Array }
+  end
 end

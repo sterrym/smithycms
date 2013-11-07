@@ -47,11 +47,11 @@ module Smithy
     def container_cache_key(container_name)
       # fetch the most recently adjusted content and add the updated_at timestamp to the cache_key
       content_last_updated = if self.contents_for_container_name(container_name).size > 0
-        self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at.utc.to_s(cache_timestamp_format)
+        self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at
       else
-        self.updated_at.utc.to_s(cache_timestamp_format)
+        self.updated_at
       end
-      "#{self.cache_key}/#{container_name}-container/#{content_last_updated}"
+      "#{self.cache_key}/#{container_name}-container/#{content_last_updated.utc.to_s(cache_timestamp_format)}"
     end
 
     def generated_browser_title
@@ -68,12 +68,9 @@ module Smithy
 
     # normalize_friendly_id overrides the default creator for friendly_id
     def normalize_friendly_id(value)
-      if self.parent.blank?
-        '/'
-      else
-        value = self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
-        [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/')
-      end
+      return "/" if self.parent.blank?
+      value = self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
+      [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/')
     end
 
     def published?
@@ -87,9 +84,7 @@ module Smithy
     end
 
     def rendered_containers
-      rendered_containers = {}
-      self.container_names.each{|cn| rendered_containers[cn] = render_container(cn) }
-      rendered_containers
+      self.container_names.inject({}){|rendered_containers, cn| rendered_containers[cn] = render_container(cn) }
     end
 
     def site
