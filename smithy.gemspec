@@ -57,10 +57,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rack-livereload'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rb-fsevent'
-  s.add_development_dependency 'ruby_gntp'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'spork'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'terminal-notifier-guard'
   s.add_development_dependency 'quiet_assets'
   s.extra_rdoc_files = [ "README.md" ]
 end
