@@ -11,15 +11,7 @@ module Smithy
       end
     end
 
-    class FileUploader
-      def initialize(options)
-        @options = options.reverse_merge( id: "fileupload" )
-      end
-
-      def fields
-        { :key => key }
-      end
-
+    class Base
       def form_options
         {
           id: @options[:id],
@@ -32,6 +24,16 @@ module Smithy
           }
         }
       end
+    end
+
+    class FileUploader < Base
+      def initialize(options)
+        @options = options.reverse_merge( id: "fileupload" )
+      end
+
+      def fields
+        { :key => key }
+      end
 
       def key
         @key ||= "uploads/assets/${filename}"
@@ -42,7 +44,7 @@ module Smithy
       end
     end
 
-    class S3Uploader
+    class S3Uploader < Base
       def initialize(options)
         @options = options.reverse_merge(
           id: "fileupload",
