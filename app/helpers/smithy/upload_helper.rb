@@ -58,19 +58,6 @@ module Smithy
         )
       end
 
-      def form_options
-        {
-          id: @options[:id],
-          method: "post",
-          authenticity_token: false,
-          multipart: true,
-          data: {
-            post: @options[:post],
-            as: @options[:as]
-          }
-        }
-      end
-
       def fields
         {
           :key => key,
