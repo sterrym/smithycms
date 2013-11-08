@@ -36,22 +36,16 @@ module Smithy
       end
     end
 
+    def container?(container_name)
+      containers.where(:name => container_name).count > 0
+    end
+
     def container_names
       @container_names ||= containers.map(&:name)
     end
 
     def contents_for_container_name(container_name)
       self.contents.publishable.for_container(container_name)
-    end
-
-    def container_cache_key(container_name)
-      # fetch the most recently adjusted content and add the updated_at timestamp to the cache_key
-      content_last_updated = if self.contents_for_container_name(container_name).size > 0
-        self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at
-      else
-        self.updated_at
-      end
-      "#{self.cache_key}/#{container_name}-container/#{content_last_updated.utc.to_s(cache_timestamp_format)}"
     end
 
     def generated_browser_title
@@ -78,6 +72,7 @@ module Smithy
     end
 
     def render_container(container_name)
+      return nil unless container?(container_name)
       Rails.cache.fetch(self.container_cache_key(container_name)) do
         self.contents_for_container_name(container_name).map(&:render).join("\n\n")
       end
@@ -98,6 +93,17 @@ module Smithy
     def url
       self.external_link.present? ? self.external_link : self.path
     end
+
+    protected
+      def container_cache_key(container_name)
+        # fetch the most recently adjusted content and add the updated_at timestamp to the cache_key
+        content_last_updated = if self.contents_for_container_name(container_name).size > 0
+          self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at
+        else
+          self.updated_at
+        end
+        "#{self.cache_key}/#{container_name}-container/#{content_last_updated.utc.to_s(cache_timestamp_format)}"
+      end
 
     private
       def build_permalink

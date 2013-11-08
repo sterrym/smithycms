@@ -86,14 +86,70 @@ describe Smithy::Page do
     end
   end
 
-  describe "#container_names" do
-    subject { FactoryGirl.create(:page, :title => "Foo Bar").container_names }
-    it { should be_an(Array) }
-    # TODO: describe container names that come from a template
-  end
+  context "page containers:" do
+    let(:one_container) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
+    let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
 
-  describe "#containers" do
-    # TODO: describe containers that come from a template
+    context "a template without containers" do
+      let(:page) { FactoryGirl.create(:page, :title => "Foo") }
+      describe "#container?" do
+        subject{ page.container?("foo") }
+        it { should be_false }
+      end
+
+      describe "#containers" do
+        subject { page.containers }
+        it { puts "HITEHRE4"; should be_an(Array) }
+        it { puts "HITEHRE5"; should be_empty }
+      end
+
+      describe "#container_names" do
+        subject { page.container_names }
+        it { puts "HITEHRE2"; should be_an(Array) }
+        it { puts "HITEHRE3"; should be_empty }
+      end
+
+      describe "#render_container" do
+        subject { page.render_container("foo_bar") }
+        it { puts "HITEHRE6"; should be_nil }
+      end
+
+      describe "#rendered_containers" do
+        subject { subject.rendered_containers }
+        it { puts "HITEHRE7"; should be_an Array }
+        it { puts "HITEHRE8"; should be_empty }
+      end
+    end
+
+    context "a template with 1 container" do
+      let(:template) { FactoryGirl.create(:template, :content => one_container, :template_type => "template") }
+      let(:page) { FactoryGirl.create(:page, :title => "Foo", :template => template) }
+      describe "#container?" do
+        specify { page.container?("foo").should be_true }
+        specify { page.container?("bar").should be_false }
+      end
+
+      describe "#container_names" do
+        subject { page.container_names }
+        it { puts subject.inspect; should be_true }
+        its(:size) { should eql 10 }
+      end
+
+      describe "#containers" do
+        subject { page.container_names }
+        its(:size) { should eql 10 }
+        # TODO: describe containers that come from a template
+      end
+
+      describe "#render_container" do
+        # TODO: describe render_container
+      end
+
+      describe "#rendered_containers" do
+        subject { subject.rendered_containers }
+        it { should be_an Array }
+      end
+    end
   end
 
   describe "#to_liquid" do
@@ -164,14 +220,5 @@ describe Smithy::Page do
         specify { subject.errors[:title].should_not be_blank }
       end
     end
-  end
-
-  describe "#render_container" do
-    # TODO: describe render_container
-  end
-
-  describe "#rendered_containers" do
-    subject { subject.rendered_containers }
-    it { should be_an Array }
   end
 end
