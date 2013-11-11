@@ -1,5 +1,5 @@
 module Smithy
-  module PageHelper
+  module PagesHelper
     def tree_for_select
       tree_for_select = []
       Smithy::Page.each_with_level(Smithy::Page.root.self_and_descendants) do |page, level|

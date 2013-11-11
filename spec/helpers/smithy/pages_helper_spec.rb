@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Smithy::PageHelper do
+describe Smithy::PagesHelper do
   describe "#tree_for_select" do
     subject { helper.tree_for_select }
     context "when empty" do
