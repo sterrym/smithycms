@@ -12,12 +12,10 @@ module Smithy
 
     acts_as_nested_set :dependent => :destroy
     extend FriendlyId
-    friendly_id :title, :use => [:slugged, :scoped],
-                :slug_column => 'path',
-                :scope => :parent_id
+    friendly_id :title, :use => [:slugged, :scoped], :slug_column => 'path', :scope => :parent_id
 
-    before_save :set_published_at
     before_save :build_permalink
+    before_save :set_published_at
 
     accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
@@ -29,7 +27,7 @@ module Smithy
       def tree_for_select
         tree_for_select = []
         each_with_level(root.self_and_descendants) do |page, level|
-          prepend = level == 0 ? "" : "#{'-' * level} "
+          prepend = level == 0 ? '' : "#{'-' * level} "
           tree_for_select << [ "#{prepend}#{page.title}", page.id]
         end if root.present?
         tree_for_select
@@ -47,17 +45,14 @@ module Smithy
     def generated_browser_title
       unless @generated_browser_title
         titles = self.self_and_ancestors.map(&:title)
-        titles = titles[1..-1] unless root?
-        if site.title.present?
-          titles << site.title
-        end
+        titles = titles[1..-1] unless root? # keep all except the first element unless root
+        titles = titles + [site.title] if site.title.present?
         @generated_browser_title = titles.join(' | ')
       end
       @generated_browser_title
     end
 
-    # normalize_friendly_id overrides the default creator for friendly_id
-    def normalize_friendly_id(value)
+    def normalize_friendly_id(value) # normalize_friendly_id overrides the default creator for friendly_id
       return "/" if self.parent.blank?
       value = self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
       [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/')
