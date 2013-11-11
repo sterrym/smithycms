@@ -23,33 +23,12 @@ module Smithy
 
     attr_accessor :publish
 
-    class << self
-      def tree_for_select
-        tree_for_select = []
-        each_with_level(root.self_and_descendants) do |page, level|
-          prepend = level == 0 ? '' : "#{'-' * level} "
-          tree_for_select << [ "#{prepend}#{page.title}", page.id]
-        end if root.present?
-        tree_for_select
-      end
-    end
-
     def container?(container_name)
       containers.where(:name => container_name).count > 0
     end
 
     def contents_for_container_name(container_name)
       self.contents.publishable.for_container(container_name)
-    end
-
-    def generated_browser_title
-      unless @generated_browser_title
-        titles = self.self_and_ancestors.map(&:title)
-        titles = titles[1..-1] unless root? # keep all except the first element unless root
-        titles = titles + [site.title] if site.title.present?
-        @generated_browser_title = titles.join(' | ')
-      end
-      @generated_browser_title
     end
 
     def normalize_friendly_id(value) # normalize_friendly_id overrides the default creator for friendly_id
@@ -63,14 +42,10 @@ module Smithy
     end
 
     def render_container(container_name)
-      return nil unless container?(container_name)
+      return '' unless container?(container_name)
       Rails.cache.fetch(self.container_cache_key(container_name)) do
         self.contents_for_container_name(container_name).map(&:render).join("\n\n")
       end
-    end
-
-    def rendered_containers
-      Hash[ *self.containers.map(&:name).map{|cn| [cn.to_sym, self.render_container(cn) ] }.flatten ]
     end
 
     def site

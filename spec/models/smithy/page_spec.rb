@@ -66,27 +66,6 @@ describe Smithy::Page do
     end
   end
 
-  describe  "#generated_browser_title" do
-    let(:home) { FactoryGirl.create(:page, :title => "Home") }
-    let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
-    subject { home.generated_browser_title }
-    it { should == 'Home' }
-    context "when it's a child page" do
-      subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage).generated_browser_title }
-      it { should == 'Foo Bar | Baz Qux'}
-    end
-    context "with a site title" do
-      before do
-        Smithy::Site.title = 'CoolSite'
-      end
-      subject { home.generated_browser_title }
-      it { should == 'Home | CoolSite' }
-      after do
-        Smithy::Site.title = nil
-      end
-    end
-  end
-
   context "page containers" do
     let(:one_container) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
     let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
@@ -106,13 +85,8 @@ describe Smithy::Page do
 
       describe "#render_container" do
         subject { page.render_container("foo_bar") }
-        it { should be_nil }
-      end
-
-      describe "#rendered_containers" do
-        subject { page.rendered_containers }
-        it { should be_a Hash }
         it { should be_empty }
+        it { should == "" }
       end
     end
 
@@ -126,7 +100,7 @@ describe Smithy::Page do
 
       describe "#containers" do
         subject { page.containers }
-        its(:size) { should eql 1 }
+        it { should have(1).item }
       end
 
       describe "#render_container" do
@@ -134,42 +108,12 @@ describe Smithy::Page do
         it { should be_a String }
         it { should be_empty }
       end
-
-      describe "#rendered_containers" do
-        subject { page.rendered_containers }
-        it { should be_a Hash }
-        it { should include :foo }
-      end
     end
   end
 
   describe "#to_liquid" do
     subject { FactoryGirl.create(:page, :title => "Foo Bar").to_liquid }
     it { should be_a(Smithy::Liquid::Drops::Page) }
-  end
-
-  describe ".tree_for_select" do
-    subject { Smithy::Page.tree_for_select }
-    context "when empty" do
-      it { should be_an(Array) }
-      its(:size) { should == 0 }
-    end
-    context "with a pre-built tree" do
-      include_context "a tree of pages"
-      it { should be_an(Array) }
-      its(:size) { should == 11 }
-      specify { subject[0].should == ['Home', home.id] }
-      specify { subject[1].should == ['- Page 1', page1.id] }
-      specify { subject[2].should == ['-- Page 1-1', page1_1.id] }
-      specify { subject[3].should == ['-- Page 1-2', page1_2.id] }
-      specify { subject[4].should == ['-- Page 1-3', page1_3.id] }
-      specify { subject[5].should == ['--- Page 1-3-1', page1_3_1.id] }
-      specify { subject[6].should == ['- Page 2', page2.id] }
-      specify { subject[7].should == ['-- Page 2-1', page2_1.id] }
-      specify { subject[8].should == ['-- Page 2-2', page2_2.id] }
-      specify { subject[9].should == ['- Page 3', page3.id] }
-      specify { subject[10].should == ['- Page 4', page4.id] }
-    end
   end
 
   describe "#permalink and #path auto-generation" do
