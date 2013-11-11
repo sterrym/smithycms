@@ -58,19 +58,22 @@ module Smithy
 
         protected
           def generated_browser_title
-            unless @generated_browser_title
-              titles = _source.self_and_ancestors.map(&:title)
-              titles = titles[1..-1] unless _source.root? # keep all except the first element unless root
-              titles = titles + [_source.site.title] if _source.site.title.present?
-              @generated_browser_title = titles.join(' | ')
-            end
-            @generated_browser_title
+            @generated_browser_title ||= generated_browser_titles.join(' | ')
           end
 
           def rendered_containers
             Hash[ *_source.containers.map(&:name).map{|cn| [cn, _source.render_container(cn) ] }.flatten ]
           end
 
+        private
+          def generated_browser_titles
+            titles = _source.self_and_ancestors.map(&:title)
+            titles = titles[1..-1] unless _source.root? # keep all except the first element unless root
+            if _source.site.title.present?
+              titles << _source.site.title
+            end
+            titles
+          end
       end
     end
   end
