@@ -6,5 +6,6 @@ FactoryGirl.define do
     container 'main_content'
     label { Faker::Lorem.words(2).join(' ') }
     association :content_block, factory: :content
+    publishable true
   end
 end
