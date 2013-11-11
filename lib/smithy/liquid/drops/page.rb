@@ -2,10 +2,10 @@ module Smithy
   module Liquid
     module Drops
       class Page < Base
-        delegate :title, :depth, :permalink, :to => '_source'
+        delegate :title, :depth, :permalink, :root, :site, :to => '_source'
 
         def breadcrumbs
-          self._source.ancestors.where(["#{self._source.class.quoted_table_name}.#{self._source.class.primary_key} != ?", self._source.class.root]).map(&:to_liquid)
+          self._source.ancestors.where(["id != ?", root]).map(&:to_liquid)
         end
 
         def browser_title
@@ -68,10 +68,8 @@ module Smithy
         private
           def generated_browser_titles
             titles = _source.self_and_ancestors.map(&:title)
-            titles = titles[1..-1] unless _source.root? # keep all except the first element unless root
-            if _source.site.title.present?
-              titles << _source.site.title
-            end
+            titles.shift unless _source.root? # keep all except the first element unless root
+            titles << site.title if site.title.present?
             titles
           end
       end
