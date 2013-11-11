@@ -23,8 +23,45 @@ describe Smithy::Liquid::Drops::Page do
   end
 
   describe "#container" do
+    before do
+      page1.template.update_attribute(:content, File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')))
+    end
     subject { page1.to_liquid['container'] }
+    it { should be_a Hash }
+    it { should include('foo') }
     its(:keys) { should == page1.containers.map(&:name) }
+  end
+
+  describe "#browser_title" do
+    let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
+    subject { home.to_liquid['browser_title'] }
+    context "a generated browser_title" do
+      it { should == 'Home' }
+      context "when it's a child page" do
+        subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage).to_liquid['browser_title'] }
+        it { should == 'Foo Bar | Baz Qux'}
+      end
+      context "with a site title" do
+        before do
+          Smithy::Site.title = 'CoolSite'
+        end
+        subject { home.to_liquid['browser_title']}
+        it { should == 'Home | CoolSite' }
+        after do
+          Smithy::Site.title = nil
+        end
+      end
+    end
+    context "with a custom set browser_title" do
+      before do
+        Smithy::Site.title = 'CoolSite'
+        home.update_attribute(:browser_title, "This is custom!")
+      end
+      it { should == 'This is custom!' }
+      after do
+        Smithy::Site.title = nil
+      end
+    end
   end
 
   describe "#meta_description" do

@@ -9,7 +9,7 @@ module Smithy
         end
 
         def browser_title
-          self._source.browser_title.present? ? self._source.browser_title : self._source.generated_browser_title
+          self._source.browser_title.present? ? self._source.browser_title : self.generated_browser_title
         end
 
         def children
@@ -17,7 +17,7 @@ module Smithy
         end
 
         def container
-          self._source.rendered_containers
+          self.rendered_containers
         end
 
         def meta_description
@@ -55,6 +55,22 @@ module Smithy
         def child?
           self._source.child?
         end
+
+        protected
+          def generated_browser_title
+            unless @generated_browser_title
+              titles = _source.self_and_ancestors.map(&:title)
+              titles = titles[1..-1] unless _source.root? # keep all except the first element unless root
+              titles = titles + [_source.site.title] if _source.site.title.present?
+              @generated_browser_title = titles.join(' | ')
+            end
+            @generated_browser_title
+          end
+
+          def rendered_containers
+            Hash[ *_source.containers.map(&:name).map{|cn| [cn, _source.render_container(cn) ] }.flatten ]
+          end
+
       end
     end
   end
