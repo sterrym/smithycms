@@ -17,7 +17,7 @@
   <%= f.inputs "Page Information" do %>
     <%= f.input :title %>
     <%= f.input :permalink, :hint => "This will be auto-created if blank. Only fill it in if you know what you're doing" %>
-    <%= f.input :parent, :include_blank => false, :collection => Smithy::Page.tree_for_select unless !@page.parent_id? %>
+    <%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? %>
     <%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
     <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
   <% end %>
