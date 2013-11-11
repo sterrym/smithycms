@@ -1,4 +1,4 @@
- module Smithy
+module Smithy
   class Template < ActiveRecord::Base
     attr_accessible :name, :content, :template_type
 
@@ -24,6 +24,7 @@
         %w(template include javascript stylesheet)
       end
     end
+    validates_inclusion_of :template_type, :in => types # has to be after the class method definition
 
     def liquid_template
       @liquid_template ||= Rails.cache.fetch("#{self.cache_key}-liquid_template") do
