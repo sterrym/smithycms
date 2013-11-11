@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Smithy::Page do
-  subject { FactoryGirl.build(:page) }
+  let(:page) { FactoryGirl.build(:page) }
+  subject { page }
 
   it { should allow_mass_assignment_of :browser_title }
   it { should allow_mass_assignment_of :cache_length }
@@ -86,11 +87,11 @@ describe Smithy::Page do
     end
   end
 
-  context "page containers:" do
+  context "page containers" do
     let(:one_container) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
     let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
 
-    context "a template without containers" do
+    context "using a template without containers" do
       let(:page) { FactoryGirl.create(:page, :title => "Foo") }
       describe "#container?" do
         subject{ page.container?("foo") }
@@ -99,29 +100,23 @@ describe Smithy::Page do
 
       describe "#containers" do
         subject { page.containers }
-        it { puts "HITEHRE4"; should be_an(Array) }
-        it { puts "HITEHRE5"; should be_empty }
-      end
-
-      describe "#container_names" do
-        subject { page.container_names }
-        it { puts "HITEHRE2"; should be_an(Array) }
-        it { puts "HITEHRE3"; should be_empty }
+        it { should be_an(Array) }
+        it { should be_empty }
       end
 
       describe "#render_container" do
         subject { page.render_container("foo_bar") }
-        it { puts "HITEHRE6"; should be_nil }
+        it { should be_nil }
       end
 
       describe "#rendered_containers" do
-        subject { subject.rendered_containers }
-        it { puts "HITEHRE7"; should be_an Array }
-        it { puts "HITEHRE8"; should be_empty }
+        subject { page.rendered_containers }
+        it { should be_a Hash }
+        it { should be_empty }
       end
     end
 
-    context "a template with 1 container" do
+    context "using a template with 1 container" do
       let(:template) { FactoryGirl.create(:template, :content => one_container, :template_type => "template") }
       let(:page) { FactoryGirl.create(:page, :title => "Foo", :template => template) }
       describe "#container?" do
@@ -129,25 +124,21 @@ describe Smithy::Page do
         specify { page.container?("bar").should be_false }
       end
 
-      describe "#container_names" do
-        subject { page.container_names }
-        it { puts subject.inspect; should be_true }
-        its(:size) { should eql 10 }
-      end
-
       describe "#containers" do
-        subject { page.container_names }
-        its(:size) { should eql 10 }
-        # TODO: describe containers that come from a template
+        subject { page.containers }
+        its(:size) { should eql 1 }
       end
 
       describe "#render_container" do
-        # TODO: describe render_container
+        subject { page.render_container(:foo) }
+        it { should be_a String }
+        it { should be_empty }
       end
 
       describe "#rendered_containers" do
-        subject { subject.rendered_containers }
-        it { should be_an Array }
+        subject { page.rendered_containers }
+        it { should be_a Hash }
+        it { should include :foo }
       end
     end
   end

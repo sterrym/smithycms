@@ -40,10 +40,6 @@ module Smithy
       containers.where(:name => container_name).count > 0
     end
 
-    def container_names
-      @container_names ||= containers.map(&:name)
-    end
-
     def contents_for_container_name(container_name)
       self.contents.publishable.for_container(container_name)
     end
@@ -79,7 +75,7 @@ module Smithy
     end
 
     def rendered_containers
-      self.container_names.inject({}){|rendered_containers, cn| rendered_containers[cn] = render_container(cn) }
+      Hash[ *self.containers.map(&:name).map{|cn| [cn.to_sym, self.render_container(cn) ] }.flatten ]
     end
 
     def site
@@ -97,7 +93,7 @@ module Smithy
     protected
       def container_cache_key(container_name)
         # fetch the most recently adjusted content and add the updated_at timestamp to the cache_key
-        content_last_updated = if self.contents_for_container_name(container_name).size > 0
+        content_last_updated = if self.contents_for_container_name(container_name).count > 0
           self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at
         else
           self.updated_at
