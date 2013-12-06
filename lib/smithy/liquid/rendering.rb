@@ -34,6 +34,7 @@ module Smithy
           'url'               => request.url,
           'now'               => Time.now.utc,
           'today'             => Date.today,
+          'site'              => @page.site
         }
       end
 
