@@ -28,24 +28,24 @@ module Smithy
 
         class StylesheetLinkTag < Base
           def render(context)
-            controller  = context.registers[:controller]
+            controller = context.registers[:controller]
             controller.view_context.send(:stylesheet_link_tag, tag)
           end
         end
         class JavascriptIncludeTag < Base
           def render(context)
-            controller  = context.registers[:controller]
+            controller = context.registers[:controller]
             controller.view_context.send(:javascript_include_tag, tag)
           end
         end
         class SmithyJavascriptIncludeTag < Base
           def render(context)
-            "<script src=\"/templates/javascripts/#{tag_with_ext('js')}\" type=\"text/javascript\"></script>"
+            controller.view_context.send(:javascript_include_tag, "/templates/javascripts/#{tag_with_ext('js')}")
           end
         end
         class SmithyStylesheetLinkTag < Base
           def render(context)
-            "<link href=\"/templates/stylesheets/#{tag_with_ext('css')}\" media=\"screen\" rel=\"stylesheet\" type=\"text/css\">"
+            controller.view_context.send(:stylesheet_link_tag, "/templates/javascripts/#{tag_with_ext('css')}")
           end
         end
       end
