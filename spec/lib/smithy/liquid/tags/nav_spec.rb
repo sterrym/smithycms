@@ -20,6 +20,7 @@ describe Smithy::Liquid::Tags::Nav do
   context "a custom id" do
     subject { render_nav 'site', 'id: foo' }
     it { should start_with '<ul id="foo"' }
+    it { should include '<li id="foo-page-1'}
   end
 
   context "with a selected page" do

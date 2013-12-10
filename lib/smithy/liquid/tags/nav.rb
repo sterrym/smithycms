@@ -39,7 +39,7 @@ module Smithy
         end
 
         def render_list_item(item, depth)
-          item_id = "nav-#{item.permalink}"
+          item_id = "#{@options[:id]}-#{item.permalink}"
           href = item.url
           label = item.title
           css_class = " class=\"#{@options[:active_class]}\"" if (@page && @page.id == item.id) || (@controller && [item.path, item.external_link].include?(@controller.request.path))
