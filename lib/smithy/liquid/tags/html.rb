@@ -1,3 +1,4 @@
+
 module Smithy
   module Liquid
     module Tags
@@ -11,6 +12,10 @@ module Smithy
               raise ::Liquid::SyntaxError.new("Syntax Error in '#{tag_name}' - Valid syntax: #{tag_name} <path_to/your_file>")
             end
             super
+          end
+
+          def controller
+            @controller ||= context.registers[:controller]
           end
 
           def tag
@@ -28,13 +33,11 @@ module Smithy
 
         class StylesheetLinkTag < Base
           def render(context)
-            controller = context.registers[:controller]
             controller.view_context.send(:stylesheet_link_tag, tag)
           end
         end
         class JavascriptIncludeTag < Base
           def render(context)
-            controller = context.registers[:controller]
             controller.view_context.send(:javascript_include_tag, tag)
           end
         end
