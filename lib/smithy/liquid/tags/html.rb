@@ -14,10 +14,6 @@ module Smithy
             super
           end
 
-          def controller
-            @controller ||= context.registers[:controller]
-          end
-
           def tag
             @tag
           end
@@ -33,21 +29,25 @@ module Smithy
 
         class StylesheetLinkTag < Base
           def render(context)
+            controller = context.registers[:controller]
             controller.view_context.send(:stylesheet_link_tag, tag)
           end
         end
         class JavascriptIncludeTag < Base
           def render(context)
+            controller = context.registers[:controller]
             controller.view_context.send(:javascript_include_tag, tag)
           end
         end
         class SmithyJavascriptIncludeTag < Base
           def render(context)
+            controller = context.registers[:controller]
             controller.view_context.send(:javascript_include_tag, "/templates/javascripts/#{tag_with_ext('js')}")
           end
         end
         class SmithyStylesheetLinkTag < Base
           def render(context)
+            controller = context.registers[:controller]
             controller.view_context.send(:stylesheet_link_tag, "/templates/javascripts/#{tag_with_ext('css')}")
           end
         end
