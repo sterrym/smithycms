@@ -48,7 +48,7 @@ module Smithy
         class SmithyStylesheetLinkTag < Base
           def render(context)
             controller = context.registers[:controller]
-            controller.view_context.send(:stylesheet_link_tag, "/templates/javascripts/#{tag_with_ext('css')}")
+            controller.view_context.send(:stylesheet_link_tag, "/templates/stylesheets/#{tag_with_ext('css')}")
           end
         end
       end
