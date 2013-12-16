@@ -43,6 +43,10 @@ module Smithy
 
       end
 
+      def set_content_types
+        # empty by default - override in your own models
+      end
+
       def set_content_type(file, content_type_column)
         return unless file.present?
         value = :other
