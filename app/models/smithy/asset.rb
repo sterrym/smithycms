@@ -40,6 +40,10 @@ module Smithy
     end
 
     private
+      def set_content_types
+        set_content_type(self.file, :content_type)
+      end
+
       # this allows dragonfly to take over management of the uploaded file. We are
       # assuming that jquery-upload and dragonfly are using the same data storage...
       def set_file_uid_manually

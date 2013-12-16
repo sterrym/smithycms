@@ -4,7 +4,7 @@ module Smithy
 
       extend ActiveSupport::Concern
       included do
-        before_save :set_content_type
+        before_save :set_content_types
       end
 
       module ClassMethods
@@ -43,8 +43,8 @@ module Smithy
 
       end
 
-      def set_content_type
-        return unless self.file.present?
+      def set_content_type(file, content_type_column)
+        return unless file.present?
         value = :other
         content_type = file.mime_type
         self.class.content_types.each_pair do |type, rules|
@@ -55,7 +55,7 @@ module Smithy
             end
           end
         end
-        self.content_type = value.to_s
+        self[content_type_column] = value.to_s
       end
 
     end
