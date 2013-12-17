@@ -44,7 +44,7 @@ module Smithy
       end
 
       def set_content_types
-        # empty by default - override in your own models
+        # empty by default - override in your own models if you need to use it
       end
 
       def set_content_type(file, content_type_column)
