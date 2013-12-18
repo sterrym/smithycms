@@ -1,5 +1,5 @@
 <header id="header">
-  <h1>Smithy CMS</h1>
+  <h1><%= image_tag "smithy/logo2.png", alt:'' %></h1>
 </header>
 <div id="main-nav" class="navbar navbar-inverse">
   <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -9,7 +9,7 @@
   </a>
   <div class="navbar-inner">
     <div class="container">
-      <div class="nav-collapse">
+      <div class="nav-collapse clearfix">
         <%- if smithy_current_user -%>
         <ul class="nav">
           <li><%= link_to "<i class=\"icon-sitemap\"></i> Manage Content".html_safe, pages_path %></li>
@@ -17,16 +17,14 @@
           <li><%= link_to "<i class=\"icon-book\"></i> Templates".html_safe, templates_path %></li>
           <li><%= link_to "<i class=\"icon-list-alt\"></i> Content Blocks".html_safe, content_blocks_path %></li>
         </ul>
-        <%- end -%>
-        <%- if smithy_current_user -%>
         <ul class="nav pull-right">
-          <li class="pull-right"><%= link_to "<i class=\"icon-arrow-right\"></i> View Site".html_safe, root_path %></li>
-          <li class="pull-right"><%= link_to "<i class=\"icon-cog\"></i> Settings".html_safe, settings_path %></li>
+          <li><%= link_to "<i class=\"icon-arrow-right\"></i> View Site".html_safe, root_path %></li>
+          <li><%= link_to "<i class=\"icon-cog\"></i> Settings".html_safe, settings_path %></li>
           <% if respond_to?(:logout_path) %>
-          <li class="pull-right"><%= link_to "<i class=\"icon-signout\"></i> Logout".html_safe, logout_path, :method => :delete %></li>
+          <li><%= link_to "<i class=\"icon-signout\"></i> Logout".html_safe, logout_path, :method => :delete %></li>
           <% end %>
         </ul>
-        <%- end -%>
+        <% end %>
       </div>
     </div>
   </div>
