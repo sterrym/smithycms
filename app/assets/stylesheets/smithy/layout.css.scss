@@ -21,12 +21,13 @@ body { background:#444; padding:0; }
 }
 #main-nav {
   background:transparent;
-  left:200px;
+  left:20%;
   right:0;
   position:absolute;
   top:0;
   z-index:5;
-  .navbar-inner { background:transparent; border:0;
+
+  .navbar-inner { background:transparent; border:0; padding-left:0;
     box-shadow:none;
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
@@ -101,4 +102,9 @@ body { background:#444; padding:0; }
 
 #main-wide { background:#f9f9f9; padding:0 0 24px 0; position:relative;
 
+}
+
+#footer {
+  color:#BBB; font-size:12px; text-align:right; padding:1em;
+  a { color:#EEE; }
 }
