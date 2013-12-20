@@ -4,7 +4,7 @@
   <url>
     <loc>
       <%= "#{request.protocol}#{request.host_with_port}#{page.path}" %></loc>
-    <lastmod><%= page.updated_at.utc %></lastmod>
+    <lastmod><%= page.updated_at.to_date %></lastmod>
   </url>
 <% end -%>
 </urlset>
