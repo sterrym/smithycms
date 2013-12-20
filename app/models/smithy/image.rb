@@ -23,8 +23,7 @@ module Smithy
     end
 
     def formatted_content
-      formatter = Smithy::Formatter.new(self.content)
-      self.markdown_content = formatter.render
+      @formatted_content ||= markdown_formatter.render
     end
 
     def to_liquid
@@ -33,5 +32,10 @@ module Smithy
         a['formatted_content'] = formatted_content
       end
     end
+
+    private
+      def markdown_formatter
+        @markdown_formatter ||= Smithy::Formatter.new(self.content)
+      end
   end
 end
