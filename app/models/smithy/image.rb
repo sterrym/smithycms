@@ -22,9 +22,15 @@ module Smithy
       end
     end
 
+    def formatted_content
+      formatter = Smithy::Formatter.new(self.content)
+      self.markdown_content = formatter.render
+    end
+
     def to_liquid
       attributes.tap do |a|
         a['asset'] = asset.to_liquid if asset.present?
+        a['formatted_content'] = formatted_content
       end
     end
   end
