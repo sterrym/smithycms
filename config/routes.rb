@@ -29,6 +29,8 @@ Smithy::Engine.routes.draw do
     resources :contents, :except => :index
     resources :images, :except => :index
   end
+  # Sitemap
+  resource :sitemap, :controller => "Sitemap", :only => [ :show ]
   match '/templates/javascripts/*javascript' => 'templates#javascript', :defaults => { :format => 'js' }
   match '/templates/stylesheets/*stylesheet' => 'templates#stylesheet', :format => 'css'
   match '*path' => 'pages#show'
