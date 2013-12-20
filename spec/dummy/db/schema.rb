@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131110200252) do
+ActiveRecord::Schema.define(:version => 20131220160908) do
 
   create_table "smithy_assets", :force => true do |t|
     t.string   "name"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20131110200252) do
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.string   "html_attributes"
+    t.text     "content"
   end
 
   add_index "smithy_images", ["asset_id"], :name => "index_smithy_images_on_asset_id"
