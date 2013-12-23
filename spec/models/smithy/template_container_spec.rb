@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Smithy::TemplateContainer do
   let(:one_container) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
   let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
+  let(:three_containers_reordered) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'baz_foo_bar.html.liquid')) }
 
   it { should validate_presence_of(:name) }
   it { should validate_presence_of(:template) }
@@ -46,7 +47,11 @@ describe Smithy::TemplateContainer do
   context "a template with a three containers" do
     let(:template) { FactoryGirl.create(:template, :content => three_containers) }
     subject { template.containers }
+    before do
+      template.reload # it wasn't showing the right results without this
+    end
     its(:size) { should == 3 }
+    specify { subject.map(&:position).should == [0, 1, 2] }
     specify { subject.map(&:name).should == %w(foo bar baz_qux) }
     specify { subject.map(&:display_name).should == ['Foo', 'Bar', 'Baz Qux'] }
     context "reduced to 1 containers" do
@@ -62,6 +67,14 @@ describe Smithy::TemplateContainer do
       end
       its(:size) { should == 0 }
       specify { subject.map(&:name).should == [] }
+    end
+    context "with the containers reordered" do
+      before do
+        template.update_attribute(:content, three_containers_reordered)
+        template.reload
+      end
+      specify { subject.map(&:position).should == [0, 1, 2] }
+      specify { subject.map(&:name).should == %w(baz_qux foo bar) }
     end
   end
 end

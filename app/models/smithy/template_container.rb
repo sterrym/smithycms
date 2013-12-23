@@ -5,9 +5,9 @@ module Smithy
     belongs_to :template
     has_many :pages, :through => :template
 
-    attr_accessible :name
+    attr_accessible :name, :position
 
-    default_scope :order => :name
+    default_scope :order => [:position, :name]
 
     def display_name
       name.titleize

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131220160908) do
+ActiveRecord::Schema.define(:version => 20131223174803) do
 
   create_table "smithy_assets", :force => true do |t|
     t.string   "name"
@@ -135,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20131220160908) do
     t.string   "name"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "position"
   end
 
   add_index "smithy_template_containers", ["template_id"], :name => "index_smithy_template_containers_on_template_id"
