@@ -1,0 +1,21 @@
+<% content_for :title, "#{klass_name}" %>
+<table border="0" cellpadding="4" class="table table-hover table-bordered">
+<thead>
+  <tr>
+    <th></th>
+    <%= raw readable_attributes.map{|a| "<th>#{a.to_s.titleize}</th>\n" }.join %>
+  </tr>
+</thead>
+<tbody>
+<%- @records.each do |record| %>
+  <tr>
+    <td>
+      <%= link_to "Edit", [:edit, record], :class => "btn btn-mini"  %>
+    </td>
+    <%- readable_attributes.map(&:to_sym).each do |attribute| %>
+    <td><%= record[attribute] %></td>
+    <% end -%>
+  </tr>
+<% end -%>
+</tbody>
+</table>

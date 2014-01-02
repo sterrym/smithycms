@@ -1,0 +1,13 @@
+<% content_for :title, "Edit #{klass_name}" %>
+
+<%= semantic_form_for @record do |f| %>
+  <%= f.inputs do %>
+    <%= f.inputs *accessible_attributes %>
+  <% end %>
+  <%= f.actions :submit %>
+<% end %>
+
+
+<% content_for :related do %>
+  <%= content_tag :p, link_to("Delete #{klass_name}", @record, :method => :delete, :confirm => "Are you sure you want to delete this #{klass_name}?", :class => 'btn btn-danger') if @record.persisted? %></p>
+<% end %>
