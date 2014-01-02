@@ -26,8 +26,13 @@ Smithy::Engine.routes.draw do
     resource :cache
 
     # Content Blocks
-    resources :contents, :except => :index
-    resources :images, :except => :index
+    # resources :contents, :except => :index
+    # resources :images, :except => :index
+
+    # Content Pieces
+    # scope "/content_pieces" do
+    #   # ie. /smithy/content_pieces/locations/1/edit
+    # end
   end
   # Sitemap
   resource :sitemap, :controller => "Sitemap", :only => [ :show ]
