@@ -100,9 +100,12 @@ body { background:#444; padding:0; }
   #related {}
 }
 
-#main-wide { background:#f9f9f9; padding:0 0 24px 0; position:relative;
-
+.wide #main {
+  > .container-fluid { padding-right:20px; }
+  #content { border-right:0; }
 }
+
+#main-wide { background:#f9f9f9; padding:0 0 24px 0; position:relative; }
 
 #footer {
   color:#BBB; font-size:12px; text-align:right; padding:1em;
