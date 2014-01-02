@@ -25,10 +25,6 @@ Smithy::Engine.routes.draw do
     resources :settings
     resource :cache
 
-    # Content Blocks
-    # resources :contents, :except => :index
-    # resources :images, :except => :index
-
     # Content Pieces
     # scope "/content_pieces" do
     #   # ie. /smithy/content_pieces/locations/1/edit
