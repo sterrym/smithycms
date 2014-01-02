@@ -84,8 +84,6 @@ class Smithy::ContentPiecesController < Smithy::BaseController
     end
 
     def update_record(record)
-      puts klass_params.inspect
-      puts "-----------0===================================="
       record.update_attributes(klass_params)
     end
 
