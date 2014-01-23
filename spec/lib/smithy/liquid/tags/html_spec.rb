@@ -23,12 +23,12 @@ describe Smithy::Liquid::Tags::Html do
 
   it 'renders the smithy stylesheet link tag' do
     html = render_tag('smithy_stylesheet_link_tag', 'foo')
-    html.should eql '<link href="/templates/stylesheets/foo.css" media="screen" rel="stylesheet" type="text/css">'
+    html.should eql '<link href="/templates/stylesheets/foo.css" media="screen" rel="stylesheet" type="text/css" />'
   end
 
   it 'doesn\'t add ".css" if it\'s already there' do
     html = render_tag('smithy_stylesheet_link_tag', 'foo.css')
-    html.should eql '<link href="/templates/stylesheets/foo.css" media="screen" rel="stylesheet" type="text/css">'
+    html.should eql '<link href="/templates/stylesheets/foo.css" media="screen" rel="stylesheet" type="text/css" />'
   end
 
   def render_tag(tag_name, param)
