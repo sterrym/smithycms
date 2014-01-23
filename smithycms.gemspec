@@ -5,7 +5,7 @@ require "smithy/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "smithy"
+  s.name        = "smithycms"
   s.version     = Smithy::VERSION
   s.authors     = ["Tim Glen"]
   s.email       = ["tim@tag.ca"]
