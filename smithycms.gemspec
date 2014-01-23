@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["tim@tag.ca"]
   s.homepage    = "http://tag.ca/"
   s.summary     = "A good CMS written in Rails."
-  s.description = "Better than the rest."
+  s.description = "Smithy CMS is a Rails Engine built to manage your content easily and play nicely with other parts of your app."
 
   s.required_ruby_version = '>= 1.9.3'
 
