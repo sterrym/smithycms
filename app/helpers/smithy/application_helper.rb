@@ -14,6 +14,19 @@ module Smithy
       form_builder.hidden_field(:_destroy) + @template.link_to(name, "javascript:void(0)", :class => "remove_nested_fields")
     end
 
+    def render_markdown_input(fieldname, editor_name, form_builder)
+      content_for(:javascript) do
+        javascript_tag do
+          raw("var editor = ace_edit('#{form_builder.object.id || 'new'}', 'markdown', '#{editor_name}');\n") +
+          raw("editor.renderer.setShowGutter(false);")
+        end
+      end
+      hint = "Use markdown syntax for formatting. You can also use HTML directly. <a href=\"#{guide_path('markdown')}\" data-toggle=\"remote-load\" data-target=\"#content-guide\">See our markdown syntax reference</a>".html_safe
+      form_builder.input(fieldname, :as => :text, :input_html => { :class => "span12", :id => "#{editor_name}-#{form_builder.object.id || 'new'}" }, :hint => hint) +
+      content_tag(:div, nil, :id => "#{editor_name}_editor-#{form_builder.object.id || 'new'}", :class => "#{editor_name}_editor ace_editor") +
+      content_tag(:div, nil, :id => 'content-guide')
+    end
+
     private
       def model_object(form_builder, association)
         model_object = form_builder.object.class.reflect_on_association(association).klass.new

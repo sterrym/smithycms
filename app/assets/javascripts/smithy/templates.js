@@ -1,7 +1,9 @@
-var ace_edit = function(id, template_type) {
-  $('#template_content_editor-'+id).show();
-  var editor = ace.edit('template_content_editor-'+id);
-  var textarea = $('textarea[id="template_content-'+id+'"]').hide();
+var ace_edit = function(id, template_type, name) {
+  if (!name) { name = 'template_content' }
+  var editor_name = name + '_editor-' + id
+  $('#'+editor_name).show();
+  var editor = ace.edit(editor_name);
+  var textarea = $('textarea[id="' + name + '-'+id+'"]').hide();
   var session = editor.getSession();
   session.setMode("ace/mode/" + template_type);
   session.setValue(textarea.val());

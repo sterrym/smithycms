@@ -5,7 +5,8 @@ textarea[name="content[content]"],
 #template_content,
 #content_content { height:100%; width:97%; }
 
-.template_content_editor {
+.template_content_editor,
+.ace_editor {
   display:none;
   min-height:40em;
   width:97%;
