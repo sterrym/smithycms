@@ -1,5 +1,6 @@
 # Smithy CMS
 
+[![Gem Version](https://badge.fury.io/rb/smithycms.png)](http://badge.fury.io/rb/smithycms)
 [![Code Climate](https://codeclimate.com/github/sterrym/smithy.png)](https://codeclimate.com/github/sterrym/smithy)
 
 ## Templates & Includes
