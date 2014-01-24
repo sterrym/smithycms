@@ -9,8 +9,8 @@ require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 Bundler.require
-require "smithy"
-require "devise"
+require "smithycms"
+require "smithycms-auth"
 
 module Dummy
   class Application < Rails::Application
