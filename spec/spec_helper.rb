@@ -1,7 +1,8 @@
+require 'rubygems'
+
 require 'coveralls'
 Coveralls.wear!
 
-require 'rubygems'
 require 'spork'
 
 # uncomment the following line to use spork with the debugger
