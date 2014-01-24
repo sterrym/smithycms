@@ -34,6 +34,7 @@ end
 
 group :test do
   gem 'capybara', '~> 2.0.0'
+  gem 'coveralls', require: false
   gem 'factory_girl_rails', '~> 4.2.1'
   gem 'ffaker'
   gem 'fakeweb'
