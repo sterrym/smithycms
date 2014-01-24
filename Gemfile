@@ -39,6 +39,8 @@ group :test do
   gem 'ffaker'
   gem 'fakeweb'
   gem 'launchy'
+  gem 'mysql2' # for TravisCI builds
+  gem 'pg' # for TravisCI builds
   gem 'rb-fsevent'
   gem 'shoulda-matchers'
   gem 'simplecov', :require => false
