@@ -1,7 +1,6 @@
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'debugger'
-require 'devise'
 require 'factory_girl_rails'
 require 'fakeweb'
 require 'ffaker'
@@ -11,5 +10,6 @@ require 'letter_opener'
 require 'rack-livereload'
 require 'rspec-rails'
 require 'shoulda-matchers'
+require 'smithycms-auth'
 
 Fog.mock! # this mocks out all AWS calls - really nice
