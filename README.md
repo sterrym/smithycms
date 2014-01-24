@@ -2,6 +2,9 @@
 
 [![Gem Version](https://badge.fury.io/rb/smithycms.png)](http://badge.fury.io/rb/smithycms)
 [![Code Climate](https://codeclimate.com/github/sterrym/smithy.png)](https://codeclimate.com/github/sterrym/smithy)
+[![Build Status](https://travis-ci.org/sterrym/smithycms.png?branch=master)](https://travis-ci.org/sterrym/smithycms)
+[![Coverage Status](https://coveralls.io/repos/sterrym/smithycms/badge.png)](https://coveralls.io/r/sterrym/smithycms)
+[![Dependency Status](https://gemnasium.com/sterrym/smithycms.png)](https://gemnasium.com/sterrym/smithycms)
 
 ## Templates & Includes
 These are the building blocks of a page. All the markup is written using the Liquid templating engine. This allows anyone to be able to write templates without the dangers of exposing the whole stack to the template editor.
