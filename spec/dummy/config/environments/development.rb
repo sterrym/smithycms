@@ -1,5 +1,3 @@
-require "binding_of_caller"
-require "better_errors"
 require 'rack-livereload'
 Dummy::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
