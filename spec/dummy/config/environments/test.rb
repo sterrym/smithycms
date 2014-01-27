@@ -43,7 +43,3 @@ if File.exists?(Rails.root.join('tmp', 'test_debug.txt'))
   Debugger.start_remote
   File.delete(Rails.root.join('tmp', 'test_debug.txt'))
 end
-
-ENV['AWS_ACCESS_KEY_ID'] = "S3_KEY"
-ENV['AWS_SECRET_ACCESS_KEY'] = "S3_SECRET"
-ENV['AWS_S3_BUCKET'] = "APPLICATION_BUCKET_NAME_#{Rails.env}"
