@@ -1,13 +1,7 @@
-<% content_for :title, "Images &amp; Files" %>
+<% content_for :title, "Images &amp; Files".html_safe %>
 
-<%= semantic_form_for @template, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.inputs "New #{@template.template_type.capitalize}" do %>
-    <%= f.input :name %>
-    <%= f.input :template_type, :as => :hidden %>
-  <% end %>
-  <%= f.actions :submit %>
-<% end %>
-
-<%= render :partial => "secondary_nav" %>
+<div class="well">
+  <%= render :partial => "form" %>
+</div>
 
 <% content_for :related, nil %>
