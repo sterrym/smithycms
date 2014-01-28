@@ -14,7 +14,7 @@ describe Smithy::PageContent do
   it { should_not validate_presence_of(:content_block) }
   it { should_not validate_presence_of(:content_block_template) }
   context "on update" do
-    subject { FactoryGirl.create(:page_content) }
+    subject { create(:page_content) }
     it { should validate_presence_of :content_block }
     it { should validate_presence_of(:content_block_template) }
   end
@@ -26,26 +26,29 @@ describe Smithy::PageContent do
   it { should belong_to(:content_block_template) }
 
   describe "#render" do
-    let(:content_block_template) { FactoryGirl.create(:content_block_template, :content => '{{ content }}' ) }
-    let(:content) { FactoryGirl.create(:content, :content => "This is the content") }
-    subject { FactoryGirl.create(:page_content, :content_block => content, :content_block_template => content_block_template).render }
+    let(:content_block_template) { build(:content_block_template, :content => '{{ content }}' ) }
+    let(:content) { build(:content, :content => "This is the content") }
+    subject { build(:page_content, :content_block => content, :content_block_template => content_block_template).render }
     it { should_not be_nil }
     it { should == "This is the content"}
   end
 
   describe "#templates" do
-    let!(:content_block) { Smithy::ContentBlock.find_or_create_by_name('Content') }
-    let!(:content_block_template1) { FactoryGirl.create(:content_block_template, :content => '{{ content }}', :content_block => content_block ) }
-    let!(:content_block_template2) { FactoryGirl.create(:content_block_template, :content => '<div>{{ content }}', :content_block => content_block ) }
-    let!(:content_block_template3) { FactoryGirl.create(:content_block_template, :content => '<div>{{ content }}' ) }
-    let!(:content) { FactoryGirl.create(:content, :content => "This is the content") }
-    subject { FactoryGirl.create(:page_content, :content_block => content, :content_block_template => content_block_template1).templates }
-    it { should == [content_block_template1, content_block_template2].sort_by{|cb| cb.name } }
-  end
+    let!(:content_block_template1) { create(:content_block_template, :content => '{{ content }}', :content_block => nil ) }
+    let!(:content_block_template2) { create(:content_block_template, :content => '<div>{{ content }}</div>', :content_block => nil ) }
+    let!(:content_block_template3) { create(:content_block_template, :content => '{{ content }}</div>', :content_block => nil ) }
+    let!(:content_block) { create(:content_block, :name => 'Content', :templates => [content_block_template1, content_block_template2]) }
+    let!(:content) { create(:content, :content => "This is the content") }
+    let(:page_content) { create(:page_content, :content_block => content, :content_block_template => content_block_template1) }
+    subject { page_content.templates }
+    it { should include content_block_template1 }
+    it { should include content_block_template2 }
+    it { should_not include content_block_template3 }
+ end
 
   describe "#to_liquid" do
-    let(:content) { FactoryGirl.create(:content, :content => "This is the content") }
-    subject { FactoryGirl.create(:page_content, :content_block => content).to_liquid }
+    let(:content) { build(:content, :content => "This is the content") }
+    subject { build(:page_content, :content_block => content).to_liquid }
     it { should == content.to_liquid }
   end
 end

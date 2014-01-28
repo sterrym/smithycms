@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Smithy::Page do
-  let(:page) { FactoryGirl.build(:page) }
+  let(:page) { build(:page) }
   subject { page }
 
   it { should allow_mass_assignment_of :browser_title }
@@ -36,8 +36,8 @@ describe Smithy::Page do
   its(:site) { should be_a Smithy::Site }
 
   context "won't allow a second root page" do
-    let!(:first_home_page) { FactoryGirl.create(:page, :title => "Home1") }
-    subject { FactoryGirl.build(:page, :title => "Home") }
+    let!(:first_home_page) { create(:page, :title => "Home1") }
+    subject { build(:page, :title => "Home") }
     before { subject.save; }
     it { should_not be_persisted }
     it { subject.errors[:parent_id].should == ['must have a parent'] }
@@ -47,15 +47,15 @@ describe Smithy::Page do
   end
 
   context "publishing" do
-    subject { FactoryGirl.create(:page, :title => "Home", :published_at => nil) }
+    subject { create(:page, :title => "Home", :published_at => nil) }
     its(:published_at) { should be_nil }
     context "with publish attribute" do
       context "and published_at unset" do
-        subject { FactoryGirl.create(:page, :title => "Home", :published_at => nil, :publish => true) }
+        subject { create(:page, :title => "Home", :published_at => nil, :publish => true) }
         its(:published_at) { should_not be_nil }
       end
       context "and published_at set" do
-        subject { FactoryGirl.create(:page, :title => "Home", :published_at => Time.now) }
+        subject { create(:page, :title => "Home", :published_at => Time.now) }
         it "should set published_at to nil if publish is false" do
           expect{ subject.update_attributes(:publish => false) }.to change{subject.published_at}
         end
@@ -71,7 +71,7 @@ describe Smithy::Page do
     let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
 
     context "using a template without containers" do
-      let(:page) { FactoryGirl.create(:page, :title => "Foo") }
+      let(:page) { create(:page, :title => "Foo") }
       describe "#container?" do
         subject{ page.container?("foo") }
         it { should be_false }
@@ -91,8 +91,8 @@ describe Smithy::Page do
     end
 
     context "using a template with 1 container" do
-      let(:template) { FactoryGirl.create(:template, :content => one_container, :template_type => "template") }
-      let(:page) { FactoryGirl.create(:page, :title => "Foo", :template => template) }
+      let(:template) { create(:template, :content => one_container, :template_type => "template") }
+      let(:page) { create(:page, :title => "Foo", :template => template) }
       describe "#container?" do
         specify { page.container?("foo").should be_true }
         specify { page.container?("bar").should be_false }
@@ -112,7 +112,7 @@ describe Smithy::Page do
   end
 
   describe "#to_liquid" do
-    subject { FactoryGirl.create(:page, :title => "Foo Bar").to_liquid }
+    subject { create(:page, :title => "Foo Bar").to_liquid }
     it { should be_a(Smithy::Liquid::Drops::Page) }
   end
 
@@ -144,13 +144,13 @@ describe Smithy::Page do
       its(:permalink) { should == 'page-1-1' }
     end
     context "within the same scope as another page" do
-      subject { FactoryGirl.create(:page, :title => "Page 1", :parent => home) }
+      subject { create(:page, :title => "Page 1", :parent => home) }
       its(:path) { should == '/page-1--2' }
       its(:permalink) { should == 'page-1--2' }
     end
     %w(index new edit session login logout users smithy).each do |word|
       context "using a reserved word for the title (#{word})" do
-        subject { FactoryGirl.build(:page, :title => word, :parent => home) }
+        subject { build(:page, :title => word, :parent => home) }
         before { subject.valid? }
         specify { subject.errors[:title].should_not be_blank }
       end

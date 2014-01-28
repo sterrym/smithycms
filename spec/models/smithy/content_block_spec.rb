@@ -22,7 +22,7 @@ describe Smithy::ContentBlock do
   it { should have_many :templates }
 
   describe "#content_field_names" do
-    let(:content_block) { FactoryGirl.create(:content_block, :name => "SampleContentModel") }
+    let(:content_block) { build(:content_block, :name => "SampleContentModel") }
     subject { content_block.content_field_names }
     it { should == %w(foo bar baz) }
     context "when #to_liquid exists" do

@@ -5,7 +5,7 @@ module Smithy
     include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
     include_context "acts like a content block" # see spec/support/shared_contexts
 
-    let(:page_list) { FactoryGirl.create(:page_list, :parent => page1) }
+    let(:page_list) { create(:page_list, :parent => page1) }
     subject { page_list }
 
     it { should allow_mass_assignment_of :count }
@@ -22,45 +22,63 @@ module Smithy
       its(:size) { should eql 3 }
 
       context "with a limited count" do
-        let(:page_list) { FactoryGirl.create(:page_list, :count => 2, :parent => page1) }
+        let(:page_list) { create(:page_list, :count => 2, :parent => page1) }
         its(:size) { should eql 2 }
       end
 
       context "#sort" do
-        subject { FactoryGirl.create(:page_list, :parent => page1).pages }
-        specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
+        let(:page_list) { build(:page_list, :parent => page1) }
+        let(:children) { page1.children }
+        let(:scope) { page1.children.scoped }
+        let(:pages) { page_list.pages }
+        subject { pages }
+        before do
+          allow(page1).to receive(:children).and_return(children)
+          allow(children).to receive(:scoped).and_return(scope)
+          allow(scope).to receive(:except).with(:order).and_return(scope)
+        end
+        it "shouldn't get ordered" do
+          expect(scope).to_not receive(:order)
+          page_list.pages
+        end
+
         context "by sitemap" do
-          let(:page_list) { FactoryGirl.create(:page_list, :parent => page1, :sort => "sitemap") }
-          subject { page_list.pages }
-          specify { page_list.parent.children.should_not_receive(:except) }
-          specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
-          context "after reordering" do
-            before do
-              page1_3.move_left
-            end
-            specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-3', 'Page 1-2'] }
+          before { page_list.sort = "sitemap" }
+          it "shouldn't get ordered" do
+            expect(scope).to_not receive(:except)
+            expect(scope).to_not receive(:order)
+            page_list.pages
           end
         end
-        context "by title ascending" do
-          subject { FactoryGirl.create(:page_list, :parent => page1, :sort => "title_asc").pages }
-          specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
-        end
-        context "by title descending" do
-          subject { FactoryGirl.create(:page_list, :parent => page1, :sort => "title_desc").pages }
-          specify { subject.map(&:title).should eql ['Page 1-3', 'Page 1-2', 'Page 1-1'] }
-        end
-        context "by created ascending" do
-          subject { FactoryGirl.create(:page_list, :parent => page1, :sort => "created_asc").pages }
-          specify { subject.map(&:title).should eql ['Page 1-1', 'Page 1-2', 'Page 1-3'] }
-        end
-        context "by created descending" do
-          subject { FactoryGirl.create(:page_list, :parent => page1, :sort => "created_desc").pages }
-          specify { subject.map(&:title).should eql ['Page 1-3', 'Page 1-2', 'Page 1-1'] }
+        context "when set to" do
+          before do
+            expect(scope).to receive(:except).with(:order)
+          end
+          it "'title_asc', orders pages by 'title ASC'" do
+            page_list.sort = "title_asc"
+            expect(scope).to receive(:order).with('title ASC')
+            page_list.pages
+          end
+          it "'title_desc', orders pages by 'title DESC'" do
+            page_list.sort = "title_desc"
+            expect(scope).to receive(:order).with('title DESC')
+            page_list.pages
+          end
+          it "'created_asc', orders pages by 'created ASC'" do
+            page_list.sort = "created_asc"
+            expect(scope).to receive(:order).with('created_at ASC')
+            page_list.pages
+          end
+          it "'created_desc', orders pages by 'created DESC'" do
+            page_list.sort = "created_desc"
+            expect(scope).to receive(:order).with('created_at DESC')
+            page_list.pages
+          end
         end
       end
 
       context "with a specific #page_template_id" do
-        subject { FactoryGirl.create(:page_list, :parent => page1, :page_template_id => page1_1.template_id, :sort => "created_desc").pages }
+        subject { create(:page_list, :parent => page1, :page_template_id => page1_1.template_id, :sort => "created_desc").pages }
         specify { subject.map(&:title).should eql ['Page 1-1'] }
       end
     end

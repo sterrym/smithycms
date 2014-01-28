@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Smithy::Asset do
   let(:file) { Smithy::Engine.root.join('spec', 'fixtures', 'assets', 'treats-and_stuff.png') }
-  let(:uploaded_file) { 'https://s3.amazonaws.com/tag-smithy-dev/test/treats-and_stuff.png' }
+  let(:uploaded_file) { "http://s3.amazonaws.com/#{ENV['AWS_S3_BUCKET']}/test/treats-and_stuff.png" }
   before do
     base_path = "http://s3.amazonaws.com/"
     path = "^#{base_path}#{ENV['AWS_S3_BUCKET']}/([^/.]+/)*#{File.basename(file)}$"
@@ -27,7 +27,7 @@ describe Smithy::Asset do
   it { should validate_presence_of(:name) }
 
   context "when loading a file, the" do
-    subject { FactoryGirl.create(:asset, :file => file) }
+    subject { create(:asset, :file => file) }
     its(:name) { should eql 'Treats And Stuff' }
     its(:content_type) { should eql 'image' }
     its(:file_name) { should eql 'treats-and_stuff.png' }
@@ -37,7 +37,7 @@ describe Smithy::Asset do
   end
 
   context "when only uploaded_file_url is populated, the" do
-    subject { FactoryGirl.create(:asset, :uploaded_file_url => uploaded_file) }
+    subject { create(:asset, :uploaded_file_url => uploaded_file) }
     its(:name) { should eql 'Treats And Stuff' }
     its(:content_type) { should eql 'image' }
     its(:file_size) { should eql 28773 }
@@ -48,13 +48,15 @@ describe Smithy::Asset do
   context "using the FileDataStore" do
     before do
       %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_S3_BUCKET).each{|k| ENV[k] = nil }
-      ::Dragonfly[:files].datastore = Smithy::Asset.dragonfly_datastore
+      Dragonfly.app.configure do
+        datastore Smithy::Asset.dragonfly_datastore
+      end
     end
     it "saves with a file" do
-      FactoryGirl.create(:asset, :file => file)
+      create(:asset, :file => file)
     end
     it "saves with an uploaded_file_url" do
-      FactoryGirl.create(:asset, :uploaded_file_url => uploaded_file)
+      create(:asset, :uploaded_file_url => uploaded_file)
     end
   end
 

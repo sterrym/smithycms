@@ -23,7 +23,7 @@ module Smithy
     end
 
     def self.app
-      ::Dragonfly[:files]
+      ::Dragonfly.app
     end
 
   end

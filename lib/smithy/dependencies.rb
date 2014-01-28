@@ -16,4 +16,3 @@ require 'jquery/rails'
 require 'liquid'
 require 'sass-rails'
 require 'slodown'
-

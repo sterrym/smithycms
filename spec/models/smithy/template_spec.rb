@@ -11,7 +11,7 @@ describe Smithy::Template do
   it { should ensure_inclusion_of(:template_type).in_array(Smithy::Template.types) }
   it { should_not validate_presence_of(:content) }
   context "on update" do
-    subject { FactoryGirl.create(:template) }
+    subject { create(:template) }
     it { should validate_uniqueness_of(:name) }
     it { should validate_presence_of :content }
   end
@@ -20,8 +20,8 @@ describe Smithy::Template do
   it { should have_many :containers }
 
   context "with connected pages" do
-    let(:template) { FactoryGirl.create(:template) }
-    let!(:page) { FactoryGirl.create(:page, :template => template) }
+    let(:template) { create(:template) }
+    let!(:page) { create(:page, :template => template) }
     specify { template.pages.each{|p| p.should_receive(:touch)} }
   end
 end

@@ -3,19 +3,13 @@ module Smithy
   module Dragonfly
     module DataStorage
       class RemoteDataStore
-        include ::Dragonfly::Configurable
-
-        def store(temp_object, opts={})
+        def write(content, opts={})
           # raise "Sorry friend, this datastore is read-only."
         end
 
-        def retrieve(uid)
+        def read(uid)
           response = HTTParty.get uid, :timeout => 3
-          unless response.ok?
-            #raise Forbidden if response.code == 403
-            raise DataNotFound
-          end
-
+          raise DataNotFound unless response.ok?
           content = response.body
           extra_data = {}
           [

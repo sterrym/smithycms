@@ -1,3 +1,5 @@
+require 'dragonfly/s3_data_store'
+
 module Smithy
   module Dragonfly
     module AssetHelper
@@ -21,20 +23,18 @@ module Smithy
 
         def dragonfly_datastore
           if ENV['AWS_ACCESS_KEY_ID'].present? && ENV['AWS_SECRET_ACCESS_KEY'].present? && ENV['AWS_S3_BUCKET'].present?
-            datastore = ::Dragonfly::DataStorage::S3DataStore.new
-            datastore.configure do |c|
-              c.bucket_name = ENV['AWS_S3_BUCKET']
-              c.access_key_id = ENV['AWS_ACCESS_KEY_ID']
-              c.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-              # c.region = 'eu-west-1'                        # defaults to 'us-east-1'
-              # c.storage_headers = {'some' => 'thing'}       # defaults to {'x-amz-acl' => 'public-read'}
-              # c.url_scheme = 'https'                        # defaults to 'http'
-              # c.url_host = 'some.custom.host'               # defaults to "<bucket_name>.s3.amazonaws.com"
+            Dragonfly.app.configure do
+              # Allow amazon s3 urls to work
+              fetch_url_whitelist [
+                /s3\.amazonaws\.com\/#{ENV['AWS_S3_BUCKET']}/,
+                /#{ENV['AWS_S3_BUCKET']}\.s3\.amazonaws\.com/
+              ]
             end
+            ::Dragonfly::S3DataStore.new(bucket_name: ENV['AWS_S3_BUCKET'], access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
           else
-            datastore = ::Dragonfly::DataStorage::FileDataStore.new
+            Dragonfly.app.configure { fetch_url_whitelist [] }
+            ::Dragonfly::FileDataStore.new(root_path: Rails.root.join('public/system/dragonfly', Rails.env), server_root: Rails.root.join('public'))
           end
-          datastore
         end
 
         def dragonfly_remote_datastore

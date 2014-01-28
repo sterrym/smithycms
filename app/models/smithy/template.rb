@@ -7,7 +7,7 @@ module Smithy
     validates_presence_of :content, :on => :update
 
     has_many :pages
-    has_many :containers, :class_name => "TemplateContainer"
+    has_many :containers, :class_name => "Smithy::TemplateContainer"
 
     before_save :uncache_liquid_template_if_content_changed
     after_save :load_containers
@@ -36,7 +36,6 @@ module Smithy
       def load_containers
         return unless self.template_type == 'template'
         container_names = liquid_template.root.nodelist.select{|n| n.is_a?(::Liquid::Variable) && n.name.match(/^page\.container\.(.*)/) }.map{|n| n.name.match(/^page\.container\.(.*)/)[1] }
-        # self.containers = container_names.map{|container_name| Smithy::TemplateContainer.new(:name => container_name) }
         self.containers = container_names.inject([]) do |containers, container_name|
           containers.push Smithy::TemplateContainer.new(:name => container_name, :position => containers.size)
         end

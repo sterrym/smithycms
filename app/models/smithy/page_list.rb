@@ -27,7 +27,7 @@ module Smithy
     def pages
       unless @pages
         return unless self.parent
-        @pages = self.parent.children
+        @pages = self.parent.children.scoped
         @pages = @pages.except(:order).order(sort_sql) unless sort_sql.nil?
         @pages = @pages.limit(self.count) if self.count?
         @pages = @pages.where(:template_id => self.page_template_id) if self.page_template_id?

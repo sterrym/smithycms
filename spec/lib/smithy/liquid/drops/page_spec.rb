@@ -33,12 +33,12 @@ describe Smithy::Liquid::Drops::Page do
   end
 
   describe "#browser_title" do
-    let(:subpage) { FactoryGirl.create(:page, :title => "Foo Bar", :parent => home) }
+    let(:subpage) { create(:page, :title => "Foo Bar", :parent => home) }
     subject { home.to_liquid['browser_title'] }
     context "a generated browser_title" do
       it { should == 'Home' }
       context "when it's a child page" do
-        subject { FactoryGirl.create(:page, :title => "Baz Qux", :parent => subpage).to_liquid['browser_title'] }
+        subject { create(:page, :title => "Baz Qux", :parent => subpage).to_liquid['browser_title'] }
         it { should == 'Foo Bar | Baz Qux'}
       end
       context "with a site title" do

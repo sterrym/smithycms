@@ -16,13 +16,13 @@ describe Smithy::TemplateContainer do
   # via the templates themselves
   # see Template#load_containers
   context "when the template is not a regular 'template'" do
-    let(:template) { FactoryGirl.create(:template, :content => one_container, :template_type => "include") }
+    let(:template) { create(:template, :content => one_container, :template_type => "include") }
     subject { template.containers }
     its(:size) { should == 0 }
   end
 
   context "a template with a single container" do
-    let(:template) { FactoryGirl.create(:template, :content => one_container) }
+    let(:template) { create(:template, :content => one_container) }
     subject { template.containers }
     its(:size) { should == 1 }
     context "the first container" do
@@ -45,7 +45,7 @@ describe Smithy::TemplateContainer do
   end
 
   context "a template with a three containers" do
-    let(:template) { FactoryGirl.create(:template, :content => three_containers) }
+    let(:template) { create(:template, :content => three_containers) }
     subject { template.containers }
     before do
       template.reload # it wasn't showing the right results without this
