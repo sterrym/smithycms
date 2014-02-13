@@ -13,12 +13,10 @@ module Smithy
       def sanitize_config
         {
           elements: %w(
-            p br a span sub sup strong em div hr abbr
-            ul ol li
-            blockquote pre code
-            h1 h2 h3 h4 h5 h6
-            img object param del
-            small big
+            p div ul ol li blockquote pre h1 h2 h3 h4 h5 h6 object
+            hr param
+            a span sub sup strong em abbr code del small big
+            br img
           ),
           attributes: {
             :all     => ['class', 'style', 'title', 'id'],
