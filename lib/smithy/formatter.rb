@@ -18,6 +18,7 @@ module Smithy
             blockquote pre code
             h1 h2 h3 h4 h5 h6
             img object param del
+            small big
           ),
           attributes: {
             :all     => ['class', 'style', 'title', 'id'],
