@@ -10,7 +10,6 @@ spec/dummy/log/*.log
 spec/dummy/tmp/
 spec/dummy/.sass-cache
 spec/dummy/.rvmrc
+spec/dummy/public/system/
 Gemfile.lock
 tmp/
-# ignore simplecov output
-coverage

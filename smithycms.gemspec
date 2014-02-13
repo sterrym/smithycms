@@ -1,3 +1,4 @@
+
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -39,18 +40,17 @@ Gem::Specification.new do |s|
   s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'
 
+  s.add_development_dependency 'byebug'
   s.add_development_dependency 'capybara', '~> 2.2.1'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'byebug'
   s.add_development_dependency 'factory_girl_rails', '~> 4.3.0'
-  s.add_development_dependency 'ffaker'
   s.add_development_dependency 'fakeweb'
+  s.add_development_dependency 'ffaker'
   s.add_development_dependency 'fuubar'
   s.add_development_dependency 'guard', '~> 2.3.0'
   s.add_development_dependency 'guard-livereload'
   s.add_development_dependency 'guard-rspec'
-  s.add_development_dependency 'guard-spork'
   s.add_development_dependency 'launchy'
   s.add_development_dependency 'letter_opener'
   s.add_development_dependency 'mysql2'
@@ -59,9 +59,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 2.14'
   s.add_development_dependency 'rb-fsevent'
   s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'simplecov'
   s.add_development_dependency 'smithycms-auth'
-  s.add_development_dependency 'spork', '~> 1.0rc'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'terminal-notifier-guard'
   s.extra_rdoc_files = [ "README.md" ]
