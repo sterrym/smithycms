@@ -42,9 +42,3 @@ Dummy::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 end
-
-if File.exists?(Rails.root.join('tmp', 'debug.txt'))
-  require 'debugger'
-  Debugger.start_remote
-  File.delete(Rails.root.join('tmp', 'debug.txt'))
-end

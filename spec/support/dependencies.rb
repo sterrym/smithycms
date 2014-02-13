@@ -1,7 +1,7 @@
+require 'byebug'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'database_cleaner'
-require 'debugger'
 require 'factory_girl_rails'
 require 'fakeweb'
 require 'ffaker'

@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara', '~> 2.2.1'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'debugger'
+  s.add_development_dependency 'byebug'
   s.add_development_dependency 'factory_girl_rails', '~> 4.3.0'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'fakeweb'

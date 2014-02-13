@@ -6,7 +6,7 @@ Coveralls.wear! if ENV['TRAVIS']
 require 'spork'
 
 # uncomment the following line to use spork with the debugger
-require 'spork/ext/ruby-debug'
+# require 'spork/ext/ruby-debug'
 
 Spork.prefork do
   # simplecov
