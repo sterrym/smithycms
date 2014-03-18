@@ -16,5 +16,8 @@ end
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# needed for rails4 compatibility. To be removed with final release
+gem 'formtastic', github: 'justinfrench/formtastic', branch: '2.3-stable'
+
 # To use debugger
 # gem 'debugger'
