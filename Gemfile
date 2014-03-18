@@ -16,9 +16,5 @@ end
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set'
-
-gem 'smithycms-auth', path: 'vendor/engines/smithycms-auth'
-
 # To use debugger
 # gem 'debugger'
