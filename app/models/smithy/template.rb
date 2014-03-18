@@ -1,7 +1,5 @@
 module Smithy
   class Template < ActiveRecord::Base
-    attr_accessible :name, :content, :template_type
-
     validates_presence_of :name
     validates_uniqueness_of :name, :scope => :template_type
     validates_presence_of :content, :on => :update
@@ -13,11 +11,11 @@ module Smithy
     after_save :load_containers
     after_save :touch_pages
 
-    default_scope order(:name)
-    scope :javascripts, where(:template_type => "javascript")
-    scope :partials, where(:template_type => "include")
-    scope :stylesheets, where(:template_type => "stylesheet")
-    scope :templates, where(:template_type => "template")
+    default_scope -> { order(:name) }
+    scope :javascripts, -> { where(:template_type => "javascript") }
+    scope :partials, -> { where(:template_type => "include") }
+    scope :stylesheets, -> { where(:template_type => "stylesheet") }
+    scope :templates, -> { where(:template_type => "template") }
 
     class << self
       def types

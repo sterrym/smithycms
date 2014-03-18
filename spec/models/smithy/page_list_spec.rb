@@ -8,12 +8,6 @@ module Smithy
     let(:page_list) { create(:page_list, :parent => page1) }
     subject { page_list }
 
-    it { should allow_mass_assignment_of :count }
-    it { should allow_mass_assignment_of :include_children }
-    it { should allow_mass_assignment_of :page_template_id }
-    it { should allow_mass_assignment_of :parent_id }
-    it { should allow_mass_assignment_of :sort }
-
     it { should validate_presence_of :parent_id }
 
     describe "#pages" do
@@ -29,49 +23,48 @@ module Smithy
       context "#sort" do
         let(:page_list) { build(:page_list, :parent => page1) }
         let(:children) { page1.children }
-        let(:scope) { page1.children.scoped }
         let(:pages) { page_list.pages }
         subject { pages }
         before do
           allow(page1).to receive(:children).and_return(children)
-          allow(children).to receive(:scoped).and_return(scope)
-          allow(scope).to receive(:except).with(:order).and_return(scope)
+          allow(children).to receive(:all).and_return(children)
+          allow(children).to receive(:except).with(:order).and_return(children)
         end
         it "shouldn't get ordered" do
-          expect(scope).to_not receive(:order)
+          expect(children).to_not receive(:order)
           page_list.pages
         end
 
         context "by sitemap" do
           before { page_list.sort = "sitemap" }
           it "shouldn't get ordered" do
-            expect(scope).to_not receive(:except)
-            expect(scope).to_not receive(:order)
+            expect(children).to_not receive(:except)
+            expect(children).to_not receive(:order)
             page_list.pages
           end
         end
         context "when set to" do
           before do
-            expect(scope).to receive(:except).with(:order)
+            expect(children).to receive(:except).with(:order)
           end
           it "'title_asc', orders pages by 'title ASC'" do
             page_list.sort = "title_asc"
-            expect(scope).to receive(:order).with('title ASC')
+            expect(children).to receive(:order).with('title ASC')
             page_list.pages
           end
           it "'title_desc', orders pages by 'title DESC'" do
             page_list.sort = "title_desc"
-            expect(scope).to receive(:order).with('title DESC')
+            expect(children).to receive(:order).with('title DESC')
             page_list.pages
           end
           it "'created_asc', orders pages by 'created ASC'" do
             page_list.sort = "created_asc"
-            expect(scope).to receive(:order).with('created_at ASC')
+            expect(children).to receive(:order).with('created_at ASC')
             page_list.pages
           end
           it "'created_desc', orders pages by 'created DESC'" do
             page_list.sort = "created_desc"
-            expect(scope).to receive(:order).with('created_at DESC')
+            expect(children).to receive(:order).with('created_at DESC')
             page_list.pages
           end
         end

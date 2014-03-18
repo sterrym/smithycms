@@ -1,7 +1,5 @@
 module Smithy
   class Page < ActiveRecord::Base
-    attr_accessible :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id
-
     validates_presence_of :template, :title
     validate :validate_one_root
     validate :validate_exclusion_of_reserved_words
@@ -19,7 +17,7 @@ module Smithy
 
     accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
-    scope :included_in_navigation, lambda{ where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
+    scope :included_in_navigation, -> { where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
 
     attr_accessor :publish
 
@@ -35,6 +33,10 @@ module Smithy
       return "/" if self.parent.blank?
       value = self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
       [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/')
+    end
+
+    def should_generate_new_friendly_id?
+      title_changed? || permalink_changed?
     end
 
     def published?

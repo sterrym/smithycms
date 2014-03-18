@@ -54,6 +54,10 @@ class Smithy::ContentPiecesController < Smithy::BaseController
   end
 
   private
+    def filtered_params
+      permitted_params.params_for klass.name.sub(/^Smithy::/, '').underscore
+    end
+
     def klass
       # override to provide an object for each class
       raise "You must inherit from this Smithy::ContentPiecesController and provide a private #klass method"
@@ -63,12 +67,8 @@ class Smithy::ContentPiecesController < Smithy::BaseController
       @klass_name ||= klass.name.sub(/^Smithy::/, '').titleize
     end
 
-    def klass_params
-      params[klass.name.sub(/^Smithy::/, '').underscore]
-    end
-
     def new_record
-      klass.new(klass_params)
+      klass.new(filtered_params)
     end
 
     def find_record
@@ -84,7 +84,7 @@ class Smithy::ContentPiecesController < Smithy::BaseController
     end
 
     def update_record(record)
-      record.update_attributes(klass_params)
+      record.update_attributes(filtered_params)
     end
 
     def readable_attributes

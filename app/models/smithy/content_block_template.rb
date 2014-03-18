@@ -1,7 +1,5 @@
 module Smithy
   class ContentBlockTemplate < ActiveRecord::Base
-    attr_accessible :content, :name
-
     belongs_to :content_block, :touch => true
     has_many :page_contents
 
@@ -11,7 +9,7 @@ module Smithy
 
     after_save :touch_page_contents
 
-    default_scope order(:name)
+    default_scope -> { order(:name) }
 
     def liquid_template
       @liquid_template ||= ::Liquid::Template.parse(self.content)

@@ -11,12 +11,12 @@ module Smithy
     end
 
     def new
-      @template = Template.new(params[:template])
+      @template = Template.new(filtered_params)
       respond_with @template
     end
 
     def create
-      @template = Template.new(params[:template])
+      @template = Template.new(filtered_params)
       @template.save
       flash.notice = "Your template was created" if @template.persisted?
       respond_with @template do |format|
@@ -39,7 +39,7 @@ module Smithy
 
     def update
       @template = Template.find(params[:id])
-      flash.notice = "Your template was saved" if @template.update_attributes(params[:template])
+      flash.notice = "Your template was saved" if @template.update_attributes(filtered_params)
       respond_with @template do |format|
         format.html { redirect_to [:edit, @template] }
       end
@@ -52,12 +52,12 @@ module Smithy
     end
 
     def javascript
-      @javascript = Template.javascripts.find_by_name(params[:javascript].sub(/\.js$/, ''))
+      @javascript = Template.javascripts.find_by(name: params[:javascript].sub(/\.js$/, ''))
       render_asset_template(@javascript, params[:javascript], 'text/javascript')
     end
 
     def stylesheet
-      @stylesheet = Template.stylesheets.find_by_name(params[:stylesheet].sub(/\.css$/, ''))
+      @stylesheet = Template.stylesheets.find_by(name: params[:stylesheet].sub(/\.css$/, ''))
       render_asset_template(@stylesheet, params[:stylesheet], 'text/css')
     end
 

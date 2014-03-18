@@ -4,18 +4,6 @@ describe Smithy::Page do
   let(:page) { build(:page) }
   subject { page }
 
-  it { should allow_mass_assignment_of :browser_title }
-  it { should allow_mass_assignment_of :cache_length }
-  it { should allow_mass_assignment_of :description }
-  it { should allow_mass_assignment_of :keywords }
-  it { should allow_mass_assignment_of :permalink }
-  it { should allow_mass_assignment_of :published_at }
-  it { should allow_mass_assignment_of :show_in_navigation }
-  it { should allow_mass_assignment_of :title }
-  it { should_not allow_mass_assignment_of :lft }
-  it { should_not allow_mass_assignment_of :rgt }
-  it { should_not allow_mass_assignment_of :depth }
-
   it { should validate_presence_of :title }
   it { should validate_presence_of :template }
 
@@ -79,7 +67,7 @@ describe Smithy::Page do
 
       describe "#containers" do
         subject { page.containers }
-        it { should be_an(Array) }
+        it { should be_an(ActiveRecord::Associations::CollectionProxy) }
         it { should be_empty }
       end
 
@@ -145,8 +133,8 @@ describe Smithy::Page do
     end
     context "within the same scope as another page" do
       subject { create(:page, :title => "Page 1", :parent => home) }
-      its(:path) { should == '/page-1--2' }
-      its(:permalink) { should == 'page-1--2' }
+      its(:path) { should =~ /^\/page-1-/ }
+      its(:permalink) { should =~ /^page-1-/ }
     end
     %w(index new edit session login logout users smithy).each do |word|
       context "using a reserved word for the title (#{word})" do

@@ -1,7 +1,7 @@
 .bundle/
-vendor/bundle/
 log/*.log
 pkg/
+vendor/engines
 .rvmrc
 .powrc
 .ruby-version

@@ -11,4 +11,13 @@ class Smithy::BaseController < ApplicationController
         redirect_to smithy_login_path
       end
     end
+
+    def filtered_params
+      permitted_params.params_for controller_name.singularize
+    end
+
+    def permitted_params
+      permitted_params ||= PermittedParams.new(params, smithy_current_user)
+    end
+    helper_method :permitted_params
 end

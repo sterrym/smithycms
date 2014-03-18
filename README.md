@@ -44,7 +44,7 @@ Now start up your server and go to http://localhost:nnnn/smithy
 
 ## Integrating with third-party authentication
 
-Add this to your routes file (below the `mount Smithy::Engine` line). It will redirect smithy/login|logout (the built-in paths) to your existing authentication paths.
+Add this to your routes file (before the `mount Smithy::Engine` line). It will redirect smithy/login|logout (the built-in paths) to your existing authentication paths.
 
 ```ruby
 scope "/smithy" do

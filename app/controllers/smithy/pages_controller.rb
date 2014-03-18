@@ -39,7 +39,7 @@ module Smithy
     end
 
     def update
-      flash.notice = "Your page was saved #{@page.published? ? 'and published' : 'as a draft'}" if @page.update_attributes(params[:page])
+      flash.notice = "Your page was saved #{@page.published? ? 'and published' : 'as a draft'}" if @page.update_attributes(filtered_params)
       respond_with @page do |format|
         format.html { redirect_to edit_page_path(@page.id) }
       end
@@ -67,7 +67,7 @@ module Smithy
 
     private
       def initialize_page
-        @page = Page.new(params[:page])
+        @page = Page.new(filtered_params)
         set_publish
       end
 
@@ -78,7 +78,7 @@ module Smithy
       end
 
       def load_page_from_path
-        @page = Page.find(page_path)
+        @page = Page.friendlfind(page_path)
         redirect_to @page.external_link and return false if @page.external_link?
       end
 

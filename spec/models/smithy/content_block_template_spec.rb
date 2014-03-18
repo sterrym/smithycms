@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Smithy::ContentBlockTemplate do
-  it { should allow_mass_assignment_of :name }
-  it { should allow_mass_assignment_of :content }
-
   it { should validate_presence_of :name }
   it { should validate_presence_of(:content) }
   context "on update" do

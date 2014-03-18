@@ -12,9 +12,6 @@ class Smithy::SampleContentModel
 end
 
 describe Smithy::ContentBlock do
-  it { should allow_mass_assignment_of :name }
-  it { should allow_mass_assignment_of :templates_attributes }
-
   it { should validate_presence_of :name }
 
   it { should accept_nested_attributes_for(:templates).allow_destroy(true) }

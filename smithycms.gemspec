@@ -20,10 +20,10 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main"]
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency 'rails', '~> 3.2.16'
+  s.add_dependency 'rails', '~> 4.0.4'
   s.add_dependency 'jquery-rails'
 
-  s.add_dependency 'awesome_nested_set', '~> 2.1.6'
+  s.add_dependency 'awesome_nested_set', '~> 3.0.0rc'
   s.add_dependency 'bootstrap-sass', '~> 2.3.2.1'
   s.add_dependency 'dragonfly', '~> 1.0.2'
   s.add_dependency 'dragonfly-s3_data_store', '~> 1.0.3'
@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'fog', '~> 1.19.0'
   s.add_dependency 'formtastic', '~> 2.2'
   s.add_dependency 'formtastic-bootstrap', '~> 2.1'
-  s.add_dependency 'friendly_id', '~> 4.0.10'
+  s.add_dependency 'friendly_id', '~> 5.0.3'
   s.add_dependency 'httparty', '~> 0.12.0'
   s.add_dependency 'jquery-fileupload-rails', '~> 0.4.1'
   s.add_dependency 'json', '~> 1.8.1'

@@ -2,8 +2,6 @@ module Smithy
   class PageList < ActiveRecord::Base
     include Smithy::ContentBlocks::Model
 
-    attr_accessible :count, :page_template_id, :parent_id, :include_children, :sort
-
     validates_presence_of :parent_id
 
     belongs_to :parent, :class_name => "Page"
@@ -27,7 +25,7 @@ module Smithy
     def pages
       unless @pages
         return unless self.parent
-        @pages = self.parent.children.scoped
+        @pages = self.parent.children
         @pages = @pages.except(:order).order(sort_sql) unless sort_sql.nil?
         @pages = @pages.limit(self.count) if self.count?
         @pages = @pages.where(:template_id => self.page_template_id) if self.page_template_id?

@@ -10,12 +10,12 @@ module Smithy
     end
 
     def new
-      @content_block = ContentBlock.new(params[:content_block])
+      @content_block = ContentBlock.new(filtered_params)
       respond_with @content_block
     end
 
     def create
-      @content_block = ContentBlock.new(params[:content_block])
+      @content_block = ContentBlock.new(filtered_params)
       @content_block.save
       flash.notice = "Your content_block was created" if @content_block.persisted?
       respond_with @content_block do |format|
@@ -30,7 +30,7 @@ module Smithy
 
     def update
       @content_block = ContentBlock.find(params[:id])
-      flash.notice = "Your content_block was saved" if @content_block.update_attributes(params[:content_block])
+      flash.notice = "Your content_block was saved" if @content_block.update_attributes(filtered_params)
       respond_with @content_block do |format|
         format.html { redirect_to [:edit, @content_block] }
       end

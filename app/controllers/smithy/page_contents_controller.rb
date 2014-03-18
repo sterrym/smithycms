@@ -9,7 +9,7 @@ module Smithy
     respond_to :html, :json
 
     def new
-      @page_content = Smithy::PageContent.new(params[:page_content])
+      @page_content = Smithy::PageContent.new(filtered_params)
       @page_content.label = [@page.title, @page_content.container.titleize].join(' - ') unless @page_content.label?
     end
 
@@ -17,8 +17,8 @@ module Smithy
       @page_content = Smithy::PageContent.new
       # we have to ensure that the content_block_type gets added before the content_block_attributes
       # see PageContent#content_block_attributes=
-      @page_content.content_block_type = params[:page_content][:content_block_type]
-      @page_content.attributes = params[:page_content]
+      @page_content.content_block_type = filtered_params[:content_block_type]
+      @page_content.attributes = filtered_params
       @page_content.page = @page
       @page_content.save
       respond_with @page_content do |format|
@@ -32,7 +32,7 @@ module Smithy
 
     def update
       @page_content = Smithy::PageContent.find(params[:id])
-      @saved = @page_content.update_attributes(params[:page_content])
+      @saved = @page_content.update_attributes(filtered_params)
       flash.notice = "Your content was saved" if @saved
       respond_with @page_content do |format|
         format.html { @saved ? redirect_to(edit_page_path(@page.id)) : render(:action => "edit") }

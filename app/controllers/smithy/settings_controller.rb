@@ -15,12 +15,12 @@ module Smithy
     end
 
     def new
-      @setting = Setting.new(params[:setting])
+      @setting = Setting.new(filtered_params)
       respond_with @setting
     end
 
     def create
-      @setting = Setting.new(params[:setting])
+      @setting = Setting.new(filtered_params)
       @setting.save
       flash.notice = "Your setting was created" if @setting.persisted?
       respond_with @setting
@@ -33,7 +33,7 @@ module Smithy
 
     def update
       @setting = Setting.find(params[:id])
-      flash.notice = "Your setting was saved" if @setting.update_attributes(params[:setting])
+      flash.notice = "Your setting was saved" if @setting.update_attributes(filtered_params)
       respond_with @setting
     end
 

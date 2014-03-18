@@ -10,12 +10,12 @@ module Smithy
     end
 
     def new
-      @asset = Asset.new(params[:asset])
+      @asset = Asset.new(filtered_params)
       respond_with @asset
     end
 
     def create
-      @asset = Asset.new(params[:asset])
+      @asset = Asset.new(filtered_params)
       @asset.save
       flash.notice = "Your asset was created" if @asset.persisted?
       respond_with @asset do |format|
@@ -30,7 +30,7 @@ module Smithy
 
     def update
       @asset = Asset.find(params[:id])
-      flash.notice = "Your asset was saved" if @asset.update_attributes(params[:asset])
+      flash.notice = "Your asset was saved" if @asset.update_attributes(filtered_params)
       respond_with @asset do |format|
         format.html { redirect_to assets_path }
       end

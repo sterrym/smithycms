@@ -11,18 +11,6 @@ describe Smithy::Asset do
     FakeWeb.register_uri(:get, uploaded_file, :body => File.read(file))
   end
 
-  it { should allow_mass_assignment_of :name }
-  it { should allow_mass_assignment_of :file }
-  it { should allow_mass_assignment_of :file_name }
-  it { should allow_mass_assignment_of :file_url }
-  it { should allow_mass_assignment_of :retained_file }
-  it { should allow_mass_assignment_of :uploaded_file_url }
-  it { should_not allow_mass_assignment_of :file_content_type }
-  it { should_not allow_mass_assignment_of :file_height }
-  it { should_not allow_mass_assignment_of :file_uid }
-  it { should_not allow_mass_assignment_of :file_size }
-  it { should_not allow_mass_assignment_of :file_width }
-
   it { should validate_presence_of(:file) }
   it { should validate_presence_of(:name) }
 

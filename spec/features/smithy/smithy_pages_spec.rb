@@ -6,7 +6,7 @@ describe "Page" do
   let(:content_block) { Smithy::ContentBlock.find_by_name("Content") }
   let(:content_block_template) { create(:content_block_template, :content => "{{ content }}", :content_block => content_block)}
   let(:content) { create(:content, :content => "This is some sample content.") }
-  let!(:page_content) { create(:page_content, :page => home, :container => 'foo', :content_block => content, :content_block_template => content_block_template) }
+  let!(:page_content) { create(:page_content, :publishable, :page => home, :container => 'foo', :content_block => content, :content_block_template => content_block_template) }
 
   it "should render the Template" do
     visit '/'

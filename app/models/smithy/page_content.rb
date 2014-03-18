@@ -1,7 +1,5 @@
 module Smithy
   class PageContent < ActiveRecord::Base
-    attr_accessible :label, :container, :content_block_type, :content_block_attributes, :content_block_template_id, :position
-
     validates_presence_of :content_block, :content_block_template, :on => :update
     validates_presence_of :content_block_type, :on => :create
     validates_presence_of :label, :container, :page
@@ -14,9 +12,9 @@ module Smithy
 
     accepts_nested_attributes_for :content_block, :allow_destroy => true
 
-    default_scope order(:position).order(:id)
-    scope :for_container, lambda {|container| where(:container => container) }
-    scope :publishable, lambda { where(:publishable => true) }
+    default_scope -> { order(:position).order(:id) }
+    scope :for_container, ->(container) { where(:container => container) }
+    scope :publishable, -> { where(:publishable => true) }
 
     def attributes=(attributes = {})
       self.content_block_type = attributes[:content_block_type]

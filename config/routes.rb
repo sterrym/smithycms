@@ -1,9 +1,9 @@
 Smithy::Engine.routes.draw do
   root :to => 'pages#show'
   scope "/smithy" do
-    match '/' => redirect('/smithy/pages')
-    match '/login'  => redirect('/'), :as => :login
-    match '/logout' => redirect('/'), :as => :logout, :via => :delete
+    get '/' => redirect('/smithy/pages')
+    get '/login'  => redirect('/'), :as => :login unless has_named_route?(:login)
+    delete '/logout' => redirect('/'), :as => :logout unless has_named_route?(:logout)
     # CMS admin
     resources :assets
     resources :content_blocks
@@ -12,7 +12,7 @@ Smithy::Engine.routes.draw do
       collection do
         get :order
       end
-      resources :contents, :controller => "PageContents", :except => [ :index ] do
+      resources :contents, :controller => "page_contents", :except => [ :index ] do
         member do
           get :preview
         end
@@ -31,8 +31,8 @@ Smithy::Engine.routes.draw do
     # end
   end
   # Sitemap
-  resource :sitemap, :controller => "Sitemap", :only => [ :show ]
-  match '/templates/javascripts/*javascript' => 'templates#javascript', :defaults => { :format => 'js' }
-  match '/templates/stylesheets/*stylesheet' => 'templates#stylesheet', :format => 'css'
-  match '*path' => 'pages#show'
+  resource :sitemap, :controller => "sitemap", :only => [ :show ]
+  get '/templates/javascripts/*javascript' => 'templates#javascript', :defaults => { :format => 'js' }
+  get '/templates/stylesheets/*stylesheet' => 'templates#stylesheet', :format => 'css'
+  get '*path' => 'pages#show'
 end

@@ -10,12 +10,12 @@ module Smithy
     end
 
     def new
-      @content = Smithy::Content.new(params[:content])
+      @content = Smithy::Content.new(filtered_params)
       respond_with @content
     end
 
     def create
-      @content = Smithy::Content.new(params[:content])
+      @content = Smithy::Content.new(filtered_params)
       @content.save
       flash.notice = "Your content was created" if @content.persisted?
       respond_with @content
@@ -28,7 +28,7 @@ module Smithy
 
     def update
       @content = Smithy::Content.find(params[:id])
-      flash.notice = "Your content was saved" if @content.update_attributes(params[:content])
+      flash.notice = "Your content was saved" if @content.update_attributes(filtered_params)
       respond_with @content
     end
 
