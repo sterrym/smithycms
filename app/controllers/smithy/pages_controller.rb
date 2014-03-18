@@ -78,7 +78,7 @@ module Smithy
       end
 
       def load_page_from_path
-        @page = Page.friendlfind(page_path)
+        @page = Page.friendly.find(page_path)
         redirect_to @page.external_link and return false if @page.external_link?
       end
 

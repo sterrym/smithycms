@@ -17,7 +17,7 @@ class Smithy::BaseController < ApplicationController
     end
 
     def permitted_params
-      permitted_params ||= PermittedParams.new(params, smithy_current_user)
+      permitted_params ||= Smithy::PermittedParams.new(params, smithy_current_user)
     end
     helper_method :permitted_params
 end

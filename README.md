@@ -19,11 +19,11 @@ A "Content Block" is simply an ActiveRecord model with a Smithy inclusion (<code
 To get started, add this to your Gemfile
 
 ```ruby
-gem 'smithy', :github => 'sterrym/smithy'
+gem 'smithy'
 ```
 
 If you need basic authentication and don't want to integrate with existing auth in your system, add this to your Gemfile too:
-gem 'smithy-auth', :github => 'sterrym/smithy-auth'
+gem 'smithy-auth'
 
 Installing the CMS is simple, you can just
 
