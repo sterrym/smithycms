@@ -5,6 +5,8 @@ module Smithy
       attributes = send("#{param.to_s}_attributes".to_sym)
       if attributes == :all
         params.fetch(param, {}).permit!
+      elsif attributes.respond_to? :call
+        attributes.call
       else
         params.fetch(param, {}).permit( *attributes )
       end
@@ -19,7 +21,8 @@ module Smithy
     end
 
     def content_block_attributes
-      [ :name, :templates_attributes ]
+      # [ :name, templates_attributes: [ :id, :name, :content, :_destroy ] ]
+      :all
     end
 
     def content_block_template_attributes
@@ -35,7 +38,8 @@ module Smithy
     end
 
     def page_content_attributes
-      [ :label, :container, :content_block_type, :content_block_attributes, :content_block_template_id, :position ]
+      # [ :label, :container, :content_block_type, :content_block_template_id, :position ]
+      :all
     end
 
     def page_list_attributes
