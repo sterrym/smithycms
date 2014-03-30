@@ -3,8 +3,8 @@ module Smithy
     module Filters
       module AssetTag
         def image_tag(input, *args)
-          image_options = inline_options(args_to_options(args))
-          "<img src=\"#{input}\" #{image_options}>"
+          image_options = args_to_options(args)
+          controller.view_context.send(:image_tag, input, image_options)
         end
 
         protected
@@ -18,6 +18,14 @@ module Smithy
               end
             end
             options
+          end
+
+          def context
+            context = self.instance_variable_get(:@context)
+          end
+
+          def controller
+            context.registers[:controller]
           end
 
           # Write options (Hash) into a string according to the following pattern:
