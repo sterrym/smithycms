@@ -2,6 +2,9 @@
   <%= f.input :asset, :collection => Smithy::Asset.order(:name) %>
   <%= f.input :alternate_text %>
 <% end %>
+<%= f.inputs "Linked Image (optional)" do %>
+  <%= f.input :link_url %>
+<% end %>
 <%= f.inputs "Content (optional)" do %>
   <%= f.input :content, :as => :text, :input_html => { :class => "span12", :id => "image_content-#{f.object.id || 'new'}" }, :hint => "Use markdown syntax for formatting. You can also use HTML directly. <a href=\"#{guide_path('markdown')}\" data-toggle=\"remote-load\" data-target=\"#content-guide\">See our markdown syntax reference</a>".html_safe %>
   <div id="image_content_editor-<%= f.object.id || 'new' %>" class="image_content_editor"></div>
@@ -19,9 +22,6 @@
   <%= f.input :width %>
   <%= f.input :height %>
   <%= f.input :image_scaling, :as => :select, :collection => Smithy::Image.image_scaling_options %>
-<% end %>
-<%= f.inputs "Linked Image (optional)" do %>
-  <%= f.input :link_url %>
 <% end %>
 <%= f.inputs "HTML Attributes (optional)" do %>
   <%= f.input :html_attributes %>
