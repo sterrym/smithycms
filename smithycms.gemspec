@@ -29,7 +29,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'dragonfly-s3_data_store', '~> 1.0.3'
   s.add_dependency 'font-awesome-sass-rails', '~> 3.0.2'
   s.add_dependency 'fog', '~> 1.20.0'
-  s.add_dependency 'formtastic'
+  s.add_dependency 'formtastic', '~> 2.3.rc'
   s.add_dependency 'formtastic-bootstrap', '~> 2.1'
   s.add_dependency 'friendly_id', '~> 5.0.3'
   s.add_dependency 'httparty', '~> 0.13.0'
