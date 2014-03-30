@@ -10,7 +10,6 @@ describe Smithy::Liquid::Filters::AssetTag do
     controller = ApplicationController.new
     registers       = { :controller => controller }
     liquid_context  = ::Liquid::Context.new({}, {}, registers)
-    puts "{{ '#{asset_path}' | image_tag: '#{options}' }}"
     ::Liquid::Template.parse("{{ '#{asset_path}' | image_tag: '#{options}' }}").render(liquid_context)
   end
 end
