@@ -22,6 +22,7 @@ module Smithy
     end
 
     def content_block_attributes=(attributes)
+      return unless attributes.present?
       klass = content_block_type.safe_constantize || "Smithy::#{content_block_type}".safe_constantize
       if klass
         self.content_block = klass.find_or_initialize_by_id(attributes.delete(:id))

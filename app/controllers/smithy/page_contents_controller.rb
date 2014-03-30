@@ -19,6 +19,7 @@ module Smithy
       # see PageContent#content_block_attributes=
       @page_content.content_block_type = filtered_params[:content_block_type]
       @page_content.attributes = filtered_params
+      # @page_content.content_block_attributes = params[:page_content][:content_block_attributes] if params[:page_content][:content_block_attributes]
       @page_content.page = @page
       @page_content.save
       respond_with @page_content do |format|
@@ -32,6 +33,7 @@ module Smithy
 
     def update
       @page_content = Smithy::PageContent.find(params[:id])
+      # @page_content.content_block_attributes = params[:page_content][:content_block_attributes]
       @saved = @page_content.update_attributes(filtered_params)
       flash.notice = "Your content was saved" if @saved
       respond_with @page_content do |format|
