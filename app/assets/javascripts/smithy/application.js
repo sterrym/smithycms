@@ -4,10 +4,10 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap
-//= require ace/ace
-//= require ace/mode-css.js
-//= require ace/mode-html.js
-//= require ace/mode-javascript.js
-//= require ace/mode-liquid.js
-//= require ace/mode-markdown.js
+//= require ace-1.1.3/ace
+//= require ace-1.1.3/mode-css.js
+//= require ace-1.1.3/mode-html.js
+//= require ace-1.1.3/mode-javascript.js
+//= require ace-1.1.3/mode-liquid.js
+//= require ace-1.1.3/mode-markdown.js
 //= require_tree .
