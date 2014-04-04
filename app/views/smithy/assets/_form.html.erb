@@ -4,9 +4,8 @@
     <%= f.input :file, :as => :file %>
     <%= f.input :retained_file, :as => :hidden %>
     <% if @asset.file %>
-    <div>
-      <img src="<%= @asset.file.thumb("300x300").url %>" alt="">
-    </div>
+    <div><img src="<%= @asset.file.thumb("300x300").url %>" alt=""></div>
+    <div><%= link_to @asset.file.remote_url, @asset.file.remote_url %></div>
     <% end %>
   <% end %>
   <%= f.actions :submit %>
