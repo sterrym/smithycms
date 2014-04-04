@@ -4,7 +4,9 @@ module Smithy
       class Nav < ::Liquid::Tag
         Syntax = /(#{::Liquid::Expression}+)?/
 
-        # {% nav site|page, id: 'main-nav', depth: 1, class: 'nav', active_class: 'on', include_root: 'true' }
+        # {% nav %} is equivalent to
+        # {% nav site, depth: 1, id: 'nav', class: '', wrapper: true, active_class: 'on', include_root: 'true'}
+        # {% nav site|site-section|page|section %}
         def initialize(tag_name, markup, tokens)
           @options = { :id => 'nav', :depth => 1, :class => '', :active_class => 'on', :include_root => false }
           if markup =~ Syntax
@@ -12,6 +14,7 @@ module Smithy
             markup.scan(::Liquid::TagAttributes) do |key, value|
               @options[key.to_sym] = value.gsub(/"|'/, '')
             end
+            @options[:active_nested_class] = 'in'
             @options[:depth] = @options[:depth].to_i
             @options[:depth] = 100 if @options[:depth] == 0
             @options[:wrapper] = @options[:wrapper] == "false" ? false : true
@@ -45,11 +48,12 @@ module Smithy
           href = item.url
           label = item.title
           css_class = " class=\"#{@options[:active_class]}\"" if (@page && @page.id == item.id) || (@controller && [item.path, item.external_link].include?(@controller.request.path))
+          css_class ||= " class=\"#{@options[:active_nested_class]}\"" if @page && @page.ancestors.include?(item)
           %Q{#{"  " * depth}<li id="#{item_id}"#{css_class}><a href="#{href}" id="#{item_id}-link">#{label}</a>#{render_children(item, depth.succ)}</li>}
         end
 
         def render_list_items(parent, depth=1)
-          return if depth > @options[:depth] || parent.leaf?
+          return unless write_child_list_items?(parent, depth)
           items = []
           items << render_list_item(parent, depth) if depth == 1 && @options[:include_root]
           parent.children.included_in_navigation.inject(items) do |items, item|
@@ -64,7 +68,7 @@ module Smithy
 
         def root_node
           case @source
-          when 'site'
+          when 'site', 'site-section'
             Smithy::Page.root
           when 'page'
             @page
@@ -72,6 +76,13 @@ module Smithy
             @page == Smithy::Page.root ? @page : @page.self_and_ancestors.second
           end
         end
+
+        private
+          def write_child_list_items?(parent, depth)
+            return false unless parent.present? && !parent.leaf?
+            return true if @source == 'site-section' && @page.self_and_ancestors.include?(parent)
+            depth > @options[:depth] ? false : true
+          end
 
       end
       ::Liquid::Template.register_tag('nav', Nav)
