@@ -16,6 +16,10 @@ module Smithy
           self._source.children.map(&:to_liquid)
         end
 
+        def navigation_children
+          self._source.included_in_navigation.children.map(&:to_liquid)
+        end
+
         def container
           self.rendered_containers
         end
