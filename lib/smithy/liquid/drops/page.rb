@@ -28,12 +28,40 @@ module Smithy
           self._source.keywords
         end
 
+        def next
+          sibling = if self._source.leaf?
+            self._source.right_sibling
+          elsif self._source.children.size
+            self._source.children.first
+          end
+          sibling ||= self._source.parent.right_sibling
+          sibling.to_liquid
+        end
+
+        def next_sibling
+          self._source.right_sibling.to_liquid
+        end
+
         def parent
           self._source.parent.to_liquid
         end
 
         def path
           self._source.url
+        end
+
+        def previous
+          sibling = if self._source.left_sibling && self._source.left_sibling.leaf?
+            self._source.left_sibling
+          elsif self._source.left_sibling && self._source.left_sibling.children.size
+            self._source.left_sibling.children.last
+          end
+          sibling ||= self._source.parent
+          sibling.to_liquid
+        end
+
+        def previous_sibling
+          sibling = self._source.left_sibling.to_liquid
         end
 
         def published?
