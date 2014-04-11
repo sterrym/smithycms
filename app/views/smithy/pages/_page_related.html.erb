@@ -17,5 +17,6 @@
   </dl>
 </div>
 
+<%= content_tag :p, link_to("View Page", @page.path, class: 'btn btn-primary') if @page.persisted? && @page.published? %></p>
 <%= content_tag :p, link_to("Delete Page", page_path(@page.id), method: :delete, data: { confirm: "Are you sure you want to delete this page?" }, class: 'btn btn-danger') if @page.persisted? %></p>
 <% end %>
