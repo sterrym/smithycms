@@ -1,6 +1,6 @@
 module Smithy
   class Site
-    @@title = nil
+    cattr_accessor :title
 
     class << self
       def title
