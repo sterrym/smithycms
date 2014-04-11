@@ -34,7 +34,7 @@ $(function() {
     var new_id  = new Date().getTime();
     content     = content.replace(regexp, new_id)
 
-    $(this).parent().after(content);
+    $(this).parent().append(content);
     return false;
   });
 
