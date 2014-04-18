@@ -78,7 +78,11 @@ module Smithy
       end
 
       def load_page_from_path
-        @page = Page.friendly.find(page_path)
+        if smithy_current_user
+          @page = Page.friendly.find(page_path)
+        else
+          @page = Page.published.friendly.find(page_path)
+        end
         redirect_to @page.external_link and return false if @page.external_link?
       end
 
