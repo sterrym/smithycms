@@ -5,7 +5,6 @@ module Smithy
     validates_presence_of :asset
 
     belongs_to :asset
-    has_many :page_contents, :as => :content_block, :dependent => :destroy
 
     class << self
       def content_block_description
