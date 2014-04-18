@@ -18,6 +18,7 @@ module Smithy
     accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
     scope :included_in_navigation, -> { where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
+    scope :published, -> { where('published_at <= ?', Time.now) }
 
     attr_accessor :publish
 
