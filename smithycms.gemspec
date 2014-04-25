@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.extra_rdoc_files = ["README.md"]
   s.rdoc_options = ["--main"]
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
   s.add_dependency 'rails', '~> 4.0.4'
   s.add_dependency 'jquery-rails'
