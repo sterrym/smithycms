@@ -34,6 +34,7 @@ module Smithy
         'file_width' => self.file_width,
         'file_height' => self.file_height,
         'file_size' => self.file_size,
+        'remote_url' => self.file.remote_url,
         'url' => self.file.url
       }
     end
