@@ -72,16 +72,16 @@ module Smithy
       end
 
       def load_page
-        @page = Page.find(params[:id])
+        @page = Page.includes(:contents).find(params[:id])
         @root = @page if Page.root == @page
         set_publish
       end
 
       def load_page_from_path
         if smithy_current_user
-          @page = Page.friendly.find(page_path)
+          @page = Page.includes(:contents).friendly.find(page_path)
         else
-          @page = Page.published.friendly.find(page_path)
+          @page = Page.includes(:contents).published.friendly.find(page_path)
         end
         redirect_to @page.external_link and return false if @page.external_link?
       end

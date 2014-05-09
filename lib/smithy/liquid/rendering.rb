@@ -6,10 +6,10 @@ module Smithy
 
       def render_smithy_page
         if smithy_current_user
-          output = @page.template.liquid_template.render(liquid_context)
+          output = @page.render(liquid_context)
         else
           output = Rails.cache.fetch("#{@page.cache_key}-render_smithy_page") do
-            @page.template.liquid_template.render(liquid_context)
+            @page.render(liquid_context)
           end
         end
         render :text => output, :layout => false
@@ -21,7 +21,7 @@ module Smithy
       end
 
       def liquid_context
-        ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, false)
+        ::Liquid::Context.new({}, smithy_default_assigns, smithy_default_registers, !Rails.env.production?)
       end
 
       def smithy_default_assigns
