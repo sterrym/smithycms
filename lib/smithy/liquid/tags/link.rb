@@ -13,7 +13,6 @@ module Smithy
         end
 
         def render(context)
-          debugger
           controller = context.registers[:controller]
           context.stack do
             controller.view_context.link_to(@url) do
