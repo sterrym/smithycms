@@ -21,6 +21,7 @@ module Smithy
     scope :published, -> { where('published_at <= ?', Time.now) }
 
     attr_accessor :publish
+    attr_accessor :liquid_registers
 
     def container?(container_name)
       containers.where(:name => container_name).count > 0
@@ -44,10 +45,15 @@ module Smithy
       self.published_at?
     end
 
+    def render(liquid_context)
+      @liquid_registers = liquid_context.registers
+      self.template.liquid_template.render(liquid_context)
+    end
+
     def render_container(container_name)
       return '' unless container?(container_name)
       Rails.cache.fetch(self.container_cache_key(container_name)) do
-        self.contents_for_container_name(container_name).map(&:render).join("\n\n")
+        self.contents_for_container_name(container_name).map{|c| c.render(liquid_registers) }.join("\n\n")
       end
     end
 

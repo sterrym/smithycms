@@ -31,8 +31,8 @@ module Smithy
       end
     end
 
-    def render
-      content_block_template.liquid_template.render(self.to_liquid)
+    def render(liquid_registers)
+      content_block_template.liquid_template.render(::Liquid::Context.new({}, self.to_liquid, liquid_registers, !Rails.env.production?))
     end
 
     def to_liquid
