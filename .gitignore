@@ -13,3 +13,4 @@ spec/dummy/.rvmrc
 spec/dummy/public/system/
 Gemfile.lock
 tmp/
+.rbenv-gemsets
