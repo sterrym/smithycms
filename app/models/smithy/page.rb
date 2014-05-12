@@ -21,7 +21,7 @@ module Smithy
     scope :published, -> { where('published_at <= ?', Time.now) }
 
     attr_accessor :publish
-    attr_accessor :liquid_registers
+    attr_reader :liquid_context
 
     def container?(container_name)
       containers.where(:name => container_name).count > 0
@@ -46,14 +46,14 @@ module Smithy
     end
 
     def render(liquid_context)
-      @liquid_registers = liquid_context.registers
+      @liquid_context = liquid_context
       self.template.liquid_template.render(liquid_context)
     end
 
     def render_container(container_name)
       return '' unless container?(container_name)
       Rails.cache.fetch(self.container_cache_key(container_name)) do
-        self.contents_for_container_name(container_name).map{|c| c.render(liquid_registers) }.join("\n\n")
+        self.contents_for_container_name(container_name).map{|c| c.render(liquid_context) }.join("\n\n")
       end
     end
 
@@ -73,7 +73,7 @@ module Smithy
       def container_cache_key(container_name)
         # fetch the most recently adjusted content and add the updated_at timestamp to the cache_key
         content_last_updated = if self.contents_for_container_name(container_name).count > 0
-          self.contents_for_container_name(container_name).order(nil).order('created_at DESC').first.updated_at
+          self.contents_for_container_name(container_name).order(nil).order('updated_at DESC').first.updated_at
         else
           self.updated_at
         end
