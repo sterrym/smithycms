@@ -19,9 +19,10 @@ describe Smithy::PageContent do
   it { should belong_to(:content_block_template) }
 
   describe "#render" do
+    let(:liquid_context) { ::Liquid::Context.new }
     let(:content_block_template) { build(:content_block_template, :content => '{{ content }}' ) }
     let(:content) { build(:content, :content => "This is the content") }
-    subject { build(:page_content, :content_block => content, :content_block_template => content_block_template).render }
+    subject { build(:page_content, :content_block => content, :content_block_template => content_block_template).render(liquid_context) }
     it { should_not be_nil }
     it { should == "This is the content"}
   end

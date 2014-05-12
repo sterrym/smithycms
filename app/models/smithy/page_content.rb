@@ -31,8 +31,14 @@ module Smithy
       end
     end
 
-    def render(liquid_registers)
-      content_block_template.liquid_template.render(::Liquid::Context.new({}, self.to_liquid, liquid_registers, !Rails.env.production?))
+    def render(liquid_context)
+      liquid_context.stack do
+        # push the default assigns into a smithy namespace. They'll still be in the
+        # scopes as the original values as well, but this ensures they don't get clobbered
+        liquid_context.merge('smithy' => liquid_context.scopes.last)
+        liquid_context.merge(self.to_liquid)
+        content_block_template.liquid_template.render(liquid_context)
+      end
     end
 
     def to_liquid
