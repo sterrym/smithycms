@@ -3,8 +3,8 @@ module Smithy
     module Model
       extend ActiveSupport::Concern
       included do
-        has_many :page_contents, :as => :content_block, class_name: '::Smithy::PageContent'
-        has_many :pages, through: :page_contents, class_name: '::Smithy::Page'
+        has_one :page_content, :as => :content_block, class_name: '::Smithy::PageContent'
+        has_one :page, through: :page_content, class_name: '::Smithy::Page'
         Smithy::ContentBlocks::Registry.register self
       end
 
