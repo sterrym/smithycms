@@ -1,7 +1,7 @@
 # Smithy CMS
 
 [![Gem Version](https://badge.fury.io/rb/smithycms.png)](http://badge.fury.io/rb/smithycms)
-[![Code Climate](https://codeclimate.com/github/sterrym/smithy.png)](https://codeclimate.com/github/sterrym/smithy)
+[![Code Climate](https://codeclimate.com/github/sterrym/smithycms.png)](https://codeclimate.com/github/sterrym/smithycms)
 [![Build Status](https://travis-ci.org/sterrym/smithycms.png?branch=master)](https://travis-ci.org/sterrym/smithycms)
 [![Coverage Status](https://coveralls.io/repos/sterrym/smithycms/badge.png)](https://coveralls.io/r/sterrym/smithycms)
 [![Dependency Status](https://gemnasium.com/sterrym/smithycms.png)](https://gemnasium.com/sterrym/smithycms)
