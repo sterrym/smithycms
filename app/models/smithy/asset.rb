@@ -24,6 +24,28 @@ module Smithy
       dragonfly_attachments[:file].to_value
     end
 
+    def file_type
+      ext = File.extname(file.name).sub(/^\./, '')
+      case ext
+      when 'jpg', 'jpeg', 'gif', 'png'
+        :image
+      when 'pdf'
+        :pdf
+      when 'doc', 'docx'
+        :word
+      when 'xls', 'xlsx'
+        :excel
+      when 'ppt', 'pps', 'pptx', 'ppsx'
+        :powerpoint
+      when 'txt'
+        :text
+      when 'rtf'
+        :document
+      else
+        :default
+      end
+    end
+
     def to_liquid
       {
         'id' => self.id,
