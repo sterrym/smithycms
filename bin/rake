@@ -1,4 +1,7 @@
 #!/usr/bin/env ruby
-require_relative '../config/boot'
+ENGINE_ROOT = File.expand_path('../..', __FILE__)
+ENGINE_PATH = File.expand_path('../../lib/smithy/engine', __FILE__)
+
+require_relative "#{ENGINE_ROOT}/spec/dummy/config/boot"
 require 'rake'
 Rake.application.run
