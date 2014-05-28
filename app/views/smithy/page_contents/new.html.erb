@@ -18,7 +18,7 @@
     <tbody>
     <% @content_blocks.each do |content_block| %>
       <tr>
-        <td><button class="btn btn-small page_content_block" type="button" data-content_block="<%= content_block.name %>"><%= content_block.name.underscore.humanize %></button></td>
+        <td style="white-space:nowrap"><button class="btn btn-small page_content_block" type="button" data-content_block="<%= content_block.name %>"><%= content_block.name.underscore.titleize %></button></td>
         <td><%= content_block.description %></td>
       </tr>
     <% end %>
