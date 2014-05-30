@@ -19,6 +19,7 @@ module Smithy
             @options[:depth] = 100 if @options[:depth] == 0
             @options[:wrapper] = @options[:wrapper] == "false" ? false : true
             @options[:include_root] = @options[:include_root] == "true" ? true : false
+            @options[:root] = @options[:root_id].present? ? Smithy::Page.find(@options[:root_id]) : Smithy::Page.root
           else
             raise ::Liquid::SyntaxError.new("Syntax Error in 'nav' - Valid syntax: nav <site|page|section> <options>")
           end
@@ -54,6 +55,7 @@ module Smithy
 
         def render_list_items(parent, depth=1)
           return unless write_child_list_items?(parent, depth)
+          byebug
           items = []
           items << render_list_item(parent, depth) if depth == 1 && @options[:include_root]
           parent.children.included_in_navigation.inject(items) do |items, item|
@@ -69,18 +71,24 @@ module Smithy
         def root_node
           case @source
           when 'site', 'site-section'
-            Smithy::Page.root
+            @options[:root]
           when 'page'
             @page
           when 'section'
-            @page == Smithy::Page.root ? @page : @page.self_and_ancestors.second
+            @page == @options[:root] ? @page : section_page
           end
         end
 
         private
+          def section_page
+            ancestors = @page.self_and_ancestors
+            idx = ancestors.index(@options[:root])
+            ancestors[idx+1].present? ? ancestors[idx+1] : ancestors.second
+          end
+
           def write_child_list_items?(parent, depth)
             return false unless parent.present? && !parent.leaf?
-            return true if @source == 'site-section' && @page.self_and_ancestors.include?(parent)
+            return true if @source == '`-section' && @page.self_and_ancestors.include?(parent)
             depth > @options[:depth] ? false : true
           end
 
