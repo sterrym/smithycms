@@ -24,6 +24,7 @@
               <li><%= link_to "<i class=\"icon-list-alt\"></i> Content Blocks".html_safe, content_blocks_path %></li>
               <li><%= link_to users_path do %><i class="icon-user"></i> Users<% end %></li>
               <li><%= link_to "<i class=\"icon-cog\"></i> Settings".html_safe, settings_path %></li>
+              <li><%= link_to "<i class=\"icon-refresh\"></i> Site Cache".html_safe, cache_path %></li>
             </ul>
           </li>
           <% if respond_to?(:logout_path) %>
