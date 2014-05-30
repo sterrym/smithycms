@@ -55,7 +55,6 @@ module Smithy
 
         def render_list_items(parent, depth=1)
           return unless write_child_list_items?(parent, depth)
-          byebug
           items = []
           items << render_list_item(parent, depth) if depth == 1 && @options[:include_root]
           parent.children.included_in_navigation.inject(items) do |items, item|
