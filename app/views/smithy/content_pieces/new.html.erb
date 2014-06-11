@@ -1,1 +1,8 @@
 <% content_for :title, "New #{klass_name}" %>
+
+<%= semantic_form_for @record do |f| %>
+  <%= f.inputs do %>
+    <%= f.inputs *accessible_attributes %>
+  <% end %>
+  <%= f.actions :submit %>
+<% end %>
