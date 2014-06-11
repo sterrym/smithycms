@@ -1,4 +1,6 @@
 <% content_for :title, "#{klass_name}" %>
+
+<p><%= link_to "New #{klass_name}", "#{request.url}/new", :class => "btn btn-mini" %></p>
 <table border="0" cellpadding="4" class="table table-hover table-bordered">
 <thead>
   <tr>
@@ -10,7 +12,7 @@
 <%- @records.each do |record| %>
   <tr>
     <td>
-      <%= link_to "Edit", [:edit, record], :class => "btn btn-mini"  %>
+      <%= link_to "Edit", [:edit, record], :class => "btn btn-mini" %>
     </td>
     <%- readable_attributes.map(&:to_sym).each do |attribute| %>
     <td><%= record[attribute] %></td>
