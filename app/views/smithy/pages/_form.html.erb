@@ -20,6 +20,7 @@
     <%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? %>
     <%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
     <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
+    <%= render :partial => "smithy/pages/page_fields", :locals => { :f => f } if File.exists?(Rails.root.join('app', 'views', 'smithy', 'pages', '_page_fields.html.erb')) %>
   <% end %>
   <% if @page.persisted? && @page.external_link.blank? %>
     <h3>Content</h3>
@@ -34,6 +35,7 @@
     <%= f.inputs do %>
       <%= f.input(:external_link) unless @page.external_link? %>
       <%= f.input :cache_length, :hint => "In seconds (eg. 600 is 10 minutes)" %>
+      <%= render :partial => "smithy/pages/meta_fields", :locals => { :f => f } if File.exists?(Rails.root.join('app', 'views', 'smithy', 'pages', '_meta_fields.html.erb')) %>
     <% end %>
   <% end %>
   <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
