@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Smithy::PermittedParams do
+describe Smithy::PermittedParams, :type => :model do
   let(:user) { stub_const("User", double(:email => "test@example.com", :smithy_admin? => true)) }
   let(:params) { ActionController::Parameters.new(foo: { bar: true, baz: "qux", corge: "not allowed" }) }
   let(:permitted_params) { Smithy::PermittedParams.new(params, user) }
@@ -38,11 +38,11 @@ describe Smithy::PermittedParams do
       let(:params) { ActionController::Parameters.new( param => attributes ) }
       describe "##{param_name}_attributes" do
         subject { permitted_params.send("#{param_name}_attributes") }
-        it { should == columns }
+        it { is_expected.to eq(columns) }
       end
       describe "#params_for(:#{param_name})" do
         subject { permitted_params.params_for(param) }
-        it { should == attributes }
+        it { is_expected.to eq(attributes) }
       end
     end
   end

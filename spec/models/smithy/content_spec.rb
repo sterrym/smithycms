@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Smithy::Content do
+describe Smithy::Content, :type => :model do
   include_context "acts like a content block" # see spec/support/shared_contexts
   context "#markdown_content" do
     subject { create(:content).markdown_content }
-    it { should_not be_blank }
+    it { is_expected.not_to be_blank }
   end
 end

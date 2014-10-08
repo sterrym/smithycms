@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Page" do
+describe "Page", :type => :feature do
   let(:template) { create(:template, :content => File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid'))) }
   let(:home) { create(:page, :title => "This is a Page", :template => template) }
   let(:content_block) { Smithy::ContentBlock.find_by_name("Content") }

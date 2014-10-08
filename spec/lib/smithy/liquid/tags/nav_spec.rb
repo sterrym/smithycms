@@ -5,34 +5,34 @@ describe Smithy::Liquid::Tags::Nav do
   let(:site) { Smithy::Site.new }
   subject { render_nav 'site' }
 
-  it { should eql navigation_for_depth_of_1 }
+  it { is_expected.to eql navigation_for_depth_of_1 }
 
   context "a depth of 2" do
     subject { render_nav 'site', 'depth: 2' }
-    it { should eql navigation_for_depth_of_2 }
+    it { is_expected.to eql navigation_for_depth_of_2 }
   end
 
   context "a depth of 0" do
     subject { render_nav 'site', 'depth: 0' }
-    it { should eql navigation_for_depth_of_0 }
+    it { is_expected.to eql navigation_for_depth_of_0 }
   end
 
   context "a custom id" do
     subject { render_nav 'site', 'id: foo' }
-    it { should start_with '<ul id="foo"' }
-    it { should include '<li id="foo-page-1'}
+    it { is_expected.to start_with '<ul id="foo"' }
+    it { is_expected.to include '<li id="foo-page-1'}
   end
 
   context "with a selected page" do
     subject { render_nav 'site', 'active_class: foo', { :page => page1 } }
     let(:navigation) { navigation_for_depth_of_1.sub(/id="nav-page-1"/, 'id="nav-page-1" class="foo"')}
-    it { should eql navigation }
+    it { is_expected.to eql navigation }
   end
 
   context "with a selected page and a custom class" do
     subject { render_nav 'site', '', { :page => page1 } }
     let(:navigation) { navigation_for_depth_of_1.sub(/id="nav-page-1"/, 'id="nav-page-1" class="on"')}
-    it { should eql navigation }
+    it { is_expected.to eql navigation }
   end
 
   def render_nav(root = 'site', tag_options = '', registers = {})

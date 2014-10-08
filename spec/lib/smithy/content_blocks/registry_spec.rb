@@ -21,7 +21,7 @@ describe Smithy::ContentBlocks::Registry do
 
   context "when the table exists" do
     before do
-      ActiveRecord::Base.connection.stub(:table_exists?).and_return(true)
+      allow(ActiveRecord::Base.connection).to receive(:table_exists?).and_return(true)
       Smithy::ContentBlocks::Registry.register(Smithy::Foo)
     end
     it "won't add a content block to the registry that already exists" do
@@ -38,7 +38,7 @@ describe Smithy::ContentBlocks::Registry do
 
   context "when the table doesn't exist" do
     before do
-      ActiveRecord::Base.connection.stub(:table_exists?).and_return(false)
+      allow(ActiveRecord::Base.connection).to receive(:table_exists?).and_return(false)
     end
     it "won't register the content block" do
       Smithy::ContentBlocks::Registry.register(Smithy::Foo)

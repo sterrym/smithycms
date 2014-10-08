@@ -1,46 +1,65 @@
 require 'spec_helper'
 
-describe Smithy::Page do
+describe Smithy::Page, :type => :model do
   let(:page) { build(:page) }
   subject { page }
 
-  it { should validate_presence_of :title }
-  it { should validate_presence_of :template }
+  it { is_expected.to validate_presence_of :title }
+  it { is_expected.to validate_presence_of :template }
 
-  it { should accept_nested_attributes_for(:contents).allow_destroy(true) }
+  it { is_expected.to accept_nested_attributes_for(:contents).allow_destroy(true) }
 
-  it { should belong_to :parent }
-  it { should belong_to :template }
-  it { should have_many :children }
-  it { should have_many(:containers).through(:template) }
-  it { should have_many :contents }
+  it { is_expected.to belong_to :parent }
+  it { is_expected.to belong_to :template }
+  it { is_expected.to have_many :children }
+  it { is_expected.to have_many(:containers).through(:template) }
+  it { is_expected.to have_many :contents }
 
-  it { should be_valid }
+  it { is_expected.to be_valid }
 
   # defaults
-  its(:show_in_navigation) { should be_true }
-  its(:cache_length) { should eql 600 }
 
-  its(:site) { should be_a Smithy::Site }
+  describe '#show_in_navigation' do
+    subject { super().show_in_navigation }
+    it { is_expected.to be_truthy }
+  end
+
+  describe '#cache_length' do
+    subject { super().cache_length }
+    it { is_expected.to eql 600 }
+  end
+
+  describe '#site' do
+    subject { super().site }
+    it { is_expected.to be_a Smithy::Site }
+  end
 
   context "won't allow a second root page" do
     let!(:first_home_page) { create(:page, :title => "Home1") }
     subject { build(:page, :title => "Home") }
     before { subject.save; }
-    it { should_not be_persisted }
-    it { subject.errors[:parent_id].should == ['must have a parent'] }
+    it { is_expected.not_to be_persisted }
+    it { expect(subject.errors[:parent_id]).to eq(['must have a parent']) }
     it "can still update itself" do
-      first_home_page.update_attributes(:published_at => Time.now).should be_true
+      expect(first_home_page.update_attributes(:published_at => Time.now)).to be_truthy
     end
   end
 
   context "publishing" do
     subject { create(:page, :title => "Home", :published_at => nil) }
-    its(:published_at) { should be_nil }
+
+    describe '#published_at' do
+      subject { super().published_at }
+      it { is_expected.to be_nil }
+    end
     context "with publish attribute" do
       context "and published_at unset" do
         subject { create(:page, :title => "Home", :published_at => nil, :publish => true) }
-        its(:published_at) { should_not be_nil }
+
+        describe '#published_at' do
+          subject { super().published_at }
+          it { is_expected.not_to be_nil }
+        end
       end
       context "and published_at set" do
         subject { create(:page, :title => "Home", :published_at => Time.now) }
@@ -62,19 +81,19 @@ describe Smithy::Page do
       let(:page) { create(:page, :title => "Foo") }
       describe "#container?" do
         subject{ page.container?("foo") }
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
 
       describe "#containers" do
         subject { page.containers }
-        it { should be_an(ActiveRecord::Associations::CollectionProxy) }
-        it { should be_empty }
+        it { is_expected.to be_an(ActiveRecord::Associations::CollectionProxy) }
+        it { is_expected.to be_empty }
       end
 
       describe "#render_container" do
         subject { page.render_container("foo_bar") }
-        it { should be_empty }
-        it { should == "" }
+        it { is_expected.to be_empty }
+        it { is_expected.to eq("") }
       end
     end
 
@@ -82,65 +101,111 @@ describe Smithy::Page do
       let(:template) { create(:template, :content => one_container, :template_type => "template") }
       let(:page) { create(:page, :title => "Foo", :template => template) }
       describe "#container?" do
-        specify { page.container?("foo").should be_true }
-        specify { page.container?("bar").should be_false }
+        specify { expect(page.container?("foo")).to be_truthy }
+        specify { expect(page.container?("bar")).to be_falsey }
       end
 
       describe "#containers" do
         subject { page.containers }
-        it { should have(1).item }
+        it 'has 1 item' do
+          expect(subject.size).to eq(1)
+        end
       end
 
       describe "#render_container" do
         subject { page.render_container(:foo) }
-        it { should be_a String }
-        it { should be_empty }
+        it { is_expected.to be_a String }
+        it { is_expected.to be_empty }
       end
     end
   end
 
   describe "#to_liquid" do
     subject { create(:page, :title => "Foo Bar").to_liquid }
-    it { should be_a(Smithy::Liquid::Drops::Page) }
+    it { is_expected.to be_a(Smithy::Liquid::Drops::Page) }
   end
 
   describe "#permalink and #path auto-generation" do
     include_context "a tree of pages"
     subject { home }
-    its(:permalink) { should_not be_blank }
+
+    describe '#permalink' do
+      subject { super().permalink }
+      it { is_expected.not_to be_blank }
+    end
     context "when it's the root page" do
       subject { home }
-      its(:path) { should == '/' }
-      its(:permalink) { should == "home" }
+
+      describe '#path' do
+        subject { super().path }
+        it { is_expected.to eq('/') }
+      end
+
+      describe '#permalink' do
+        subject { super().permalink }
+        it { is_expected.to eq("home") }
+      end
     end
     context "when it's a child of the root page" do
       subject { page1 }
-      its(:path) { should == '/page-1' }
-      its(:permalink) { should == 'page-1' }
+
+      describe '#path' do
+        subject { super().path }
+        it { is_expected.to eq('/page-1') }
+      end
+
+      describe '#permalink' do
+        subject { super().permalink }
+        it { is_expected.to eq('page-1') }
+      end
       context "with a specified permalink" do
         before do
           page1.update_attributes(:permalink => "baz")
         end
         subject { page1 }
-        its(:permalink) { should == 'baz' }
-        its(:path) { should == '/baz' }
+
+        describe '#permalink' do
+          subject { super().permalink }
+          it { is_expected.to eq('baz') }
+        end
+
+        describe '#path' do
+          subject { super().path }
+          it { is_expected.to eq('/baz') }
+        end
       end
     end
     context "when it's a subpage" do
       subject { page1_1 }
-      its(:path) { should == '/page-1/page-1-1' }
-      its(:permalink) { should == 'page-1-1' }
+
+      describe '#path' do
+        subject { super().path }
+        it { is_expected.to eq('/page-1/page-1-1') }
+      end
+
+      describe '#permalink' do
+        subject { super().permalink }
+        it { is_expected.to eq('page-1-1') }
+      end
     end
     context "within the same scope as another page" do
       subject { create(:page, :title => "Page 1", :parent => home) }
-      its(:path) { should =~ /^\/page-1-/ }
-      its(:permalink) { should =~ /^page-1-/ }
+
+      describe '#path' do
+        subject { super().path }
+        it { is_expected.to match(/^\/page-1-/) }
+      end
+
+      describe '#permalink' do
+        subject { super().permalink }
+        it { is_expected.to match(/^page-1-/) }
+      end
     end
     %w(index new edit session login logout users smithy).each do |word|
       context "using a reserved word for the title (#{word})" do
         subject { build(:page, :title => word, :parent => home) }
         before { subject.valid? }
-        specify { subject.errors[:title].should_not be_blank }
+        specify { expect(subject.errors[:title]).not_to be_blank }
       end
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Smithy::PagesController do
+describe Smithy::PagesController, :type => :controller do
   let(:template_content) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
   let!(:template) { Smithy::Template.create(:name => 'foo', :content => template_content) }
 

@@ -1,23 +1,30 @@
 require 'spec_helper'
 
 module Smithy
-  describe PageList do
+  describe PageList, :type => :model do
     include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
     include_context "acts like a content block" # see spec/support/shared_contexts
 
     let(:page_list) { create(:page_list, :parent => page1) }
     subject { page_list }
 
-    it { should validate_presence_of :parent_id }
+    it { is_expected.to validate_presence_of :parent_id }
 
     describe "#pages" do
       subject { page_list.pages }
 
-      its(:size) { should eql 3 }
+      describe '#size' do
+        subject { super().size }
+        it { is_expected.to eql 3 }
+      end
 
       context "with a limited count" do
         let(:page_list) { create(:page_list, :count => 2, :parent => page1) }
-        its(:size) { should eql 2 }
+
+        describe '#size' do
+          subject { super().size }
+          it { is_expected.to eql 2 }
+        end
       end
 
       context "#sort" do
@@ -72,7 +79,7 @@ module Smithy
 
       context "with a specific #page_template_id" do
         subject { create(:page_list, :parent => page1, :page_template_id => page1_1.template_id, :sort => "created_desc").pages }
-        specify { subject.map(&:title).should eql ['Page 1-1'] }
+        specify { expect(subject.map(&:title)).to eql ['Page 1-1'] }
       end
     end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Smithy::Liquid::Filters::AssetTag do
   context "with an existing image" do
     subject(:image_tag) { render_filter('/assets/smithy/logo.png', 'alt:Foo Bar') }
-    it { should eql '<img alt="Foo Bar" src="/assets/smithy/logo.png" />' }
+    it { is_expected.to eql '<img alt="Foo Bar" src="/assets/smithy/logo.png" />' }
   end
 
   def render_filter(asset_path, options)

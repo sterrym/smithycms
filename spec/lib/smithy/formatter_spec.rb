@@ -6,7 +6,7 @@ describe Smithy::Formatter do
 
   describe "#render" do
     subject(:render) { formatter.render.gsub(/\n/, '') }
-    it { should eql "<p>#{content}</p>" }
+    it { is_expected.to eql "<p>#{content}</p>" }
     %w( p div ul ol li blockquote pre h1 h2 h3 h4 h5 h6 object ).each do |tag|
       context "block-level tags" do
         subject(:content) { "<#{tag}>#{Faker::Lorem.sentence}</#{tag}>"}
