@@ -99,8 +99,8 @@ module Smithy
 
         private
           def generated_browser_titles
-            titles = _source.self_and_ancestors.map(&:title)
-            titles.shift unless _source.root? # keep all except the first element unless root
+            titles = _source.self_and_ancestors.map(&:title).reverse
+            titles.pop unless _source.root? # keep all except the last element unless root
             titles << site.title if site.title.present?
             titles
           end

@@ -39,7 +39,7 @@ describe Smithy::Liquid::Drops::Page do
       it { should == 'Home' }
       context "when it's a child page" do
         subject { create(:page, :title => "Baz Qux", :parent => subpage).to_liquid['browser_title'] }
-        it { should == 'Foo Bar | Baz Qux'}
+        it { should == 'Baz Qux | Foo Bar'}
       end
       context "with a site title" do
         before do
