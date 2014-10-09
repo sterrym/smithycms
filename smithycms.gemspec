@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rack-cache'
 
   s.add_development_dependency 'byebug'
-  s.add_development_dependency 'capybara', '~> 2.2.1'
+  s.add_development_dependency 'capybara', '~> 2.4.3'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_girl_rails', '~> 4.4.1'
@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mysql2'
   s.add_development_dependency 'pg'
   s.add_development_dependency 'rack-livereload'
-  s.add_development_dependency 'rspec-rails', '~> 2.14'
+  s.add_development_dependency 'rspec-rails', '~> 3.1'
   s.add_development_dependency 'rb-fsevent'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'smithycms-auth'
