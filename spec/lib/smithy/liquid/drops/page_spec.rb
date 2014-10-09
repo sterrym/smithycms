@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Liquid::Drops::Page do
+RSpec.describe Smithy::Liquid::Drops::Page do
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
 
   describe "#breadcrumbs" do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 class Smithy::Foo
   def self.table_name
@@ -16,7 +16,7 @@ class Smithy::Baz
   end
 end
 
-describe Smithy::ContentBlocks::Registry do
+RSpec.describe Smithy::ContentBlocks::Registry do
   subject { Smithy::ContentBlocks::Registry.content_blocks }
 
   context "when the table exists" do

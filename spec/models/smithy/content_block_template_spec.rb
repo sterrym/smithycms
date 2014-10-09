@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::ContentBlockTemplate, :type => :model do
+RSpec.describe Smithy::ContentBlockTemplate, :type => :model do
   it { is_expected.to validate_presence_of :name }
   it { is_expected.to validate_presence_of(:content) }
   context "on update" do

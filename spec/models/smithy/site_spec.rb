@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Site, :type => :model do
+RSpec.describe Smithy::Site, :type => :model do
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
 
   subject { Smithy::Site.new }

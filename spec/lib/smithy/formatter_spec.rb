@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Formatter do
+RSpec.describe Smithy::Formatter do
   subject(:content) { Faker::Lorem.sentence }
   subject(:formatter) { formatter = Smithy::Formatter.new(content) }
 

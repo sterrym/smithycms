@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::PageProxy, :type => :model do
+RSpec.describe Smithy::PageProxy, :type => :model do
   let(:page) { Smithy::PageProxy.new(:path => 'test', :title => "Foo Bar") }
   subject { page }
 

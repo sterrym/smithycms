@@ -1,3 +1,4 @@
+require 'rspec/rails'
 require 'byebug'
 require 'capybara/rails'
 require 'capybara/rspec'
@@ -12,9 +13,22 @@ require 'rack-livereload'
 require 'shoulda-matchers'
 require 'smithycms-auth'
 
-Fog.mock! # this mocks out all AWS calls - really nice
+# Run any available migration
+ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
+
+# this mocks out all AWS calls - tasty
+Fog.mock!
 
 RSpec.configure do |config|
+  # include the routes url_helpers
+  config.before(:suite) do
+    FactoryGirl.reload
+  end
+  config.before do
+    @routes = Smithy::Engine.routes
+    # for rspec >= 2.13
+    assertion_instance.instance_variable_set(:@routes, Smithy::Engine.routes) if respond_to?(:assertion_instance)
+  end
   config.infer_spec_type_from_file_location!
   # configure Database cleaning
   config.before(:suite) do

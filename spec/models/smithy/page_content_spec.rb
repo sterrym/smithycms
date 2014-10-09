@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::PageContent, :type => :model do
+RSpec.describe Smithy::PageContent, :type => :model do
   it { is_expected.to validate_presence_of :label }
   it { is_expected.to validate_presence_of :container }
   it { is_expected.to validate_presence_of :content_block_type }

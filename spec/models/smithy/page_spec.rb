@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Page, :type => :model do
+RSpec.describe Smithy::Page, :type => :model do
   let(:page) { build(:page) }
   subject { page }
 

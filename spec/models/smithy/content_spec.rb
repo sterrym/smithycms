@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Content, :type => :model do
+RSpec.describe Smithy::Content, :type => :model do
   include_context "acts like a content block" # see spec/support/shared_contexts
   context "#markdown_content" do
     subject { create(:content).markdown_content }

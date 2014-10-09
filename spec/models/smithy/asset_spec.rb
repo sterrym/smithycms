@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Asset, :type => :model do
+RSpec.describe Smithy::Asset, :type => :model do
   let(:file) { Smithy::Engine.root.join('spec', 'fixtures', 'assets', 'treats-and_stuff.png') }
   let(:uploaded_file) { "http://s3.amazonaws.com/#{ENV['AWS_S3_BUCKET']}/test/treats-and_stuff.png" }
   before do

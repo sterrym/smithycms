@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Liquid::Tags::Csrf do
+RSpec.describe Smithy::Liquid::Tags::Csrf do
   it 'renders the param tag for form' do
     html = render_tag
     expect(html).to eq('<input type="hidden" name="token" value="42">')

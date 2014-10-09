@@ -1,4 +1,4 @@
-shared_context "a tree of pages" do
+RSpec.shared_context "a tree of pages" do
   let!(:home) { create(:page, :title => "Home") }
   let!(:page1) { create(:page, :title => "Page 1", :parent => home, :publish => true) }
   let!(:page1_1) { create(:page, :title => "Page 1-1", :parent => page1, :publish => true) }

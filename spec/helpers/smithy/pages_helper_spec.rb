@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::PagesHelper, :type => :helper do
+RSpec.describe Smithy::PagesHelper, :type => :helper do
   describe "#tree_for_select" do
     subject { helper.tree_for_select }
     context "when empty" do

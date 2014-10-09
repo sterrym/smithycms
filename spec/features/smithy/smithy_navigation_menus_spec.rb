@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "NavigationMenus", :type => :feature do
+RSpec.describe "NavigationMenus", :type => :feature do
   include NavSteps
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
   before do

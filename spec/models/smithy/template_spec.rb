@@ -1,10 +1,10 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # see template_container_spec for specs on auto-creating containers
 # based on template content
-describe Smithy::Template, :type => :model do
+RSpec.describe Smithy::Template, :type => :model do
   it { is_expected.to validate_presence_of :name }
-  it { is_expected.to ensure_inclusion_of(:template_type).in_array(Smithy::Template.types) }
+  it { is_expected.to validate_inclusion_of(:template_type).in_array(Smithy::Template.types) }
   it { is_expected.not_to validate_presence_of(:content) }
   context "on update" do
     subject { create(:template) }

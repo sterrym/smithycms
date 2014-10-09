@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 class Smithy::SampleContentModel
   class << self
@@ -8,14 +8,14 @@ class Smithy::SampleContentModel
   def self.column_names
     %w(id foo bar baz created_at updated_at)
   end
-
+  def to_liquid
+    { 'foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz' }
+  end
 end
 
-describe Smithy::ContentBlock, :type => :model do
+RSpec.describe Smithy::ContentBlock, :type => :model do
   it { is_expected.to validate_presence_of :name }
-
   it { is_expected.to accept_nested_attributes_for(:templates).allow_destroy(true) }
-
   it { is_expected.to have_many :templates }
 
   describe "#content_field_names" do

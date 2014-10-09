@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::TemplateContainer, :type => :model do
+RSpec.describe Smithy::TemplateContainer, :type => :model do
   let(:one_container) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo.html.liquid')) }
   let(:three_containers) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
   let(:three_containers_reordered) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'baz_foo_bar.html.liquid')) }

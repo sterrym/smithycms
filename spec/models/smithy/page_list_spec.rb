@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 module Smithy
-  describe PageList, :type => :model do
+  RSpec.describe PageList, :type => :model do
     include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
     include_context "acts like a content block" # see spec/support/shared_contexts
 

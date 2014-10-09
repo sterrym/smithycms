@@ -1,12 +1,12 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::PagesController, :type => :controller do
+RSpec.describe ApplicationController do
   let(:template_content) { File.read(Smithy::Engine.root.join('spec', 'fixtures', 'templates', 'foo_bar_baz.html.liquid')) }
   let!(:template) { Smithy::Template.create(:name => 'foo', :content => template_content) }
 
   describe "#render_as_smithy_page" do
-    controller(Smithy::PagesController) do
-      skip_before_filter :authenticate_smithy_admin
+    controller do
+      include Smithy::Liquid::Rendering
       def index
         @page = Smithy::PageProxy.new(:id => 'test', :path => 'foo/bar')
         @page.add_to_container(:foo, "Test content 1")

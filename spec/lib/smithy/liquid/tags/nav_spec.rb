@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe Smithy::Liquid::Tags::Nav do
+RSpec.describe Smithy::Liquid::Tags::Nav do
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
   let(:site) { Smithy::Site.new }
   subject { render_nav 'site' }
@@ -37,7 +37,8 @@ describe Smithy::Liquid::Tags::Nav do
 
   def render_nav(root = 'site', tag_options = '', registers = {})
     controller = double(ApplicationController)
-    controller.stub_chain(:request, :path).and_return('/')
+    allow(controller).to receive_message_chain(:request, :path).and_return('/')
+    expect(controller.request.path).to eq('/')
     registers = { :site => site, :page => home, :controller => controller }.merge(registers)
     liquid_context = ::Liquid::Context.new({}, {}, registers)
     ::Liquid::Template.parse("{% nav #{root} #{tag_options} %}").render(liquid_context).gsub(/\n|\s\s/, '')
