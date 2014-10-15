@@ -7,6 +7,11 @@ module Smithy
           controller.view_context.send(:image_tag, input, image_options)
         end
 
+        def image_path(input, *args)
+          image_options = args_to_options(args)
+          controller.view_context.send(:image_path, input)
+        end
+
         protected
           # Convert an array of properties ('key:value') into a hash
           # Ex: ['width:50', 'height:100'] => { :width => '50', :height => '100' }
