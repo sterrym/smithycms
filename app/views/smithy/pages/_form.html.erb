@@ -30,7 +30,7 @@
       <%= f.input :external_link, :hint => "This page is currently being redirected to #{link_to @page.external_link, @page.external_link}".html_safe %>
     <% end %>
   <% end %>
-  <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="icon-caret-down"></i></h3>
+  <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="fa fa-caret-down"></i></h3>
   <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
     <%= f.inputs do %>
       <%= f.input(:external_link) unless @page.external_link? %>
@@ -38,7 +38,7 @@
       <%= render :partial => "smithy/pages/meta_fields", :locals => { :f => f } if File.exists?(Rails.root.join('app', 'views', 'smithy', 'pages', '_meta_fields.html.erb')) %>
     <% end %>
   <% end %>
-  <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="icon-caret-down"></i></h3>
+  <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="fa fa-caret-down"></i></h3>
   <%= content_tag :div, :id => "page-seo", :class => "collapse" do %>
     <%= f.inputs do %>
       <%= f.input :browser_title %>

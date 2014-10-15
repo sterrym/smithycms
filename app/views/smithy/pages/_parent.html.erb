@@ -1,10 +1,10 @@
-<li class="back"><%= link_to "<span class=\"btn btn-mini btn-inverse\"><i class=\"icon-caret-left\"></i> Back to #{@parent.title}</span>".html_safe, edit_page_path(@parent.id) %></li>
+<li class="back"><%= link_to "<span class=\"btn btn-mini btn-inverse\"><i class=\"fa fa-caret-left\"></i> Back to #{@parent.title}</span>".html_safe, edit_page_path(@parent.id) %></li>
 <%- if !@page.persisted? || @page.leaf? -%>
   <%= render @parent.children %>
 <% elsif @page.persisted? %>
-  <li<%= ' class="active"'.html_safe if params[:id].to_i == @page.id %>><%= link_to "<i class=\"icon-folder-close\"></i> #{@page.title}".html_safe, edit_page_path(@page.id) %></li>
+  <li<%= ' class="active"'.html_safe if params[:id].to_i == @page.id %>><%= link_to "<i class=\"fa fa-folder\"></i> #{@page.title}".html_safe, edit_page_path(@page.id) %></li>
   <%= render @page.children %>
 <% end %>
 <% if @page.persisted? %>
-  <li class="add-page"><%= link_to "<i class=\"icon-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @parent.id }) %></li>
+  <li class="add-page"><%= link_to "<i class=\"fa fa-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @parent.id }) %></li>
 <% end %>

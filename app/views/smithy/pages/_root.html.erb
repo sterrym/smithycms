@@ -1,5 +1,5 @@
 <%= content_tag :li, :id => dom_id(@root), :class => ['home', "clearfix", (params[:id].to_i == @root.id ? "active" : nil)].join(' ') do %>
-  <%= link_to "<i class=\"icon-home\"></i> #{@root.title}".html_safe, edit_page_path(@root.id) %>
+  <%= link_to "<i class=\"fa fa-home\"></i> #{@root.title}".html_safe, edit_page_path(@root.id) %>
 <% end %>
 <%= render @root.children %>
-<li class="add-page"><%= link_to "<i class=\"icon-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @root.id }) %></li>
+<li class="add-page"><%= link_to "<i class=\"fa fa-plus\"></i> Add Page".html_safe, new_page_path(:page => { :parent_id => @root.id }) %></li>

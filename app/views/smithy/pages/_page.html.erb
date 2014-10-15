@@ -1,12 +1,12 @@
 <%
 icon = nil
-icon ||= 'folder-close' unless page.leaf?
+icon ||= 'folder' unless page.leaf?
 icon ||= 'edit' unless page.published?
 icon ||= 'file'
 icon = "#{icon} attenuate" unless page.show_in_navigation?
 -%>
 <%= content_tag :li, :id => dom_id(page), :class => ["clearfix child", (params[:id].to_i == page.id ? "active" : nil)].compact.join(' ') do %>
-  <%= link_to "<i class=\"icon-#{ icon }\"></i><span>#{page.title}</span>".html_safe, edit_page_path(page.id), :class => "edit-page" %>
-  <%= link_to "<i class=\"icon-plus\"></i>".html_safe, new_page_path(:page => {:parent_id => page.id}), :class => "add-page" %>
-  <i class="icon-reorder handle"></i>
+  <%= link_to "<i class=\"fa fa-#{ icon }\"></i><span> #{page.title}</span>".html_safe, edit_page_path(page.id), :class => "edit-page" %>
+  <%= link_to "<i class=\"fa fa-plus\"></i>".html_safe, new_page_path(:page => {:parent_id => page.id}), :class => "add-page" %>
+  <i class="fa fa-reorder handle"></i>
 <% end %>

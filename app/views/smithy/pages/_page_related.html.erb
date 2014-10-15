@@ -3,9 +3,9 @@
 <div class="well well-small">
   <dl>
     <dt>Status</dt>
-    <dd><%= raw @page.published_at? ? '<i class="icon-check"></i>' : '<i class="icon-check-empty"></i>' %> Published</dd>
+    <dd><%= raw @page.published_at? ? '<i class="fa fa-check"></i>' : '<i class="fa fa-square"></i>' %> Published</dd>
     <dt>Navigation</dt>
-    <dd><%= raw @page.show_in_navigation? ? '<i class="icon-check"></i>' : '<i class="icon-check-empty"></i>' %> Show in Navigation</dd>
+    <dd><%= raw @page.show_in_navigation? ? '<i class="fa fa-check"></i>' : '<i class="fa fa-square"></i>' %> Show in Navigation</dd>
     <dt>Template</dt>
     <dd><%= @page.template.name %></dd>
     <dt>Creator</dt>
