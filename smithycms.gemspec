@@ -30,8 +30,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'font-awesome-sass-rails', '~> 3.0.2'
   s.add_dependency 'fog', '~> 1.20.0'
   s.add_dependency 'formtastic', '~> 2.3.1'
-  s.add_dependency 'formtastic-bootstrap', '~> 2.1'
-  s.add_dependency 'friendly_id', '~> 5.0.3'
+  s.add_dependency 'formtastic-bootstrap', '~> 2.1.3'
+  s.add_dependency 'friendly_id', '~> 5.0.4'
   s.add_dependency 'httparty', '~> 0.13.1'
   s.add_dependency 'jquery-fileupload-rails', '~> 0.4.1'
   s.add_dependency 'json', '~> 1.8.1'
@@ -62,5 +62,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'smithycms-auth'
   s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'terminal-notifier-guard'
-  s.extra_rdoc_files = [ "README.md" ]
 end

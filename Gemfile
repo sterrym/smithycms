@@ -5,19 +5,7 @@ source "https://rubygems.org"
 # development dependencies will be added by default to the :development group.
 gemspec
 
-group :assets do
-  gem 'sass-rails', '~> 4.0.2'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
-
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
-
-# needed for rails4 compatibility. To be removed with final release
-gem 'formtastic', github: 'justinfrench/formtastic', branch: '2.3-stable'
-
-# To use debugger
-# gem 'debugger'
