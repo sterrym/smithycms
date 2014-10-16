@@ -1,4 +1,3 @@
-
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -23,8 +22,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '~> 4.1.6'
   s.add_dependency 'jquery-rails'
 
+  s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
-  s.add_dependency 'bootstrap-sass', '~> 2.3.2.2'
+  s.add_dependency 'bootstrap-sass', '~> 3.2.0'
   s.add_dependency 'dragonfly', '~> 1.0.7'
   s.add_dependency 'dragonfly-s3_data_store', '~> 1.0.4'
   s.add_dependency 'font-awesome-sass-rails', '~> 3.0.2'
