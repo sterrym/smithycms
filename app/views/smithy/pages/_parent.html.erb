@@ -1,4 +1,4 @@
-<li class="back"><%= link_to "<span class=\"btn btn-mini btn-inverse\"><i class=\"fa fa-caret-left\"></i> Back to #{@parent.title}</span>".html_safe, edit_page_path(@parent.id) %></li>
+<li class="back"><%= link_to "<span class=\"btn btn-default btn-xs\"><i class=\"fa fa-caret-left\"></i> Back to #{@parent.title}</span>".html_safe, edit_page_path(@parent.id) %></li>
 <%- if !@page.persisted? || @page.leaf? -%>
   <%= render @parent.children %>
 <% elsif @page.persisted? %>

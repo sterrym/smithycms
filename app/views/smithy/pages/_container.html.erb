@@ -5,20 +5,20 @@
     <%= content_tag_for :tr, page_content do %>
       <td>
         <i class="fa fa-reorder handle"></i>
-        <%= link_to "edit", edit_page_content_path(@page.id, page_content), class: "btn btn-small btn-primary" %>
+        <%= link_to "edit", edit_page_content_path(@page.id, page_content), class: "btn btn-primary btn-sm" %>
       </td>
       <td><strong><%= page_content.label %></strong></td>
       <td><%= page_content.content_block_type.demodulize %></td>
       <td><%= page_content.updated_at.strftime('%b %e, %Y %H:%M:%S') %></td>
       <td>
         <div class="pull-right">
-          <%= link_to "preview", preview_page_content_path(@page.id, page_content), class: "btn btn-small", data: { previewtoggle: "modal" } %>
-          <%= link_to "<i class=\"fa fa-trash\"></i> delete".html_safe, page_content_path(@page.id, page_content), method: :delete, data: { confirm: "Do you really want to delete this content?" }, class: "btn btn-small btn-danger" %>
+          <%= link_to "preview", preview_page_content_path(@page.id, page_content), class: "btn btn-default btn-sm", data: { previewtoggle: "modal" } %>
+          <%= link_to "<i class=\"fa fa-trash\"></i> delete".html_safe, page_content_path(@page.id, page_content), method: :delete, data: { confirm: "Do you really want to delete this content?" }, class: "btn btn-danger btn-sm" %>
         </div>
       </td>
     <% end %>
   <% end %>
   </table>
-  <div><%= link_to "Add to #{container.display_name}", new_page_content_path(@page.id, page_content: { container: container.name }), class: "btn btn-primary btn-small" %></div>
+  <div><%= link_to "Add to #{container.display_name}", new_page_content_path(@page.id, page_content: { container: container.name }), class: "btn btn-primary btn-sm" %></div>
 <% end %>
 </div>

@@ -10,7 +10,7 @@
 <%- @records.each do |record| %>
   <tr>
     <td>
-      <%= link_to "Edit", [:edit, record], :class => "btn btn-mini"  %>
+      <%= link_to "Edit", [:edit, record], :class => "btn btn-default btn-xs"  %>
     </td>
     <%- readable_attributes.map(&:to_sym).each do |attribute| %>
     <td><%= record[attribute] %></td>
