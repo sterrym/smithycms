@@ -3,7 +3,7 @@
 //= require 'smithy/jquery-ui.min'
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require ace-1.1.3/ace
 //= require ace-1.1.3/mode-css.js
 //= require ace-1.1.3/mode-html.js
