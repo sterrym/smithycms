@@ -1,26 +1,29 @@
 <%= render :partial => "layouts/smithy/shared/head" %>
 <body>
 <%= render :partial => "layouts/smithy/shared/nav" %>
+<div class="container-fluid">
+  <div class="row">
+    <nav id="side" class="col-sm-3">
+      <%= yield :secondary_nav %>
+    </nav>
+    <div id="main" class="col-sm-9">
+      <% if content_for? :title %><h1><%= yield :title %></h1><% end %>
+      <%= render :partial => "layouts/smithy/shared/flash", :locals => { flash: flash } %>
+      <%= yield :top_content %>
+      <div class="container-fluid">
+        <section class="row" id="content-container">
 
-<nav id="side">
-  <%= yield :secondary_nav %>
-</nav>
-<div id="main">
-  <% if content_for? :title %><h1><%= yield :title %></h1><% end %>
-  <%= render :partial => "layouts/smithy/shared/flash", :locals => { flash: flash } %>
-  <%= yield :top_content %>
-  <div class="container-fluid">
-    <section class="row" id="content-container">
+          <article id="content" class="col-md-9">
+            <%= yield %>
+          </article>
 
-      <article id="content" class="col-md-9">
-        <%= yield %>
-      </article>
+          <aside id="related" class="col-md-3">
+            <%= yield :related %>
+          </aside>
 
-      <aside id="related" class="col-md-3">
-        <%= yield :related %>
-      </aside>
-
-    </section>
+        </section>
+      </div>
+    </div>
   </div>
 </div>
 <%= render :partial => "layouts/smithy/shared/footer" %>

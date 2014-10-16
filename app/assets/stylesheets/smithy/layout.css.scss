@@ -1,16 +1,9 @@
 body { background:#444; padding:0; }
 
-#header { border-bottom:1px solid #666; position:relative; top:0; z-index:-5;
-  h1 {
-    margin:0;
-    padding:2px 8px;
-    text-align:center;
-    width:20%;
-    img { max-width:100%; }
-  }
-}
-#header {
-  background: #333333; /* Old browsers */
+.navbar { margin-bottom:12px; }
+.navbar-brand { padding-bottom:0; padding-top:0; }
+
+.navbar-inverse {
   background: -moz-linear-gradient(top, #333333 0%, #222222 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#333333), color-stop(100%,#222222)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #333333 0%,#222222 100%); /* Chrome10+,Safari5.1+ */
@@ -19,31 +12,10 @@ body { background:#444; padding:0; }
   background: linear-gradient(to bottom, #333333 0%,#222222 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333333', endColorstr='#222222',GradientType=0 ); /* IE6-9 */
 }
-#main-nav {
-  background:transparent;
-  left:20%;
-  right:0;
-  position:absolute;
-  top:0;
-  z-index:5;
-
-  .navbar-inner { background:transparent; border:0; padding-left:0;
-    box-shadow:none;
-    -webkit-box-shadow:none;
-    -moz-box-shadow:none;
-  }
-  .container { padding-top: 6px; }
-}
-@media (max-width: 979px) {
-  #main-nav {
-    .nav-collapse {
-      background-color:#333;
-    }
-  }
-}
 
 #side {
-  border-top:1px solid #393939; float:left; position:relative; width:20%;
+  // float:left; width:20%;
+  position:relative;
   .actions { padding:16px 15px 0 15px ; }
   .nav-list {
     border-top:1px solid #393939;
@@ -89,7 +61,9 @@ body { background:#444; padding:0; }
     }
   }
 }
-#main { background:#f9f9f9; margin:-52px 0 0 20%; padding:0 0 24px 0; position:relative;
+#main {
+  // float:left; width:80%;
+  background:#f9f9f9; margin:-12px 0 0 0; padding:0 0 24px 0; position:relative;
   -webkit-border-radius: 10px 0px 0px 10px;
           border-radius: 10px 0px 0px 10px;
   -webkit-box-shadow:  0px 0px 18px 0px rgba(0, 0, 0, 0.4);

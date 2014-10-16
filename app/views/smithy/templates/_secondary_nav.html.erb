@@ -10,12 +10,14 @@
     <%= render @stylesheets %>
   </ul>
 
-  <div class="btn-group actions pull-right">
-    <%= link_to "<i class=\"fa fa-plus\"></i> Add Template <span class=\"caret\"></span>".html_safe, new_template_path, :class => 'dropdown-toggle btn btn-default', 'data-toggle' => 'dropdown', 'data-target' => '#', :role => 'button' %>
-    <ul class="dropdown-menu" role="menu">
-    <% Smithy::Template.types.each do |tt| %>
-      <li><%= link_to tt.capitalize, new_template_path(:template => { :template_type => tt }) %></li>
-    <% end %>
-    </ul>
+  <div class="clearfix">
+    <div class="btn-group actions pull-right">
+      <%= link_to "<i class=\"fa fa-plus\"></i> Add Template <span class=\"caret\"></span>".html_safe, new_template_path, :class => 'dropdown-toggle btn btn-default', 'data-toggle' => 'dropdown', 'data-target' => '#', :role => 'button' %>
+      <ul class="dropdown-menu" role="menu">
+      <% Smithy::Template.types.each do |tt| %>
+        <li><%= link_to tt.capitalize, new_template_path(:template => { :template_type => tt }) %></li>
+      <% end %>
+      </ul>
+    </div>
   </div>
 <% end %>
