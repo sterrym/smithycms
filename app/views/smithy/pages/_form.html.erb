@@ -13,13 +13,13 @@
 <% end %>
 <% end %>
 
-<%= semantic_form_for @page, :url => ( @page.persisted? ? page_path(@page.id) : pages_path ), :html => { :class => 'form-horizontal' } do |f| %>
+<%= semantic_form_for @page, :url => ( @page.persisted? ? page_path(@page.id) : pages_path ) do |f| %>
   <%= f.inputs "Page Information" do %>
     <%= f.input :title %>
     <%= f.input :permalink, :hint => "This will be auto-created if blank. Only fill it in if you know what you're doing" %>
     <%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? %>
     <%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
-    <%= f.input :template, :collection => Smithy::Template.templates, :include_blank => false %>
+    <%= f.input :template, :as => :select, :collection => Smithy::Template.templates, :include_blank => false %>
     <%= render :partial => "smithy/pages/page_fields", :locals => { :f => f } if File.exists?(Rails.root.join('app', 'views', 'smithy', 'pages', '_page_fields.html.erb')) %>
   <% end %>
   <% if @page.persisted? && @page.external_link.blank? %>
@@ -49,11 +49,11 @@
 
   <%= f.actions do %>
     <% if @page.published? %>
-      <%= f.action :submit, :label => "Save and Publish", :button_html => { :name => "publish" } %>
-      <%= f.action :submit, :label => "Save as Draft", :button_html => { :name => "draft" } %>
+      <%= f.action :submit, :label => "Save and Publish", :button_html => { name: "publish", class: 'btn btn-primary' } %>
+      <%= f.action :submit, :label => "Save as Draft and Unpublish", :button_html => { name: "draft", class: 'btn btn-default' } %>
     <% else %>
-      <%= f.action :submit, :label => "Save as Draft", :button_html => { :name => "draft" } %>
-      <%= f.action :submit, :label => "Save and Publish", :button_html => { :name => "publish" } %>
+      <%= f.action :submit, :label => "Save as Draft", :button_html => { name: "draft", class: 'btn btn-primary' } %>
+      <%= f.action :submit, :label => "Save and Publish", :button_html => { name: "publish", class: 'btn btn-default' } %>
     <% end %>
   <% end %>
 <% end %>
