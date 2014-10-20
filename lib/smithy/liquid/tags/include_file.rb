@@ -75,7 +75,7 @@ module Liquid
       end
 
       def read_template_from_file_system(context)
-        file_system = Liquid::Template.file_system
+        file_system = Liquid::LocalFileSystem.new(Rails.root.join('app', 'views'))
 
         # make read_template_file call backwards-compatible.
         case file_system.method(:read_template_file).arity
