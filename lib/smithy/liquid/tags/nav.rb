@@ -64,7 +64,8 @@ module Smithy
 
         def render_wrapper(list_items, id = nil)
           list_id = id.present? ? " id=\"#{id}\"" : ''
-          %Q{<ul#{list_id}>\n#{list_items}\n</ul>}
+          list_class = @options[:class].present? ? " class=\"#{@options[:class]}\"" : ''
+          %Q{<ul#{list_id}#{list_class}>\n#{list_items}\n</ul>}
         end
 
         def root_node
