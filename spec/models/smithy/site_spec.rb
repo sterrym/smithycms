@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Smithy::Site, :type => :model do
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
 
-  subject { Smithy::Site.new }
+  subject { Smithy::Site.instance }
 
   describe '#root' do
     subject { super().root }

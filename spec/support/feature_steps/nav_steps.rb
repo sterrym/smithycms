@@ -24,7 +24,7 @@ module NavSteps
   end
 
   def render_page(page)
-    context = ::Liquid::Context.new({}, {}, { :page => page, :site => Smithy::Site.new }, false)
+    context = ::Liquid::Context.new({}, {}, { :page => page, :site => Smithy::Site.instance }, false)
     page.template.liquid_template.render(context)
   end
 end

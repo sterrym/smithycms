@@ -58,7 +58,7 @@ module Smithy
     end
 
     def site
-      @site ||= Smithy::Site.new
+      @site ||= Smithy::Site.instance
     end
 
     def to_liquid

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Smithy::Liquid::Tags::Nav do
   include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
-  let(:site) { Smithy::Site.new }
+  let(:site) { Smithy::Site.instance }
   subject { render_nav 'site' }
 
   it { is_expected.to eql navigation_for_depth_of_1 }

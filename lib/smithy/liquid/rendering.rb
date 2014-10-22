@@ -34,15 +34,17 @@ module Smithy
           'url'               => request.url,
           'now'               => Time.now.utc,
           'today'             => Date.today,
-          'site'              => @page.site
+          'site'              => Smithy::Site.instance
         }
       end
 
-      def smithy_default_registers
+      def smithy_default_registers(controller=nil)
+        controller = self.controller if self.respond_to?(:controller)
+        controller ||= self
         {
-          :controller => self,
+          :controller => controller,
           :page => @page,
-          :site => @page.site
+          :site => Smithy::Site.instance
         }
       end
     end

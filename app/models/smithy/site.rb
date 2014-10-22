@@ -1,5 +1,6 @@
 module Smithy
   class Site
+    include Singleton
     cattr_accessor :title
 
     class << self
