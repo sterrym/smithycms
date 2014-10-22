@@ -1,6 +1,7 @@
 require 'smithy/liquid/database'
 require 'smithy/liquid/rendering'
 require 'smithy/liquid/filters/asset_tag'
+require 'smithy/liquid/filters/smithy_helpers'
 require 'smithy/liquid/filters/resize'
 require 'smithy/liquid/filters/uri'
 require 'smithy/liquid/tags/asset'
