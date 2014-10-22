@@ -16,7 +16,7 @@
     </dl>
   <% end %>
 
-  <div><%= link_to_add_fields "Add a Template", :templates, f %></div>
+  <div><%= smithy_link_to_add_fields "Add a Template", :templates, f %></div>
   <%= f.semantic_fields_for(:templates) do |builder| %>
     <%= render partial: "template_fields", locals: { f: builder } %>
   <% end %>
