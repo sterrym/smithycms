@@ -70,7 +70,8 @@ module Smithy
       # assuming that jquery-upload and dragonfly are using the same data storage...
       def set_file_uid_manually
         if self.uploaded_file_url? # this means it was uploaded via jquery-upload
-          self.file_uid = URI.parse(URI.encode(self.uploaded_file_url)).path.sub(/^\//, '')
+          uri = URI.parse(URI.encode(self.uploaded_file_url))
+          self.file_uid = self.uploaded_file_url.sub("#{uri.scheme}://#{uri.host}/", '')
           self.uploaded_file_url = nil
         end
       end
