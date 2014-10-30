@@ -2,13 +2,11 @@ require 'dragonfly'
 
 # Configure
 Dragonfly.app.configure do
-  plugin :imagemagick
+  plugin :imagemagick,
+    convert_command: `which convert`.strip.presence || "/usr/local/bin/convert",
+    identify_command: `which identify`.strip.presence || "/usr/local/bin/identify"
 
-  verify_urls true
   secret "7fb765cbc9f1d92d5d1a56a43193d34d4f9b54dced3e62cb4e42f25d2500dd0f"
-
-  convert_command  = `which convert`.strip.presence || "/usr/local/bin/convert"
-  identify_command = `which identify`.strip.presence || "/usr/local/bin/identify"
 
   url_format '/uploads/assets/:job/:name'
 
