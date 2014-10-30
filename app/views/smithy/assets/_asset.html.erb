@@ -1,4 +1,4 @@
-<li>
+<div class="col-xs-6 col-md-3">
   <div class="thumbnail clearfix">
     <%= link_to asset.file.remote_url do %>
       <% if asset.file_type == :image %>
@@ -13,4 +13,4 @@
       <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
   </div>
-</li>
+</div>
