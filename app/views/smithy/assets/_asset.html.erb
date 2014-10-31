@@ -9,7 +9,7 @@
     <% end %>
     <p class="name"><strong><%= asset.name %></strong></p>
     <div class="pull-right">
-      <%= link_to "Edit", [:edit, asset], class: "btn btn-xs" %>
+      <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
       <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
   </div>
