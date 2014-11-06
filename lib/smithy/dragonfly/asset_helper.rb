@@ -30,7 +30,7 @@ module Smithy
                 /#{ENV['AWS_S3_BUCKET']}\.s3\.amazonaws\.com/
               ]
             end
-            ::Dragonfly::S3DataStore.new(bucket_name: ENV['AWS_S3_BUCKET'], access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'])
+            ::Dragonfly::S3DataStore.new(bucket_name: ENV['AWS_S3_BUCKET'], access_key_id: ENV['AWS_ACCESS_KEY_ID'], secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'], url_scheme: 'https')
           else
             Dragonfly.app.configure { fetch_url_whitelist [] }
             ::Dragonfly::FileDataStore.new(root_path: Rails.root.join('public/system/dragonfly', Rails.env), server_root: Rails.root.join('public'))
