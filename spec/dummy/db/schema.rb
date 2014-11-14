@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124164812) do
+ActiveRecord::Schema.define(version: 20141113220220) do
 
   create_table "smithy_assets", force: true do |t|
     t.string   "name"
