@@ -47,7 +47,7 @@ $(function() {
 
   // replace the remover checkboxes with a link
   $('form .destroy > label').hide();
-  $('form .destroy .controls label').each(function(i) {
+  $('form .destroy').each(function(i) {
     link = $('<a href="javascript:void(0);" class="btn btn-danger btn-mini">Delete</a>').addClass("remove_nested_fields");
     $(this).empty().append($(link));
   });
