@@ -4,10 +4,12 @@ module Smithy
       module SmithyHelpers
         def rails_helper(helper, *args)
           options = args_to_options
+          helper = helper.to_sym
+          return nil if !controller.view_context.respond_to?(helper)
           if options.blank?
-            controller.view_context.send(helper.to_sym)
+            controller.view_context.public_send(helper)
           else
-            controller.view_context.send(helper.to_sym, options)
+            controller.view_context.public_send(helper, options)
           end
         end
 
