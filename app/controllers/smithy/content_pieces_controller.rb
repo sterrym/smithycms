@@ -28,7 +28,7 @@ class Smithy::ContentPiecesController < Smithy::BaseController
     @record.save
     flash.notice = "Your #{klass_name} was created" if @record.persisted?
     respond_with @record do |format|
-      format.html { @record.persisted? ? redirect_to([:edit, @record]) : render(:action => 'new') }
+      format.html { @record.persisted? ? redirect_to(:action => :index) : render(:action => 'new') }
     end
   end
 
@@ -92,6 +92,6 @@ class Smithy::ContentPiecesController < Smithy::BaseController
     end
 
     def accessible_attributes
-      klass.accessible_attributes.select(&:present?).map(&:to_sym)
+      permitted_params.send("#{klass.name.sub(/^Smithy::/, '').underscore}_attributes".to_sym)
     end
 end
