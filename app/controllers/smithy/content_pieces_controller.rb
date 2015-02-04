@@ -6,6 +6,7 @@ class Smithy::ContentPiecesController < Smithy::BaseController
 
   helper_method :accessible_attributes
   helper_method :klass_name
+  helper_method :klass_table_name
   helper_method :readable_attributes
 
   def index
@@ -65,6 +66,10 @@ class Smithy::ContentPiecesController < Smithy::BaseController
 
     def klass_name
       @klass_name ||= klass.name.sub(/^Smithy::/, '').titleize
+    end
+
+    def klass_table_name
+      klass.name.sub(/^Smithy::/, '').underscore.pluralize
     end
 
     def new_record
