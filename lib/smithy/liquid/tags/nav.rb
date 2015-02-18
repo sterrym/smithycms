@@ -88,7 +88,7 @@ module Smithy
 
           def write_child_list_items?(parent, depth)
             return false unless parent.present? && !parent.leaf?
-            return true if @source == '`-section' && @page.self_and_ancestors.include?(parent)
+            return true if @source == 'site-section' && @page.self_and_ancestors.include?(parent)
             depth > @options[:depth] ? false : true
           end
 
