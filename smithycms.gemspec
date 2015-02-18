@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '~> 3.2.0'
   s.add_dependency 'dragonfly', '~> 1.0.7'
   s.add_dependency 'dragonfly-s3_data_store', '~> 1.0.4'
-  s.add_dependency 'font-awesome-sass-rails', '~> 3.0.2'
+  s.add_dependency 'font-awesome-sass', '~> 4.2'
   s.add_dependency 'fog', '~> 1.20.0'
   s.add_dependency 'formtastic', '~> 2.3.1' # as of writing, formtastic-bootstrap is only compatible with 2.3.x
   s.add_dependency 'formtastic-bootstrap', '~> 3.0.0'
@@ -37,6 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'json', '~> 1.8.1'
   s.add_dependency 'kaminari', '~> 0.16.1'
   s.add_dependency 'liquid', '~> 2.6.1'
+  s.add_dependency 'sass-rails'
   s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'
 

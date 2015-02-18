@@ -4,5 +4,10 @@
   <%= f.inputs do %>
     <%= f.inputs *accessible_attributes %>
   <% end %>
-  <%= f.actions :submit %>
+  <%= f.actions do %>
+    <%= link_to([ klass_table_name ], class: 'btn btn-default') do %>
+      <span class="fa fa-arrow-left"></span> <%= "Back to #{klass_name.pluralize}" %>
+    <% end %>
+    <%= f.action :submit %>
+  <% end %>
 <% end %>

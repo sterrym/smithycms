@@ -1,4 +1,7 @@
 <% content_for :title, "#{klass_name}" %>
+
+<%= content_tag :p, link_to("New #{klass_name}", [:new, klass_table_name.singularize ], class: 'btn btn-primary') %></p>
+
 <table border="0" cellpadding="4" class="table table-hover table-bordered">
 <thead>
   <tr>
@@ -11,6 +14,7 @@
   <tr>
     <td>
       <%= link_to "Edit", [:edit, record], :class => "btn btn-default btn-xs"  %>
+      <%= link_to("Delete", record, method: :delete, data: { confirm: "Are you sure you want to delete this #{klass_name}?" }, class: 'btn btn-danger btn-xs') if record.persisted? %>
     </td>
     <%- readable_attributes.map(&:to_sym).each do |attribute| %>
     <td><%= record[attribute] %></td>

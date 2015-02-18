@@ -29,11 +29,3 @@ module Smithy
     end
   end
 end
-
-Smithy::Engine.routes.draw do
-  namespace :smithy do
-    scope "/content_pieces" do
-      resources :store_locations
-    end
-  end
-end

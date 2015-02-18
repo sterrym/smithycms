@@ -6,6 +6,7 @@ class Smithy::ContentPiecesController < Smithy::BaseController
 
   helper_method :accessible_attributes
   helper_method :klass_name
+  helper_method :klass_table_name
   helper_method :readable_attributes
 
   def index
@@ -28,7 +29,7 @@ class Smithy::ContentPiecesController < Smithy::BaseController
     @record.save
     flash.notice = "Your #{klass_name} was created" if @record.persisted?
     respond_with @record do |format|
-      format.html { @record.persisted? ? redirect_to([:edit, @record]) : render(:action => 'new') }
+      format.html { @record.persisted? ? redirect_to(:action => :index) : render(:action => 'new') }
     end
   end
 
@@ -67,6 +68,10 @@ class Smithy::ContentPiecesController < Smithy::BaseController
       @klass_name ||= klass.name.sub(/^Smithy::/, '').titleize
     end
 
+    def klass_table_name
+      klass.name.sub(/^Smithy::/, '').underscore.pluralize
+    end
+
     def new_record
       klass.new(filtered_params)
     end
@@ -92,6 +97,6 @@ class Smithy::ContentPiecesController < Smithy::BaseController
     end
 
     def accessible_attributes
-      klass.accessible_attributes.select(&:present?).map(&:to_sym)
+      permitted_params.send("#{klass.name.sub(/^Smithy::/, '').underscore}_attributes".to_sym)
     end
 end
