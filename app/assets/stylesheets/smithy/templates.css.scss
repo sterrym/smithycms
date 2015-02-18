@@ -11,4 +11,7 @@ textarea[name="content[content]"],
   min-height:40em;
   width:97%;
   position:relative;
+  &.short {
+    min-height:10em;
+  }
 }
