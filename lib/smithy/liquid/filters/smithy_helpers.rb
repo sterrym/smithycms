@@ -3,7 +3,7 @@ module Smithy
     module Filters
       module SmithyHelpers
         def rails_helper(helper, *args)
-          options = args_to_options
+          options = args_to_options(args)
           helper = helper.to_sym
           return nil if !controller.view_context.respond_to?(helper)
           if options.blank?
