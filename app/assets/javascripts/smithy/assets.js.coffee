@@ -4,14 +4,14 @@
 jQuery ->
   $('#fileupload').fileupload
     add: (e, data) ->
-      types = /(\.|\/)(gif|jpe?g|png|pdf)$/i
+      types = /(\.|\/)(gif|jpe?g|png|pdf|svgz?)$/i
       file = data.files[0]
       if types.test(file.type) || types.test(file.name)
         data.context = $(tmpl("template-upload", file))
         $('#fileupload').append(data.context)
         data.submit()
       else
-        alert("#{file.name} is not a gif, jpeg, png or pdf file")
+        alert("#{file.name} is not a gif, jpeg, png, svg or pdf file")
 
     progress: (e, data) ->
       if data.context
