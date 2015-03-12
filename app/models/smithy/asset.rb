@@ -29,6 +29,8 @@ module Smithy
       case ext
       when 'jpg', 'jpeg', 'gif', 'png'
         :image
+      when 'svg', 'svgz'
+        :direct_image
       when 'pdf'
         :pdf
       when 'doc', 'docx'

@@ -8,6 +8,8 @@
       <%= link_to @asset.file.remote_url do %>
       <% if @asset.file_type == :image %>
         <img src="<%= @asset.file.thumb("300x300").url %>" alt="">
+      <% elsif @asset.file_type == :direct_image %>
+        <%= image_tag @asset.file.remote_url, width: 300, alt: '' %>
       <% else %>
         <%= image_tag file_type_icon(@asset), alt: '' %>
       <% end %>

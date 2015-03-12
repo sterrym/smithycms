@@ -3,6 +3,8 @@
     <%= link_to asset.file.remote_url do %>
       <% if asset.file_type == :image %>
         <%= image_tag asset.file.thumb("340x226#").url, width: 170, height: 114, alt: '' %>
+      <% elsif asset.file_type == :direct_image %>
+        <%= image_tag asset.file.remote_url, width: 170, alt: '' %>
       <% else %>
         <div style="width:170px;height:78px;padding-top:36px;text-align:center;"><%= image_tag file_type_icon(asset), alt: '' %></div>
       <% end %>
