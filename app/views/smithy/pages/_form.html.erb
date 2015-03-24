@@ -5,7 +5,6 @@
   <% breadcrumbs.each do |p| %>
     <li>
       <%= @page == p ? p.title : link_to(p.title, edit_page_path(p.id)) %>
-      <%= content_tag :span, :class => 'divider' do %>/<% end %>
     </li>
   <% end %>
     <%= content_tag(:li, @page.title) if @page.persisted? %>
