@@ -1,9 +1,10 @@
-<%= uploader_form Smithy::Asset.new, post: assets_url, as: "asset[uploaded_file_url]" do %>
+<%= form_tag do %>
   <fieldset class="inputs">
-    <%= file_field_tag :file, multiple: true %>
-    <%= submit_tag "Upload File(s)", class: 'btn btn-default' %>
+    <%= file_field_tag :files, multiple: true, id: 'upload-files' %>
   </fieldset>
 <% end %>
+
+asdfasdf
 
 <script id="template-upload" type="text/x-tmpl">
 <div class="upload">

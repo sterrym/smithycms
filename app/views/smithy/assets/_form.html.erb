@@ -1,18 +1,22 @@
 <%= semantic_form_for @asset do |f| %>
   <%= f.inputs do %>
     <%= f.input :name, :label => 'Name (Alernative text)' %>
-    <%= f.input :file, :as => :file %>
-    <%= f.input :retained_file, :as => :hidden %>
+    <div class="file input required form-group" id="asset_file_input">
+      <%= f.label 'File' %>
+      <span class="form-wrapper">
+        <%= f.attachment_field :file %>
+      </span>
+    </div>
     <% if @asset.file %>
     <div>
       <%= link_to attachment_url(@asset, :file) do %>
-      <% if @asset.file_type == :image %>
-        <%= attachment_image_tag(@asset, :file, :fit, 300, 300, alt: '') %>
-      <% elsif @asset.file_type == :direct_image %>
-        <%= attachment_image_tag(@asset, :file, width: 300, alt: '') %>
-      <% else %>
-        <%= image_tag file_type_icon(@asset), alt: '' %>
-      <% end %>
+        <% if @asset.file_type == :image %>
+          <%= attachment_image_tag(@asset, :file, :fit, 300, 300, alt: '') %>
+        <% elsif @asset.file_type == :direct_image %>
+          <%= attachment_image_tag(@asset, :file, width: 300, alt: '') %>
+        <% else %>
+          <%= image_tag file_type_icon(@asset), alt: '' %>
+        <% end %>
       <% end %>
     </div>
     <% end %>

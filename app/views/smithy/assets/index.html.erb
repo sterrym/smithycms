@@ -1,9 +1,10 @@
 <% content_for :title, "Assets" %>
 
 <div class="well">
-  <h2>Upload files</h2>
-  <%= render :partial => "upload_form" %>
-  <p>If you are using Firefox, Safari or Chrome, you can just drag and drop some files onto this page</p>
+  <h2>Upload file</h2>
+  <%= link_to "Choose Files", '#', id: 'choose-files' %>
+  <%#= render :partial => "upload_form" %>
+  <%#= render partial: 'form' %>
 </div>
 
 <%= paginate @assets %>
