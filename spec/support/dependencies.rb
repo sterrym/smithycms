@@ -16,9 +16,6 @@ require 'smithycms-auth'
 # Run any available migration
 ActiveRecord::Migrator.migrate File.expand_path("../dummy/db/migrate/", __FILE__)
 
-# this mocks out all AWS calls - tasty
-Fog.mock!
-
 RSpec.configure do |config|
   # include the routes url_helpers
   config.before(:suite) do
