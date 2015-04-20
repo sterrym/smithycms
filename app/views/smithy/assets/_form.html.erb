@@ -5,11 +5,11 @@
     <%= f.input :retained_file, :as => :hidden %>
     <% if @asset.file %>
     <div>
-      <%= link_to @asset.file.remote_url do %>
+      <%= link_to attachment_url(@asset, :file) do %>
       <% if @asset.file_type == :image %>
-        <img src="<%= @asset.file.thumb("300x300").url %>" alt="">
+        <%= attachment_image_tag(@asset, :file, :fit, 300, 300, alt: '') %>
       <% elsif @asset.file_type == :direct_image %>
-        <%= image_tag @asset.file.remote_url, width: 300, alt: '' %>
+        <%= attachment_image_tag(@asset, :file, width: 300, alt: '') %>
       <% else %>
         <%= image_tag file_type_icon(@asset), alt: '' %>
       <% end %>

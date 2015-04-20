@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Smithy::Asset, :type => :model do
+RSpec.describe Smithy::Asset, :type => :model, :focus => true do
   let(:file) { Smithy::Engine.root.join('spec', 'fixtures', 'assets', 'treats-and_stuff.png') }
   let(:uploaded_file) { "http://s3.amazonaws.com/#{ENV['AWS_S3_BUCKET']}/test/treats-and_stuff.png" }
   before do
@@ -21,6 +21,8 @@ RSpec.describe Smithy::Asset, :type => :model do
 
   context "when loading a file, the" do
     subject { create(:asset, :file => File.open(file)) }
+
+    it { debugger }
 
     describe '#name' do
       subject { super().name }
