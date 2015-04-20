@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :content_block, :class => 'Smithy::ContentBlock' do
-    name { Faker::Lorem.words(5).join(' ') }
+    name { FFaker::Lorem.words(5).join(' ') }
   end
 end

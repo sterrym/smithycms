@@ -3,9 +3,9 @@
 FactoryGirl.define do
   factory :page, :class => 'Smithy::Page' do
     template
-    title { Faker::Lorem.words(2).join(' ') }
-    description { Faker::Lorem.sentence }
-    keywords { Faker::Lorem.words(10).join(' ') }
+    title { FFaker::Lorem.words(2).join(' ') }
+    description { FFaker::Lorem.sentence }
+    keywords { FFaker::Lorem.words(10).join(' ') }
     published_at 1.day.ago
   end
 end

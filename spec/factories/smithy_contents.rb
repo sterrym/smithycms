@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :content, :class => 'Smithy::Content' do
-    content { Faker::Lorem.paragraph }
+    content { FFaker::Lorem.paragraph }
   end
 end

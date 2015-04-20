@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :setting, :class => 'Smithy::Setting' do
-    name { Faker::Lorem.words(5).join('_') }
-    value { Faker::Lorem.words(5).join('_') }
+    name { FFaker::Lorem.words(5).join('_') }
+    value { FFaker::Lorem.words(5).join('_') }
   end
 end

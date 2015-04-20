@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :template_container, :class => 'Smithy::TemplateContainer' do
-    name { Faker::Lorem.words(5).join(' ') }
+    name { FFaker::Lorem.words(5).join(' ') }
     template
   end
 end

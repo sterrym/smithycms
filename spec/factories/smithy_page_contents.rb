@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :page_content, :class => 'Smithy::PageContent' do
     page
     container 'main_content'
-    label { Faker::Lorem.words(2).join(' ') }
+    label { FFaker::Lorem.words(2).join(' ') }
     association :content_block, factory: :content
     trait :publishable do
       publishable true

@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :content_block_template, :class => 'Smithy::ContentBlockTemplate' do
     content_block
-    name { Faker::Lorem.words(5).join(' ') }
-    content { Faker::Lorem.paragraph }
+    name { FFaker::Lorem.words(5).join(' ') }
+    content { FFaker::Lorem.paragraph }
   end
 end
