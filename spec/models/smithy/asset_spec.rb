@@ -48,7 +48,7 @@ RSpec.describe Smithy::Asset, :type => :model do
     end
   end
 
-  context "when only uploaded_file_url is populated, the" do
+  context "when only uploaded_file_url is populated (aka jquery_file_upload did it), the" do
     subject { create(:asset, :uploaded_file_url => uploaded_file) }
 
     describe '#name' do
@@ -77,19 +77,7 @@ RSpec.describe Smithy::Asset, :type => :model do
     end
   end
 
-  context "using the FileDataStore" do
-    before do
-      %w(AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_S3_BUCKET).each{|k| ENV[k] = nil }
-      Dragonfly.app.configure do
-        datastore Smithy::Asset.dragonfly_datastore
-      end
-    end
-    it "saves with a file" do
-      create(:asset, :file => file)
-    end
-    it "saves with an uploaded_file_url" do
-      create(:asset, :uploaded_file_url => uploaded_file)
-    end
+  context "saving to local filesystem" do
   end
 
 end

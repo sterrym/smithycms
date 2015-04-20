@@ -25,8 +25,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
   s.add_dependency 'bootstrap-sass', '~> 3.2.0'
-  s.add_dependency 'dragonfly', '~> 1.0.7'
-  s.add_dependency 'dragonfly-s3_data_store', '~> 1.0.4'
   s.add_dependency 'font-awesome-sass', '~> 4.2'
   s.add_dependency 'fog', '~> 1.20.0'
   s.add_dependency 'formtastic', '~> 2.3.1' # as of writing, formtastic-bootstrap is only compatible with 2.3.x

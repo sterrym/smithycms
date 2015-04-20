@@ -3,7 +3,6 @@ require "smithy/engine"
 require 'smithy/dependencies'
 # config
 require 'smithy/logger'
-require 'smithy/dragonfly'
 require 'smithy/liquid'
 # content formatting
 require 'smithy/formatter'
