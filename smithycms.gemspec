@@ -35,6 +35,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'json', '~> 1.8.1'
   s.add_dependency 'kaminari', '~> 0.16.1'
   s.add_dependency 'liquid', '~> 2.6.1'
+  s.add_dependency 'mini_magick'
+  s.add_dependency 'refile'
   s.add_dependency 'sass-rails'
   s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'
