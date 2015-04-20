@@ -11,24 +11,34 @@ RSpec.describe Smithy::Asset, :type => :model do
     FakeWeb.register_uri(:get, uploaded_file, :body => File.read(file))
   end
 
-  it { is_expected.to validate_presence_of(:file) }
-  it { is_expected.to validate_presence_of(:name) }
+  context "validations" do
+    specify {
+      subject.save
+      expect(subject.errors.messages[:file]).to_not be_blank
+    }
+    it { is_expected.to validate_presence_of(:name) }
+  end
 
   context "when loading a file, the" do
-    subject { create(:asset, :file => file) }
+    subject { create(:asset, :file => File.open(file)) }
 
     describe '#name' do
       subject { super().name }
       it { is_expected.to eql 'Treats And Stuff' }
     end
 
-    describe '#content_type' do
-      subject { super().content_type }
-      it { is_expected.to eql 'image' }
+    describe '#file_content_type' do
+      subject { super().file_content_type }
+      it { is_expected.to eql 'image/png' }
     end
 
-    describe '#file_name' do
-      subject { super().file_name }
+    describe '#file_type' do
+      subject { super().file_type }
+      it { is_expected.to eql :image }
+    end
+
+    describe '#file_filename' do
+      subject { super().file_filename }
       it { is_expected.to eql 'treats-and_stuff.png' }
     end
 
@@ -37,45 +47,45 @@ RSpec.describe Smithy::Asset, :type => :model do
       it { is_expected.to eql 28773 }
     end
 
-    describe '#file_height' do
-      subject { super().file_height }
-      it { is_expected.to eql 170 }
-    end
+    # describe '#file_height' do
+    #   subject { super().file_height }
+    #   it { is_expected.to eql 170 }
+    # end
 
-    describe '#file_width' do
-      subject { super().file_width }
-      it { is_expected.to eql 153 }
-    end
+    # describe '#file_width' do
+    #   subject { super().file_width }
+    #   it { is_expected.to eql 153 }
+    # end
   end
 
-  context "when only uploaded_file_url is populated (aka jquery_file_upload did it), the" do
-    subject { create(:asset, :uploaded_file_url => uploaded_file) }
+  # context "when only uploaded_file_url is populated (aka jquery_file_upload did it), the" do
+  #   subject { create(:asset, :uploaded_file_url => uploaded_file) }
 
-    describe '#name' do
-      subject { super().name }
-      it { is_expected.to eql 'Treats And Stuff' }
-    end
+  #   describe '#name' do
+  #     subject { super().name }
+  #     it { is_expected.to eql 'Treats And Stuff' }
+  #   end
 
-    describe '#content_type' do
-      subject { super().content_type }
-      it { is_expected.to eql 'image' }
-    end
+  #   describe '#content_type' do
+  #     subject { super().content_type }
+  #     it { is_expected.to eql 'image' }
+  #   end
 
-    describe '#file_size' do
-      subject { super().file_size }
-      it { is_expected.to eql 28773 }
-    end
+  #   describe '#file_size' do
+  #     subject { super().file_size }
+  #     it { is_expected.to eql 28773 }
+  #   end
 
-    describe '#file_height' do
-      subject { super().file_height }
-      it { is_expected.to eql 170 }
-    end
+  #   describe '#file_height' do
+  #     subject { super().file_height }
+  #     it { is_expected.to eql 170 }
+  #   end
 
-    describe '#file_width' do
-      subject { super().file_width }
-      it { is_expected.to eql 153 }
-    end
-  end
+  #   describe '#file_width' do
+  #     subject { super().file_width }
+  #     it { is_expected.to eql 153 }
+  #   end
+  # end
 
   context "saving to local filesystem" do
   end

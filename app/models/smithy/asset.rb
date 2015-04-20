@@ -4,29 +4,29 @@ module Smithy
 
     has_many :images, :dependent => :destroy
 
+    attachment :file
+
     before_validation :set_name
-    before_save :set_file_uid_manually
 
     default_scope -> { order(:name) }
 
     def file_type
-      ext = File.extname(file.name).sub(/^\./, '')
-      case ext
-      when 'jpg', 'jpeg', 'gif', 'png'
-        :image
-      when 'svg', 'svgz'
+      case file_content_type
+      when /^image\/svg/
         :direct_image
-      when 'pdf'
+      when /^image\//
+        :image
+      when /pdf/
         :pdf
-      when 'doc', 'docx'
+      when /msword|wordprocessing/
         :word
-      when 'xls', 'xlsx'
+      when /excel|spreadsheet/
         :excel
-      when 'ppt', 'pps', 'pptx', 'ppsx'
+      when /powerpoint|presentation/
         :powerpoint
-      when 'txt'
+      when /txt/
         :text
-      when 'rtf'
+      when /rtf/
         :document
       else
         :default
@@ -37,9 +37,9 @@ module Smithy
       {
         'id' => self.id,
         'name' => self.name,
-        'content_type' => self.content_type,
+        'content_type' => self.file_content_type,
         'file' => self.file,
-        'file_name' => self.file_name,
+        'file_name' => self.file_filename,
         'file_width' => self.file_width,
         'file_height' => self.file_height,
         'file_size' => self.file_size,
@@ -49,15 +49,11 @@ module Smithy
     end
 
     private
-      def set_content_types
-        set_content_type(self.file, :content_type)
-      end
-
       def set_name
         if self.uploaded_file_url?
           self.name = File.basename(self.uploaded_file_url, '.*').titleize unless self.name?
         elsif self.file.present?
-          self.name = File.basename(self.file.name, '.*').titleize unless self.name?
+          self.name = File.basename(self.file_filename, '.*').titleize unless self.name?
         end
      end
   end
