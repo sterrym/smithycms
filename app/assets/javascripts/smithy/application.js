@@ -2,7 +2,7 @@
 //= require jquery_ujs
 //= require 'smithy/jquery-ui.min'
 //= require bootstrap-sprockets
-//= require refile
+//= require 'smithy/refile'
 //= require ace-1.1.3/ace
 //= require ace-1.1.3/mode-css.js
 //= require ace-1.1.3/mode-html.js
