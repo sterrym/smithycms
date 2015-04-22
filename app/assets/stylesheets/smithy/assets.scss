@@ -1,0 +1,12 @@
+#asset-thumbnails>li { width:180px;
+  .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+#asset-upload {
+  .preview img { width:170px; height:auto; max-width:100%; }
+}
+
+#asset-upload-table {
+  form { @extend tr; display:table-row; }
+  form > div {  @extend td; display:table-cell; }
+}

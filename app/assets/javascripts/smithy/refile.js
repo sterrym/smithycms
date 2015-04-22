@@ -1,9 +1,10 @@
+var refileUpload;
 (function() {
   "use strict";
 
   if(!document.addEventListener) { return; } // IE8
 
-  var refileUpload = function(input, file) {
+  refileUpload = function(input, file) {
     if(input.tagName === "INPUT" && input.type === "file" && input.getAttribute("data-direct")) {
       var metadataField = input.previousSibling;
 
@@ -58,10 +59,11 @@
   }
 
   document.addEventListener("change", function(changeEvent) {
+    var input = changeEvent.target;
     if(input.tagName === "INPUT" && input.type === "file" && input.getAttribute("data-direct")) {
       if(!input.files) { return; } // IE9, bail out if file API is not supported.
       var file = input.files[0];
-      refileUpload(changeEvent.target, file)
+      window.refileUpload(input, file)
     }
   });
 })();

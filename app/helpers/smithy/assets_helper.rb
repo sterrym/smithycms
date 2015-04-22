@@ -6,12 +6,10 @@ module Smithy
       image_tag(asset.file.url(:host => "#{request.protocol}#{request.host_with_port}"), :alt => asset.name)
     end
 
-    def smithy_asset_file_field(form_builder)
+    def smithy_asset_file_field()
       html = content_tag(:div, :id => "asset_file_fields_blueprint", :style => "display:none;") do
-        render_to_string partial: 'smithy/assets/inline_form', locals: { form: form_builder }
+        render partial: 'smithy/assets/inline_form'
       end
-      form_builder.template.concat(html)
-      form_builder.template.link_to('Add Files', "javascript:void(0)", :class => "add-files", "data-association" => 'asset_file_fields_blueprint')
     end
 
 

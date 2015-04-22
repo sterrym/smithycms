@@ -1,4 +1,7 @@
-<%= form.inputs do %>
-  <%= form.attachment_field :file %>
-  <%= form.input :name %>
+<%= semantic_form_for Smithy::Asset.new, post: assets_url, html: { id: "new_file", class: "form-inline" }, remote: true do |form| %>
+  <div class="hidden"><%= form.attachment_field :file, direct: true, presigned: true %></div>
+  <div class="col-md-2 preview">&nbsp;</div>
+  <div class="col-md-4"><%= form.input :name %></div>
+  <div class="col-md-3"><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0;"></div></div></div>
+  <div class="col-md-3"><%= form.action :submit, label: "Save", class: "btn btn-small btn-success" %></div>
 <% end %>
