@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
   s.add_dependency 'bootstrap-sass', '~> 3.2.0'
+  s.add_dependency 'coffee-script'
   s.add_dependency 'dragonfly', '~> 1.0.7'
   s.add_dependency 'dragonfly-s3_data_store', '~> 1.0.4'
   s.add_dependency 'font-awesome-sass', '~> 4.2'
@@ -45,6 +46,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'dotenv-rails'
   s.add_development_dependency 'factory_girl_rails'
   s.add_development_dependency 'fakeweb'
   s.add_development_dependency 'ffaker'
