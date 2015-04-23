@@ -1,5 +1,5 @@
-<tr>
-  <td class="thumbnail">
+<div class="col-xs-6 col-md-3">
+  <div class="thumbnail clearfix">
     <%= link_to asset.file.remote_url do %>
       <% if asset.file_type == :image %>
         <%= image_tag asset.file.thumb("340x226#").url, width: 170, height: 114, alt: '' %>
@@ -9,10 +9,10 @@
         <div style="width:170px;height:78px;padding-top:36px;text-align:center;"><%= image_tag file_type_icon(asset), alt: '' %></div>
       <% end %>
     <% end %>
-  </td>
-  <tdclass="name"><strong><%= asset.name %></strong></td>
-  <td class="actions">
-    <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
-    <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
-  </td>
-</tr>
+    <p class="name"><strong><%= asset.name %></strong></p>
+    <div class="pull-right">
+      <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
+      <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
+    </div>
+  </div>
+</div>
