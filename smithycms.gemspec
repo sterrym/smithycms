@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'friendly_id', '~> 5.0.4'
   s.add_dependency 'httparty', '~> 0.13.1'
   s.add_dependency 'jquery-fileupload-rails', '~> 0.4.1'
+  s.add_dependency 'jquery-datatables-rails', '~> 3.2.0'
   s.add_dependency 'json', '~> 1.8.1'
   s.add_dependency 'kaminari', '~> 0.16.1'
   s.add_dependency 'liquid', '~> 2.6.1'

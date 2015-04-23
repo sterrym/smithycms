@@ -4,6 +4,9 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-sprockets
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+//= require dataTables/extras/dataTables.responsive
 //= require ace-1.1.3/ace
 //= require ace-1.1.3/mode-css.js
 //= require ace-1.1.3/mode-html.js

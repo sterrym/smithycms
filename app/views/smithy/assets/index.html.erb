@@ -6,10 +6,17 @@
   <p>If you are using Firefox, Safari or Chrome, you can just drag and drop some files onto this page</p>
 </div>
 
-<table id="assets">
-  <%= paginate @assets %>
-</table>
 
-<div class="thumbnails row" id="asset-thumbnails">
-  <%= render @assets %>
+<%= paginate @assets %>
+
+<div class="thumbnails" id="asset-thumbnails">
+  <table id="assets" class="table table-striped responsive no-wrap display">
+    <thead>
+      <th style="width:10%;">Preview</th>
+      <th>Name</th>
+      <th>Size</th>
+      <th>Actions</th>
+    </thead>
+    <%= render @assets %>
+  </table>
 </div>
