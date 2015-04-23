@@ -3,10 +3,19 @@
 }
 
 #asset-upload {
-  .preview img { width:170px; height:auto; max-width:100%; }
-}
+  #save-all-assets { display:none; }
+  &.files-chosen #save-all-assets { display:inline-block; }
 
-#asset-upload-table {
-  form { @extend tr; display:table-row; }
-  form > div {  @extend td; display:table-cell; }
+  #asset-upload-files {
+    margin:10px 0;
+    form {
+      @extend .row; border-top:1px solid $table-border-color; padding:10px 0;
+      &:nth-child(odd) { background-color: $table-bg-accent; }
+      &.upload-success { }
+      &.upload-failed { }
+
+      .preview img { max-width:100%; max-height:170px; }
+    }
+  }
+
 }

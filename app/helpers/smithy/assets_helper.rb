@@ -6,14 +6,6 @@ module Smithy
       image_tag(asset.file.url(:host => "#{request.protocol}#{request.host_with_port}"), :alt => asset.name)
     end
 
-    def smithy_asset_file_field()
-      html = content_tag(:div, :id => "asset_file_fields_blueprint", :style => "display:none;") do
-        render partial: 'smithy/assets/inline_form'
-      end
-    end
-
-
-
     def file_type_icon(asset)
       case asset.file_type
       when :image

@@ -1,0 +1,64 @@
+$upload_section = $('#asset-upload')
+presigned_fields_url = $('#choose-files').attr('data-presigned-fields-url')
+
+$(document).on 'click', '#choose-files', (e) ->
+  e.preventDefault()
+  $(this).after($('<input type="file" id="choose-files-input" multiple>').hide()) if $('#choose-files-input').length == 0
+  $('#choose-files-input').click()
+
+$(document).on 'change', '#choose-files-input', (e) ->
+  if this.files.length
+    $upload_section.addClass('files-chosen')
+    files = this.files
+    $.get presigned_fields_url, { count: this.files.length }, ->
+      $.each files, (i, file) ->
+        form_selector = "form#presigned-upload-form-#{i}"
+        $form = $(form_selector)
+        input = $form.find('input[type=file]')[0]
+
+        # Load the preview image
+        generate_preview_img file, (img_data) ->
+          preview_image = "<img src=\"#{ img_data }\" />"
+          $form.find('.preview').html(preview_image)
+        $form.find('.progress').after("<span>#{ formatFileSize(file.size) }</span>")
+
+        # Attach event handlers to watch progress
+        $(document).on "upload:start", form_selector, (e) ->
+          $(this).find("input[type=submit]").attr("disabled", true)
+        $(document).on "upload:progress", form_selector, (e) ->
+          progress = parseInt(e.originalEvent.detail.loaded / e.originalEvent.detail.total * 100, 10)
+          $(this).find('.progress-bar').css('width', "#{progress}%").attr('aria-valuenow', progress)
+        $(document).on "upload:success", form_selector, (e) ->
+          $(this).find("input[type=submit]").removeAttr("disabled") if !$(this).find("input.uploading").length
+          $(this).addClass("upload-success")
+          if ($upload_section.find('.uploading').length == 0)
+            $upload_section.addClass('all-files-uploaded')
+            $('#save-all-assets').attr('disabled', false)
+        $(document).on "upload:failed", form_selector, (e) ->
+          $(this).addClass("upload-failed").append("<p>Something went wrong, please check your connection and try again</p>")
+
+        # Finally, start the upload
+        window.refileUpload input, file
+
+$(document).on 'submit', 'form.presigned-upload-form', (e) ->
+  $(this).slideUp ->
+    $(this).remove()
+    $upload_section.removeClass('files-chosen').removeClass('all-files-uploaded') if $('form.presigned-upload-form').length == 0
+
+generate_preview_img = (file, callback) ->
+  reader = new FileReader()
+  reader.onload = (e) ->
+    callback(e.target.result)
+  reader.readAsDataURL(file)
+
+formatFileSize = (bytes) ->
+  if (typeof bytes != 'number')
+    return ''
+  if (bytes >= 1000000000)
+    return (bytes / 1000000000).toFixed(2) + ' GB'
+  if (bytes >= 1000000)
+    return (bytes / 1000000).toFixed(2) + ' MB'
+  (bytes / 1000).toFixed(2) + ' KB'
+
+window.save_all_assets = () ->
+  $('#asset-upload-files form').submit()

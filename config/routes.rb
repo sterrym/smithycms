@@ -5,7 +5,11 @@ Smithy::Engine.routes.draw do
     get '/login'  => redirect('/'), :as => :login unless has_named_route?(:login)
     delete '/logout' => redirect('/'), :as => :logout unless has_named_route?(:logout)
     # CMS admin
-    resources :assets
+    resources :assets do
+      collection do
+        get :presigned_fields
+      end
+    end
     resources :content_blocks
     resources :guides, :only => :show
     resources :pages do

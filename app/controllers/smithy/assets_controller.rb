@@ -17,9 +17,11 @@ module Smithy
     def create
       @asset = Asset.new(filtered_params)
       @asset.save
-      flash.notice = "Your asset was created" if @asset.persisted?
       respond_with @asset do |format|
-        format.html { redirect_to assets_path }
+        format.html {
+          flash.notice = "Your asset was created" if @asset.persisted?
+          redirect_to assets_path
+        }
       end
     end
 
@@ -40,6 +42,15 @@ module Smithy
       @asset = Asset.find(params[:id])
       @asset.destroy
       respond_with @asset
+    end
+
+    def presigned_fields
+      count = params[:count].to_i if params[:count].present?
+      count ||= 1
+      @assets = count.times.map{ Asset.new }
+      respond_to do |format|
+        format.js
+      end
     end
 
     private

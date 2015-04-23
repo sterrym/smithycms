@@ -2,10 +2,12 @@
 
 <div class="well" id="asset-upload">
   <h2>Upload file</h2>
-  <%= link_to "Choose Files", '#', id: 'choose-files' %>
-  <%= smithy_asset_file_field() %>
-  <table id="asset-upload-table" class="table table-striped">
-  </table>
+  <p>
+    <%= link_to "Choose Files", '#', id: 'choose-files', class: "btn btn-default", data: { presigned_fields_url: presigned_fields_assets_path(format: :js) } %>
+    <%= button_tag "Save all", id: "save-all-assets", onclick: "javascript:save_all_assets()", data: { disable_with: "Waiting for the images to upload..." }, disabled: true, class: "btn btn-success" %>
+  </p>
+  <div id="asset-upload-files" class="table table-striped">
+  </div>
 </div>
 
 <%= paginate @assets %>
