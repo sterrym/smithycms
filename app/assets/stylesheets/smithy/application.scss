@@ -20,6 +20,8 @@
  */
 
 @import 'bootstrap_and_overrides';
+@import 'dataTables/bootstrap/3/jquery.dataTables.bootstrap';
+@import 'dataTables/extras/dataTables.responsive';
 @import 'layout';
 @import 'forms';
 @import 'guides';

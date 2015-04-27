@@ -19,3 +19,13 @@
   }
 
 }
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th { background:darken($table-bg-accent, 5%); }
+
+#assets {
+  .preview a {
+    padding:5px; height:60px; width:60px; border:1px solid darken($table-bg-accent, 20%); display:block; position:relative; border-radius:3px;
+    img { position:absolute; bottom:0; top:0; margin:auto; }
+  }
+}
