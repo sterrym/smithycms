@@ -1,6 +1,6 @@
 module Smithy
   class AssetsDatatable
-    delegate :params, :link_to, :image_tag, :number_to_human_size, to: :@view
+    delegate :params, :link_to, :image_tag, :number_to_human_size, :file_type_icon, to: :@view
 
     def initialize(view)
       @view = view
@@ -45,11 +45,11 @@ module Smithy
     def preview_link(asset)
       link_to asset.file.remote_url do
         if asset.file_type == :image
-          image_tag asset.file.thumb("340x226#").url, width: 170, height: 114, alt: ''
+          image_tag asset.file.thumb("48x48").url, width: 48, alt: ''
         elsif asset.file_type == :direct_image
-          image_tag asset.file.remote_url, width: 170, alt: ''
+          image_tag asset.file.remote_url, width: 48, alt: ''
         else
-          "<div style=\"width:170px;height:78px;padding-top:36px;text-align:center;\">#{ image_tag file_type_icon(asset), alt: '' }</div>"
+          image_tag file_type_icon(asset), alt: ''
         end
       end
     end

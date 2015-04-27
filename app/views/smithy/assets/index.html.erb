@@ -11,11 +11,12 @@
 <div class="thumbnails" id="asset-thumbnails">
   <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
     <thead>
-      <th style="width:10%;">Preview</th>
-      <th>Name</th>
-      <th>Size</th>
-      <th>Actions</th>
+      <tr>
+        <th style="width:10%;">Preview</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Actions</th>
+      </tr>
     </thead>
-    <%= render @assets %>
   <% end %>
 </div>

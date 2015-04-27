@@ -1,3 +1,37 @@
 #asset-thumbnails>li { width:180px;
   .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th { background:darken($table-bg-accent, 5%); }
+
+
+#assets {
+  .preview a {
+    padding:5px; height:60px; width:60px; border:1px solid darken($table-bg-accent, 20%); display:block; position:relative; border-radius:3px;
+    img { position:absolute; bottom:0; top:0; margin:auto; }
+  }
+}
+
+// // Use glyphicons for sorting icons
+// table.dataTable thead {
+//   .sorting,
+//   .sorting_asc,
+//   .sorting_desc {
+//     &:after { position:absolute; top:8px; right:8px; display:block; font-family:'Glyphicons Halflings'; opacity:0.5; }
+//   }
+//   .sorting:after { opacity:0.2; content:"\e150"; /* sort */ }
+//   .sorting_asc:after { content:"\e155"; /* sort-by-attributes */ }
+//   .sorting_desc:after { content:"\e156"; /* sort-by-attributes-alt */ }
+
+//   .sorting_asc_disabled:after,
+//   .sorting_desc_disabled:after { color: #eee; }
+// }
+
+// div.dataTables_scrollBody table.dataTable thead {
+//   .sorting,
+//   .sorting_asc,
+//   .sorting_desc {
+//     &:after { display:none; }
+//   }
+// }

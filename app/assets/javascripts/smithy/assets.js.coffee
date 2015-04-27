@@ -4,7 +4,13 @@ $('#assets').DataTable {
   "processing": true,
   "ajax": $('#assets').attr('data-source'),
   "order": [[1, 'asc']],
-  "columnDefs": [{ "targets": [0,3], "searchable": false, "orderable": false }]
+  "columnDefs": [
+    { "targets": [0,3], "searchable": false, "orderable": false },
+    { "targets": [0], "className": "preview" },
+    { "targets": [1], "className": "name" },
+    { "targets": [2], "className": "size" },
+    { "targets": [3], "className": "actions" }
+  ]
 }
 
 # Place all the behaviors and hooks related to the matching controller here.
