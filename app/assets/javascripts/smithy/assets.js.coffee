@@ -5,11 +5,8 @@ $('#assets').DataTable {
   "ajax": $('#assets').attr('data-source'),
   "order": [[1, 'asc']],
   "columnDefs": [
-    { "targets": [0,3], "searchable": false, "orderable": false },
-    { "targets": [0], "className": "preview" },
-    { "targets": [1], "className": "name" },
-    { "targets": [2], "className": "size" },
-    { "targets": [3], "className": "actions" }
+    { "targets": [0,4], "searchable": false, "orderable": false },
+    { "targets": [0], "className": "preview" }
   ]
 }
 

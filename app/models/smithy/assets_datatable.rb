@@ -23,6 +23,7 @@ module Smithy
           preview_link(asset),
           asset.name,
           number_to_human_size(asset.file_size),
+          asset.content_type,
           "#{link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs"} #{link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" }}"
         ]
       end
@@ -37,7 +38,7 @@ module Smithy
       assets = assets.page(page).per(per_page)
       # TODO: need to check for regex flag
       if params[:search][:value].present?
-        assets = assets.where("name like :search", search: "%#{params[:search][:value]}%")
+        assets = assets.where("name like :search or content_type like :search", search: "%#{params[:search][:value]}%")
       end
       assets
     end
@@ -63,7 +64,7 @@ module Smithy
     end
 
     def sort_column
-      columns = %w[preview name file_size actions]
+      columns = %w[preview name file_size content_type actions]
       columns[params[:order][:"0"][:column].to_i]
     end
 
