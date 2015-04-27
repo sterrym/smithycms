@@ -8,6 +8,7 @@ vendor/engines
 spec/dummy/db/*.sqlite3*
 spec/dummy/log/*.log
 spec/dummy/tmp/
+spec/dummy/.env
 spec/dummy/.sass-cache
 spec/dummy/.rvmrc
 spec/dummy/public/system/
