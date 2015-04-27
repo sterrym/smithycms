@@ -6,11 +6,10 @@
   <p>If you are using Firefox, Safari or Chrome, you can just drag and drop some files onto this page</p>
 </div>
 
-
 <%= paginate @assets %>
 
 <div class="thumbnails" id="asset-thumbnails">
-  <table id="assets" class="table table-striped responsive no-wrap display">
+  <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
     <thead>
       <th style="width:10%;">Preview</th>
       <th>Name</th>
@@ -18,5 +17,5 @@
       <th>Actions</th>
     </thead>
     <%= render @assets %>
-  </table>
+  <% end %>
 </div>

@@ -1,7 +1,6 @@
 module Smithy
   class Asset < ActiveRecord::Base
     validates_presence_of :file, :name
-
     has_many :images, :dependent => :destroy
 
     extend ::Dragonfly::Model
