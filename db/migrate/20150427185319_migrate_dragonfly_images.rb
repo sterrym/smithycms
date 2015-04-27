@@ -4,8 +4,13 @@ class MigrateDragonflyImages < ActiveRecord::Migration
     bucket = Refile.store.instance_variable_get(:@bucket)
     Smithy::Asset.where('file_id LIKE ?', 'uploads/%').each do |asset|
       new_file_id = asset.file_id.gsub(/[^a-z0-9]/i, '')
-      bucket.objects[asset.file_id].move_to([*prefix, new_file_id].join('/'))
-      asset.update_column(:file_id, new_file_id)
+      begin
+        bucket.objects[asset.file_id].move_to([*prefix, new_file_id].join('/'))
+        asset.update_column(:file_id, new_file_id)
+      rescue AWS::S3::Errors::NoSuchKey
+        # File may have already been moved in S3
+        asset.update_column(:file_id, new_file_id) if bucket.objects[[*prefix, new_file_id].join('/')].exists?
+      end
     end
   end
 end
