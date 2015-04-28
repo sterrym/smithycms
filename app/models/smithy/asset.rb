@@ -13,7 +13,7 @@ module Smithy
       case file_content_type
       when /^image\/svg/
         :direct_image
-      when /^image\//
+      when /^image\/?/
         :image
       when /pdf/
         :pdf

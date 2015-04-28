@@ -1,6 +1,6 @@
 module Smithy
   class AssetsDatatable
-    delegate :params, :link_to, :image_tag, :number_to_human_size, :file_type_icon, to: :@view
+    delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, to: :@view
 
     def initialize(view)
       @view = view
@@ -23,7 +23,7 @@ module Smithy
           preview_link(asset),
           asset.name,
           number_to_human_size(asset.file_size),
-          asset.content_type,
+          asset.file_content_type,
           "#{link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs"} #{link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" }}"
         ]
       end
@@ -44,11 +44,11 @@ module Smithy
     end
 
     def preview_link(asset)
-      link_to asset.file.remote_url do
+      link_to attachment_url(asset, :file) do
         if asset.file_type == :image
-          image_tag asset.file.thumb("48x48").url, width: 48, alt: ''
+          attachment_image_tag(asset, :file, :fit, 48, 48, alt: '')
         elsif asset.file_type == :direct_image
-          image_tag asset.file.remote_url, width: 48, alt: ''
+          attachment_image_tag(asset, :file, width: 48, alt: '')
         else
           image_tag file_type_icon(asset), alt: ''
         end
@@ -64,7 +64,7 @@ module Smithy
     end
 
     def sort_column
-      columns = %w[preview name file_size content_type actions]
+      columns = %w[preview name file_size file_content_type actions]
       columns[params[:order][:"0"][:column].to_i]
     end
 
