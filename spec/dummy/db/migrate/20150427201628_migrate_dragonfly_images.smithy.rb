@@ -13,5 +13,9 @@ class MigrateDragonflyImages < ActiveRecord::Migration
         asset.update_column(:file_id, new_file_id) if bucket.objects[[*prefix, new_file_id].join('/')].exists?
       end
     end
+
+    Smithy::Asset.where(file_content_type: nil).each do |asset|
+      asset.update_column(:file_content_type, asset.content_type)
+    end
   end
 end
