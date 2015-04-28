@@ -42,8 +42,8 @@ module Smithy
         'file_width' => self.file_width,
         'file_height' => self.file_height,
         'file_size' => self.file_size,
-        'remote_url' => self.file.remote_url,
-        'url' => self.file.url
+        'remote_url' => Refile.attachment_url(self, :file),
+        'url' => Refile.attachment_url(self, :file)
       }
     end
 
