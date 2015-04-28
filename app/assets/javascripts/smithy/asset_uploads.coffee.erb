@@ -17,8 +17,11 @@ $(document).on 'change', '#choose-files-input', (e) ->
         input = $form.find('input[type=file]')[0]
 
         # Load the preview image
-        generate_preview_img file, (img_data) ->
-          preview_image = "<img src=\"#{ img_data }\" />"
+        generate_preview_img file, (success, img_data) ->
+          if success
+            preview_image = "<img src=\"#{ img_data }\" />"
+          else
+            preview_image = "<span class='preview-icon #{img_data}'></span>"
           $form.find('.preview').html(preview_image)
         $form.find('.progress').after("<span>#{ formatFileSize(file.size) }</span>")
 
@@ -46,10 +49,25 @@ $(document).on 'submit', 'form.presigned-upload-form', (e) ->
     $upload_section.removeClass('files-chosen').removeClass('all-files-uploaded') if $('form.presigned-upload-form').length == 0
 
 generate_preview_img = (file, callback) ->
+  if file.type.indexOf("image") < 0
+    # Return Icon instead
+    callback(false, file_type_icon(file))
+    return
+
   reader = new FileReader()
   reader.onload = (e) ->
-    callback(e.target.result)
+    callback(true, e.target.result)
   reader.readAsDataURL(file)
+
+file_type_icon = (file) ->
+  icon = switch
+    when file.type.match(/pdf/) then 'pdf'
+    when file.type.match(/msword|wordprocessing/) then 'word'
+    when file.type.match(/excel|spreadsheet/) then 'excel'
+    when file.type.match(/powerpoint|presentation/) then 'ppt'
+    when file.type.match(/txt/) then 'text'
+    when file.type.match(/rtf/) then 'rtf'
+    else 'blank'
 
 formatFileSize = (bytes) ->
   if (typeof bytes != 'number')
