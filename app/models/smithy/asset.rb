@@ -52,7 +52,7 @@ module Smithy
     end
 
     def data
-      file.to_io.string
+      file.read
     end
 
     private

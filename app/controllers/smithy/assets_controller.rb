@@ -59,7 +59,7 @@ module Smithy
 
     def data
       @asset = Asset.find(params[:id])
-      send_data @asset.data
+      send_data @asset.data, filename: @asset.file_filename, disposition: "inline", type: ::File.extname(@asset.file_filename).downcase.sub(/^\./, '').to_sym
     end
 
     private
