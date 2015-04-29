@@ -51,6 +51,10 @@ module Smithy
       Refile.attachment_url(self, :file)
     end
 
+    def data
+      file.to_io.string
+    end
+
     private
       def set_name
         if self.uploaded_file_url?

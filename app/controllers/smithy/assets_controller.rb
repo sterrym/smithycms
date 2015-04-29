@@ -2,6 +2,7 @@ require_dependency "smithy/base_controller"
 
 module Smithy
   class AssetsController < BaseController
+    skip_before_filter :authenticate_smithy_admin, :only => [ :url ]
     before_filter :load_assets, :only => :index
     respond_to :html, :json, :js
 
@@ -54,6 +55,11 @@ module Smithy
       respond_to do |format|
         format.js
       end
+    end
+
+    def data
+      @asset = Asset.find(params[:id])
+      send_data @asset.data
     end
 
     private

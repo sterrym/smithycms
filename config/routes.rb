@@ -36,6 +36,7 @@ Smithy::Engine.routes.draw do
   end
   # Sitemap
   resource :sitemap, :controller => "sitemap", :only => [ :show ]
+  get '/assets/*id' => 'assets#data'
   get '/templates/javascripts/*javascript' => 'templates#javascript', :defaults => { :format => 'js' }
   get '/templates/stylesheets/*stylesheet' => 'templates#stylesheet', :format => 'css'
   get '*path' => 'pages#show'
