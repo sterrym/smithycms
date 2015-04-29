@@ -8,7 +8,7 @@ module Smithy
             if markup =~ Syntax
               @variable = $1.gsub('\'', '').strip
             else
-              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: image_tag <asset_id|path>")
+              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: asset_image_tag <asset_id|path>")
             end
             super
           end
@@ -32,7 +32,7 @@ module Smithy
             if markup =~ Syntax
               @variable = $1.gsub('\'', '')
             else
-              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: file_path <asset_id|path>")
+              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: asset_file_path <asset_id|path>")
             end
             super
           end
