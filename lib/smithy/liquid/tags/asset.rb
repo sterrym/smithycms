@@ -6,14 +6,7 @@ module Smithy
           Syntax = /(#{::Liquid::Expression}+)?/
           def initialize(tag_name, markup, tokens)
             if markup =~ Syntax
-              @asset_id = $1.gsub('\'', '').strip
-              if @asset = ::Smithy::Asset.find_by_id(@asset_id)
-                @url = @asset.file.url
-                @alt = @asset.name
-              else
-                @url = @asset_id
-                @alt = ''
-              end
+              @variable = $1.gsub('\'', '').strip
             else
               raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: image_tag <asset_id|path>")
             end
@@ -21,6 +14,14 @@ module Smithy
           end
 
           def render(context)
+            @asset_id = context[@variable]
+            if @asset = ::Smithy::Asset.find_by_id(@asset_id)
+              @url = @asset.url
+              @alt = @asset.name
+            else
+              @url = @asset_id
+              @alt = ''
+            end
             controller  = context.registers[:controller]
             controller.view_context.send(:image_tag, @url, :alt => @alt)
           end
@@ -29,12 +30,7 @@ module Smithy
           Syntax = /(#{::Liquid::Expression}+)?/
           def initialize(tag_name, markup, tokens)
             if markup =~ Syntax
-              @asset_id = $1.gsub('\'', '')
-              if @asset = ::Smithy::Asset.find_by_id(@asset_id)
-                @url = @asset.file.url
-              else
-                @url = @asset_id
-              end
+              @variable = $1.gsub('\'', '')
             else
               raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: file_path <asset_id|path>")
             end
@@ -42,6 +38,12 @@ module Smithy
           end
 
           def render(context)
+            @asset_id = context[@variable]
+            if @asset = ::Smithy::Asset.find_by_id(@asset_id)
+              @url = @asset.url
+            else
+              @url = @asset_id
+            end
             @url
           end
         end
