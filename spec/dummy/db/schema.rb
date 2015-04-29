@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420150337) do
+ActiveRecord::Schema.define(version: 20150427201628) do
 
   create_table "smithy_assets", force: true do |t|
     t.string   "name"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.integer  "file_size"
     t.integer  "file_width"
     t.integer  "file_height"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "file_content_type"
   end
 
@@ -31,22 +31,22 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.integer  "content_block_id"
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "smithy_content_block_templates", ["content_block_id"], name: "index_smithy_content_block_templates_on_content_block_id"
 
   create_table "smithy_content_blocks", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "smithy_contents", force: true do |t|
     t.text     "content"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.text     "markdown_content"
   end
 
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.integer  "height"
     t.string   "image_scaling"
     t.string   "link_url"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "html_attributes"
     t.text     "content"
   end
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.string   "content_block_type"
     t.integer  "content_block_id"
     t.integer  "position"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "content_block_template_id"
     t.boolean  "publishable",               default: false
   end
@@ -91,8 +91,8 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.boolean  "include_children"
     t.integer  "count"
     t.string   "sort"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "smithy_page_lists", ["page_template_id"], name: "index_smithy_page_lists_on_page_template_id"
@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.integer  "lft"
     t.integer  "rgt"
     t.integer  "depth"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "external_link"
   end
 
@@ -127,15 +127,15 @@ ActiveRecord::Schema.define(version: 20150420150337) do
   create_table "smithy_settings", force: true do |t|
     t.string   "name"
     t.text     "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "smithy_template_containers", force: true do |t|
     t.integer  "template_id"
     t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "position"
   end
 
@@ -145,15 +145,15 @@ ActiveRecord::Schema.define(version: 20150420150337) do
     t.string   "name"
     t.string   "template_type", default: "template"
     t.text     "content"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "smithy_users", force: true do |t|
     t.string   "email"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

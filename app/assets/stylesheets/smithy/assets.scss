@@ -14,7 +14,19 @@
       &.upload-success { }
       &.upload-failed { }
 
-      .preview img { max-width:100%; max-height:170px; }
+      .preview {
+        img { max-width:100%; max-height:170px; }
+        span.preview-icon {
+          display:block; width:48px; height:48px; background-repeat:no-repeat;
+          &.pdf { background:image-url("smithy/icons/pdf.png"); }
+          &.word { background:image-url('smithy/icons/doc.png'); }
+          &.excel { background:image-url('smithy/icons/xls.png'); }
+          &.ppt { background:image-url('smithy/icons/ppt.png'); }
+          &.text { background:image-url('smithy/icons/txt.png'); }
+          &.rtf { background:image-url('smithy/icons/_page.png'); }
+          &.blank { background:image-url('smithy/icons/_blank.png'); }
+        }
+      }
     }
   }
 

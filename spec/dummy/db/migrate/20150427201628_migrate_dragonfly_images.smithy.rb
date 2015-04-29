@@ -1,3 +1,4 @@
+# This migration comes from smithy (originally 20150427185319)
 class MigrateDragonflyImages < ActiveRecord::Migration
   def change
     prefix = Refile.store.instance_variable_get(:@prefix)
