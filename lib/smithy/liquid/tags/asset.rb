@@ -15,7 +15,7 @@ module Smithy
                 @alt = ''
               end
             else
-              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: image_tag <asset_id|path>")
+              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: asset_image_tag <asset_id|path>")
             end
             super
           end
@@ -36,7 +36,7 @@ module Smithy
                 @url = @asset_id
               end
             else
-              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: file_path <asset_id|path>")
+              raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: asset_file_path <asset_id|path>")
             end
             super
           end
