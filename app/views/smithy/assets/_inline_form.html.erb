@@ -1,5 +1,5 @@
 <% @assets.each_with_index do |asset, index| %>
-  <%= semantic_form_for asset, html: { id: "presigned-upload-form-#{index}", class: "presigned-upload-form form-inline", data: { asset_id: "#{asset.id}"} }, remote: true do |form| %>
+  <%= semantic_form_for asset, remote: true, html: { id: "presigned-upload-form-#{index}", class: "presigned-upload-form form-inline", data: { asset_id: "#{asset.id}"} } do |form| %>
     <div class="hidden"><%= form.attachment_field :file, direct: true, presigned: true %></div>
     <div class="col-md-2 preview">&nbsp;</div>
     <div class="col-md-4"><%= form.input :name %></div>

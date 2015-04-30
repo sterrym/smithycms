@@ -10,18 +10,21 @@
   </div>
 </div>
 
-<%= paginate @assets %>
-
 <div class="thumbnails" id="asset-thumbnails">
-  <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
-    <thead>
-      <tr>
-        <th style="width:10%;">Preview</th>
-        <th>Name</th>
-        <th>Size</th>
-        <th>Type</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+  <%= semantic_form_for 'Asset', as: "assets", url: delete_selected_assets_path, remote: true do |f| %>
+    <%= f.action :submit, label: 'Delete Selected', button_html: { id: "delete_selected_assets", class: 'btn btn-danger', style: "display:none;" } %>
+
+    <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
+      <thead>
+        <tr>
+          <th style="width:120px;" class="column_delete"><%= check_box_tag "assets_table_select_all" %>Delete</th>
+          <th style="width:10%;">Preview</th>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+    <% end %>
   <% end %>
 </div>

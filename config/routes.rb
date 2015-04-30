@@ -8,6 +8,7 @@ Smithy::Engine.routes.draw do
     resources :assets do
       collection do
         get :presigned_fields
+        post :delete_selected
       end
     end
     resources :content_blocks

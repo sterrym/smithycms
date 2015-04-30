@@ -1,6 +1,7 @@
 module Smithy
   class AssetsDatatable
-    delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, to: :@view
+    include AssetsHelper
+    delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, :check_box_tag, to: :@view
 
     def initialize(view)
       @view = view
@@ -15,18 +16,27 @@ module Smithy
       }
     end
 
+    def new_row(asset)
+      render_asset(asset)
+    end
+
   private
 
     def data
       assets.map do |asset|
-        [
-          preview_link(asset),
-          asset.name,
-          number_to_human_size(asset.file_size),
-          asset.file_content_type,
-          "#{link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs"} #{link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" }}"
-        ]
+        render_asset asset
       end
+    end
+
+    def render_asset(asset)
+      [
+        check_box_tag('ids[]', asset.id, false, class: "delete"),
+        asset_preview_link(asset),
+        asset.name,
+        number_to_human_size(asset.file_size),
+        asset.file_content_type,
+        "#{link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs"} #{link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" }}"
+      ]
     end
 
     def assets
@@ -43,18 +53,6 @@ module Smithy
       assets
     end
 
-    def preview_link(asset)
-      link_to attachment_url(asset, :file) do
-        if asset.file_type == :image
-          attachment_image_tag(asset, :file, :fit, 48, 48, alt: '')
-        elsif asset.file_type == :direct_image
-          attachment_image_tag(asset, :file, width: 48, alt: '')
-        else
-          image_tag file_type_icon(asset), alt: ''
-        end
-      end
-    end
-
     def page
       params[:start].to_i/per_page + 1
     end
@@ -64,7 +62,7 @@ module Smithy
     end
 
     def sort_column
-      columns = %w[preview name file_size file_content_type actions]
+      columns = %w[delete preview name file_size file_content_type actions]
       columns[params[:order][:"0"][:column].to_i]
     end
 

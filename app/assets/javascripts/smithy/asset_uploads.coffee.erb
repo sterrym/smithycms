@@ -7,6 +7,8 @@ $(document).on 'click', '#choose-files', (e) ->
   $('#choose-files-input').click()
 
 $(document).on 'change', '#choose-files-input', (e) ->
+  $('#save-all-assets').attr('disabled', true)
+  $("#asset-upload-files").html('')
   if this.files.length
     $upload_section.addClass('files-chosen')
     files = this.files

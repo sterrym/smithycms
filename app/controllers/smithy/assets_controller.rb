@@ -26,6 +26,7 @@ module Smithy
           flash.notice = "Your asset was created" if @asset.persisted?
           redirect_to assets_path
         }
+        format.js { render json: ::Smithy::AssetsDatatable.new(view_context).new_row(@asset), callback: 'assets_table_add_row' }
       end
     end
 
@@ -46,6 +47,14 @@ module Smithy
       @asset = Asset.find(params[:id])
       @asset.destroy
       respond_with @asset
+    end
+
+    def delete_selected
+      @assets = Asset.where(id: params[:ids])
+      @assets.destroy_all
+      respond_with @assets do |format|
+        format.js { render json: { ids: params[:ids] }, callback: "assets_table_delete_rows" }
+      end
     end
 
     def presigned_fields
