@@ -9,13 +9,12 @@ require 'smithy/liquid'
 require 'smithy/formatter'
 #
 require 'smithy/content_blocks'
+require 'smithy/content_resources'
 
 module Smithy
-
   def self.log(*args)
     level   = args.size == 1 ? 'info' : args.first
     message = args.size == 1 ? args.first : args.last
     ::Smithy::Logger.send(level.to_sym, message)
   end
-
 end
