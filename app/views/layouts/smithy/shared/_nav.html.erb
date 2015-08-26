@@ -14,6 +14,9 @@
         <ul class="nav">
           <li><%= link_to "<i class=\"icon-sitemap\"></i> Manage Content".html_safe, pages_path %></li>
           <li><%= link_to "<i class=\"icon-file\"></i> Images &amp; Files".html_safe, assets_path %></li>
+          <% Smithy::ContentResources::Registry.content_resources.each do |controller_name, title| %>
+            <li><%= link_to title, controller_name.to_sym %></li>
+          <% end %>
         </ul>
         <ul class="nav pull-right">
           <li><%= link_to "<i class=\"icon-arrow-right\"></i> View Site".html_safe, root_path %></li>

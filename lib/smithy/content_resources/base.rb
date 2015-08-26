@@ -1,9 +1,9 @@
 module Smithy
-  module ContentPieces
+  module ContentResources
     module Base
       extend ActiveSupport::Concern
       included do
-        Smithy::ContentPieces::Registry.register self
+        Smithy::ContentResources::Registry.register self
       end
     end
   end
