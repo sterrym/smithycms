@@ -10,4 +10,5 @@
 //= require ace-1.1.3/mode-javascript.js
 //= require ace-1.1.3/mode-liquid.js
 //= require ace-1.1.3/mode-markdown.js
+//= require zeroclipboard-0.2.0/jquery.zeroclipboard.min.js
 //= require_tree .
