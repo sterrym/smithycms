@@ -1,6 +1,6 @@
 <div class="col-xs-6 col-md-3">
   <div class="thumbnail clearfix">
-    <%= link_to asset.file.remote_url do %>
+    <%= link_to [:edit, asset] do %>
       <% if asset.file_type == :image %>
         <%= image_tag asset.file.thumb("340x226#").url, width: 170, height: 114, alt: '' %>
       <% elsif asset.file_type == :direct_image %>
@@ -11,6 +11,7 @@
     <% end %>
     <p class="name"><strong><%= asset.name %></strong></p>
     <div class="pull-right">
+      <%= link_to "Copy URL", asset.file.url(host: Rails.configuration.asset_host), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => asset.file.url(host: Rails.configuration.asset_host) } %>
       <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
       <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
     </div>

@@ -5,14 +5,13 @@
     <%= f.input :retained_file, :as => :hidden %>
     <% if @asset.file %>
     <div>
-      <%= link_to @asset.file.remote_url do %>
+      <div><%= link_to "Copy URL", @asset.file.url(host: Rails.configuration.asset_host), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => @asset.file.url(host: Rails.configuration.asset_host) } %></div>
       <% if @asset.file_type == :image %>
         <img src="<%= @asset.file.thumb("300x300").url %>" alt="">
       <% elsif @asset.file_type == :direct_image %>
         <%= image_tag @asset.file.remote_url, width: 300, alt: '' %>
       <% else %>
         <%= image_tag file_type_icon(@asset), alt: '' %>
-      <% end %>
       <% end %>
     </div>
     <% end %>
