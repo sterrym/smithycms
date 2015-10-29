@@ -11,7 +11,7 @@
     <% end %>
     <p class="name"><strong><%= asset.name %></strong></p>
     <div class="pull-right">
-      <%= link_to "Copy URL", asset.file.url(host: Rails.configuration.asset_host), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => asset.file.url(host: Rails.configuration.asset_host) } %>
+      <%= link_to "Copy URL", image_url(asset.file.url), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => image_url(asset.file.url) } %>
       <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
       <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
     </div>
