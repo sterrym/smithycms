@@ -26,7 +26,10 @@ jQuery ->
       to = $('#fileupload').data('post') + ".js"
       content = {}
       content[$('#fileupload').data('as')] = domain + path
-      $.post(to, content)
+      setTimeout ->
+        $.post(to, content)
+      , 1500
+
 
       data.context.remove() if data.context # remove progress bar
 
