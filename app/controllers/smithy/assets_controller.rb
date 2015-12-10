@@ -17,9 +17,11 @@ module Smithy
     def create
       @asset = Asset.new(filtered_params)
       @asset.save
-      flash.notice = "Your asset was created" if @asset.persisted?
       respond_with @asset do |format|
-        format.html { redirect_to assets_path }
+        format.html {
+          flash.notice = "Your asset was created" if @asset.persisted?
+          redirect_to assets_path
+        }
       end
     end
 

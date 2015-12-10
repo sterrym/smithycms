@@ -29,8 +29,6 @@ jQuery ->
       setTimeout ->
         $.post(to, content)
       , 1500
-
-
       data.context.remove() if data.context # remove progress bar
 
     fail: (e, data) ->
