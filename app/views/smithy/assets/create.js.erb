@@ -1,6 +1,6 @@
 <% if @asset.new_record? %>
   alert("Failed to upload painting: <%= j @asset.errors.full_messages.join(', ').html_safe %>");
 <% else %>
-  <% @asset.reload %>
-  $("#asset-thumbnails").prepend("<%= j render(@asset) %>");
+<%# re-find the asset to load up the proper paths %>
+  $("#asset-thumbnails").prepend("<%= j render(Smithy::Asset.find(@asset.id)) %>");
 <% end %>
