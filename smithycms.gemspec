@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main"]
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency 'rails', '~> 4.1.6'
+  s.add_dependency 'rails', '>= 4.0.0', '< 5'
   s.add_dependency 'jquery-rails'
 
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
