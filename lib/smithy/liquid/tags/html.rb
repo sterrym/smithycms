@@ -22,6 +22,10 @@ module Smithy
             tag.match(/\.#{ext}$/) ? tag : "#{tag}.#{ext}"
           end
 
+          def tag_without_ext(ext)
+            tag.sub(/\.#{ext}$/, '')
+          end
+
           def render(context)
             raise Error.new("please override Smithy::Liquid::Tag::Html::Base#render")
           end
@@ -42,13 +46,15 @@ module Smithy
         class SmithyJavascriptIncludeTag < Base
           def render(context)
             controller = context.registers[:controller]
-            controller.view_context.send(:javascript_include_tag, "/templates/javascripts/#{tag_with_ext('js')}")
+            javascript = Smithy::Template.javascripts.find_by(name: tag_without_ext('js'))
+            controller.view_context.send(:javascript_include_tag, "/templates/javascripts/#{tag_with_ext('js')}?#{javascript.updated_at.to_s(:number) if javascript.present?}")
           end
         end
         class SmithyStylesheetLinkTag < Base
           def render(context)
             controller = context.registers[:controller]
-            controller.view_context.send(:stylesheet_link_tag, "/templates/stylesheets/#{tag_with_ext('css')}")
+            stylesheet = Smithy::Template.stylesheets.find_by(name: tag_without_ext('css'))
+            controller.view_context.send(:stylesheet_link_tag, "/templates/stylesheets/#{tag_with_ext('css')}?#{stylesheet.updated_at.to_s(:number) if stylesheet.present?}")
           end
         end
       end

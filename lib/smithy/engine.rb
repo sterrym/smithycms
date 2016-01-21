@@ -24,6 +24,10 @@ module Smithy
       g.helper false
     end
 
+    initializer :assets do |config|
+      Rails.application.config.assets.precompile += %w( ZeroClipboard.swf )
+    end
+
     config.after_initialize do
       # We need to reload the routes here due to how Smithy sets them up.
       # The different facets of Smithy (auth) append/prepend routes to Smithy

@@ -13,6 +13,7 @@
   <td><strong><%= asset.name %></strong></td>
   <td><%= number_to_human_size asset.file_size %></td>
   <td>
+    <%= link_to "Copy URL", image_url(asset.file.url), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => image_url(asset.file.url) } %>
     <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
     <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
   </td>

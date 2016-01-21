@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main"]
   s.files = Dir["{app,config,db,lib,vendor}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency 'rails', '~> 4.1.6'
+  s.add_dependency 'rails', '>= 4.0.0', '< 5'
   s.add_dependency 'jquery-rails'
 
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bootstrap-sass', '~> 3.2.0'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'font-awesome-sass', '~> 4.2'
+  s.add_dependency 'fog', '~> 1.36'
   s.add_dependency 'formtastic', '~> 2.3.1' # as of writing, formtastic-bootstrap is only compatible with 2.3.x
   s.add_dependency 'formtastic-bootstrap', '~> 3.0.0'
   s.add_dependency 'friendly_id', '~> 5.0.4'

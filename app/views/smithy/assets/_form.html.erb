@@ -9,6 +9,7 @@
     </div>
     <% if @asset.file %>
     <div>
+      <div><%= link_to "Copy URL", image_url(@asset.file.url), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => image_url(@asset.file.url) } %></div>
       <%= link_to attachment_url(@asset, :file) do %>
         <% if @asset.file_type == :image %>
           <%= attachment_image_tag(@asset, :file, :fit, 300, 300, alt: '') %>

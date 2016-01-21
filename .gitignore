@@ -11,6 +11,7 @@ spec/dummy/tmp/
 spec/dummy/.env
 spec/dummy/.sass-cache
 spec/dummy/.rvmrc
+spec/dummy/.env
 spec/dummy/public/system/
 Gemfile.lock
 tmp/

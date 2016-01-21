@@ -1,6 +1,6 @@
 require_dependency "smithy/base_controller"
 
-class Smithy::ContentPiecesController < Smithy::BaseController
+class Smithy::ContentResourcesController < Smithy::BaseController
   before_filter :set_controller_path
   respond_to :html, :json
 
@@ -61,7 +61,7 @@ class Smithy::ContentPiecesController < Smithy::BaseController
 
     def klass
       # override to provide an object for each class
-      raise "You must inherit from this Smithy::ContentPiecesController and provide a private #klass method"
+      raise "You must inherit from this Smithy::ContentResourcesController and provide a private #klass method"
     end
 
     def klass_name
