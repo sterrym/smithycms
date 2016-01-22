@@ -16,6 +16,10 @@ module Smithy
       [ :name, :file, :file_name, :file_url, :retained_file, :uploaded_file_url ]
     end
 
+    def asset_source_attributes
+      [ :name, assets_files: [] ]
+    end
+
     def content_attributes
       [ :content ]
     end

@@ -11,9 +11,9 @@ module Smithy
       return unless asset
       link_to attachment_url(asset, :file) do
         if asset.file_type == :image
-          attachment_image_tag(asset, :file, :fit, 48, 48, alt: '')
+          attachment_image_tag(asset, :file, :fit, 30, 30, alt: '')
         elsif asset.file_type == :direct_image
-          attachment_image_tag(asset, :file, width: 48, alt: '')
+          attachment_image_tag(asset, :file, width: 30, alt: '')
         else
           image_tag file_type_icon(asset), alt: ''
         end

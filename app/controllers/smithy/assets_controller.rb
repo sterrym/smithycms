@@ -7,6 +7,7 @@ module Smithy
     respond_to :html, :json, :js
 
     def index
+      @asset_source = AssetSource.first
       respond_with @assets, :layout => 'smithy/wide' do |format|
         format.html
         format.json { render json: ::Smithy::AssetsDatatable.new(view_context) }
@@ -18,17 +19,17 @@ module Smithy
       respond_with @asset
     end
 
-    def create
-      @asset = Asset.new(filtered_params)
-      @asset.save
-      respond_with @asset do |format|
-        format.html {
-          flash.notice = "Your asset was created" if @asset.persisted?
-          redirect_to assets_path
-        }
-        format.js { render json: ::Smithy::AssetsDatatable.new(view_context).new_row(@asset), callback: 'assets_table_add_row' }
-      end
-    end
+    # def create
+    #   @asset = Asset.new(filtered_params)
+    #   @asset.save
+    #   respond_with @asset do |format|
+    #     format.html {
+    #       flash.notice = "Your asset was created" if @asset.persisted?
+    #       redirect_to assets_path
+    #     }
+    #     format.js { render json: ::Smithy::AssetsDatatable.new(view_context).new_row(@asset), callback: 'assets_table_add_row' }
+    #   end
+    # end
 
     def edit
       @asset = Asset.find(params[:id])
@@ -49,20 +50,11 @@ module Smithy
       respond_with @asset
     end
 
-    def delete_selected
+    def batch_destroy
       @assets = Asset.where(id: params[:ids])
       @assets.destroy_all
       respond_with @assets do |format|
         format.js { render json: { ids: params[:ids] }, callback: "assets_table_delete_rows" }
-      end
-    end
-
-    def presigned_fields
-      count = params[:count].to_i if params[:count].present?
-      count ||= 1
-      @assets = count.times.map{ Asset.new }
-      respond_to do |format|
-        format.js
       end
     end
 

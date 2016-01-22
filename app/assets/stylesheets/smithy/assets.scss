@@ -1,44 +1,13 @@
-#asset-thumbnails>li { width:180px;
-  .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-}
 
-#asset-upload {
-  #save-all-assets { display:none; }
-  &.files-chosen #save-all-assets { display:inline-block; }
 
-  #asset-upload-files {
-    margin:10px 0;
-    form {
-      @extend .row; border-top:1px solid $table-border-color; padding:10px 0;
-      &:nth-child(odd) { background-color: $table-bg-accent; }
-      &.upload-success { }
-      &.upload-failed { }
+// .table-striped > tbody > tr:nth-child(odd) > td,
+// .table-striped > tbody > tr:nth-child(odd) > th { background:darken($table-bg-accent, 5%); }
 
-      .preview {
-        img { max-width:100%; max-height:170px; }
-        span.preview-icon {
-          display:block; width:48px; height:48px; background-repeat:no-repeat;
-          &.pdf { background:image-url("smithy/icons/pdf.png"); }
-          &.word { background:image-url('smithy/icons/doc.png'); }
-          &.excel { background:image-url('smithy/icons/xls.png'); }
-          &.ppt { background:image-url('smithy/icons/ppt.png'); }
-          &.text { background:image-url('smithy/icons/txt.png'); }
-          &.rtf { background:image-url('smithy/icons/_page.png'); }
-          &.blank { background:image-url('smithy/icons/_blank.png'); }
-        }
-      }
-    }
-  }
-
-}
-
-.table-striped > tbody > tr:nth-child(odd) > td,
-.table-striped > tbody > tr:nth-child(odd) > th { background:darken($table-bg-accent, 5%); }
-
-#assets {
+table#assets {
+  td { vertical-align:middle; }
   .preview a {
-    padding:5px; height:60px; width:60px; border:1px solid darken($table-bg-accent, 20%); display:block; position:relative; border-radius:3px;
-    img { position:absolute; bottom:0; top:0; margin:auto; }
+    height:30px; width:30px; display:block; position:relative;
+    img { position:absolute; bottom:0; top:0; left:0; right:0; margin:auto; }
   }
 }
 

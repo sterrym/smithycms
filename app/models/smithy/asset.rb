@@ -1,6 +1,7 @@
 module Smithy
   class Asset < ActiveRecord::Base
     validates_presence_of :file, :name
+    belongs_to :asset_source
     has_many :images, :dependent => :destroy
 
     attachment :file

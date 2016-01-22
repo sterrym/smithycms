@@ -7,8 +7,12 @@ Smithy::Engine.routes.draw do
     # CMS admin
     resources :assets do
       collection do
-        get :presigned_fields
-        post :delete_selected
+        post :batch_destroy
+      end
+    end
+    resources :asset_sources do
+      member do
+        get :presigned_upload_field
       end
     end
     resources :content_blocks

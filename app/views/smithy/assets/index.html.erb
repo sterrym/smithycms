@@ -1,30 +1,29 @@
 <% content_for :title, "Assets" %>
 
-<div class="well" id="asset-upload">
-  <h2>Upload file</h2>
-  <p>
-    <%= link_to "Choose Files", '#', id: 'choose-files', class: "btn btn-default", data: { presigned_fields_url: presigned_fields_assets_path(format: :js) } %>
-    <%= button_tag "Save all", id: "save-all-assets", onclick: "javascript:save_all_assets()", data: { disable_with: "Waiting for the images to upload..." }, disabled: true, class: "btn btn-success" %>
-  </p>
-  <div id="asset-upload-files" class="table table-striped">
-  </div>
-</div>
-
-<div class="thumbnails" id="asset-thumbnails">
-  <%= semantic_form_for 'Asset', as: "assets", url: delete_selected_assets_path, remote: true do |f| %>
-    <%= f.action :submit, label: 'Delete Selected', button_html: { id: "delete_selected_assets", class: 'btn btn-danger', style: "display:none;" } %>
-
-    <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
-      <thead>
-        <tr>
-          <th style="width:120px;" class="column_delete"><%= check_box_tag "assets_table_select_all" %>Delete</th>
-          <th style="width:10%;">Preview</th>
-          <th>Name</th>
-          <th>Size</th>
-          <th>Type</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+<div class="well">
+  <%= semantic_form_for @asset_source, remote: true, multipart: true do |f| %>
+    <%= f.inputs do %>
+      <a id="choose-files" data-presigned-upload-field-url="<%= presigned_upload_field_asset_source_path(@asset_source) %>" class="btn btn-default" href="javascript:void(0);"><%= icon('cloud-upload') %> Upload files</a>
+      <div id="presigned_upload_field" style="display:none;"><%= f.attachment_field :assets_files, multiple: true, direct: true, presigned: true %></div>
+      <%= f.action :submit, label: 'Upload All', button_html: { style: 'display:none;' } %>
     <% end %>
   <% end %>
 </div>
+
+
+<%= semantic_form_for 'Asset', as: "assets", url: batch_destroy_assets_path, remote: true do |f| %>
+  <%= f.action :submit, label: 'Delete Selected', button_html: { id: "delete_selected_assets", class: 'btn btn-danger', style: "display:none;" } %>
+
+  <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
+    <thead>
+      <tr>
+        <th style="width:20px;" class="column_delete"><%= check_box_tag "assets_table_select_all" %></th>
+        <th style="width:30px;">&nbsp;</th>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+  <% end %>
+<% end %>

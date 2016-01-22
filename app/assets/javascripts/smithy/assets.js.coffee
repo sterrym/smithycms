@@ -33,8 +33,11 @@ $(document).on 'click', '#assets_wrapper input[type="checkbox"]', (e) ->
   else
     $delete_selected_button.hide()
 
-window.assets_table_add_row = (row) ->
-  assets_table_api.row.add(row).draw()
+$assets_table.on 'draw.dt', ->
+  $(document).trigger('updateCopyLinks')
+
+window.assets_table_add_rows = (rows) ->
+  assets_table_api.rows.add(rows).draw()
 
 window.assets_table_delete_rows = () ->
   assets_table_api.draw()

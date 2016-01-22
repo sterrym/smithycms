@@ -1,7 +1,7 @@
 module Smithy
   class AssetsDatatable
     include AssetsHelper
-    delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, :check_box_tag, to: :@view
+    delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, :check_box_tag, :render, to: :@view
 
     def initialize(view)
       @view = view
@@ -16,8 +16,10 @@ module Smithy
       }
     end
 
-    def new_row(asset)
-      render_asset(asset)
+    def new_row(assets)
+      assets.map do |asset|
+        render_asset(asset)
+      end
     end
 
   private
@@ -35,7 +37,7 @@ module Smithy
         asset.name,
         number_to_human_size(asset.file_size),
         asset.file_content_type,
-        "#{link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs"} #{link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" }}"
+        "#{render(partial: '/smithy/assets/actions', formats: :html, locals: { asset: asset })}"
       ]
     end
 

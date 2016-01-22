@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
-  s.add_dependency 'aws-sdk', '< 2'
+  s.add_dependency 'aws-sdk'
   s.add_dependency 'bootstrap-sass', '~> 3.2.0'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'font-awesome-sass', '~> 4.2'
@@ -38,8 +38,10 @@ Gem::Specification.new do |s|
   s.add_dependency 'json', '~> 1.8.1'
   s.add_dependency 'kaminari', '~> 0.16.1'
   s.add_dependency 'liquid', '~> 2.6.1'
-  s.add_dependency 'mini_magick'
   s.add_dependency 'refile'
+  s.add_dependency 'refile-mini_magick'
+  s.add_dependency 'refile-s3'
+  s.add_dependency 'remotipart', '~> 1.2'
   s.add_dependency 'sass-rails'
   s.add_dependency 'slodown'
   s.add_dependency 'rack-cache'

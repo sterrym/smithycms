@@ -1,0 +1,5 @@
+<% presigned_upload_field = "" %>
+<%- semantic_form_for @asset_source do |f| -%>
+  <%- presigned_upload_field = f.attachment_field(:assets_files, multiple: true, direct: true, presigned: true) -%>
+<%- end -%>
+<div id="presigned_upload_field" style="display:none;"><%= presigned_upload_field %></div>

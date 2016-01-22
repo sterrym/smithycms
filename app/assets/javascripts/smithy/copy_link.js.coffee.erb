@@ -5,15 +5,20 @@ jQuery ->
     swfPath: '<%= image_path "ZeroClipboard.swf" %>'
   });
 
-  ($ 'body').on "click", ".copy-to-clipboard", (e) ->
-    e.preventDefault()
-  $('.copy-to-clipboard').each ->
-    $link = ($ this)
-    clip = new ZeroClipboard( this )
-    clip.on "copy", (e) ->
-      clip.setText($link.data('clipboard-text'))
-      saved_text = $link.text()
-      $link.text 'Copied!'
-      setTimeout ->
-        $link.text(saved_text)
-      , 2000
+  setup_copy_links = ->
+    ($ 'body').on "click", ".copy-to-clipboard", (e) ->
+      e.preventDefault()
+    $('.copy-to-clipboard').each ->
+      $link = ($ this)
+      clip = new ZeroClipboard( this )
+      clip.on "copy", (e) ->
+        clip.setText($link.data('clipboard-text'))
+        saved_text = $link.text()
+        $link.text 'Copied!'
+        setTimeout ->
+          $link.text(saved_text)
+        , 2000
+  setup_copy_links()
+
+  $(document).on 'updateCopyLinks', ->
+    setup_copy_links()
