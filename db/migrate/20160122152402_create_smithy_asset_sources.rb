@@ -6,8 +6,9 @@ class CreateSmithyAssetSources < ActiveRecord::Migration
       t.timestamps
     end
 
-    default_source = Smithy::AssetSource.create(name: "Default")
+    add_reference :smithy_assets, :asset_source, index: true
 
-    add_reference :smithy_assets, :asset_source, index: true, default: default_source.id, null: false
+    default_source = Smithy::AssetSource.find_or_create_by(name: "Default")
+    Smithy::Asset.where(asset_source: nil).update_all(asset_source: default_source)
   end
 end

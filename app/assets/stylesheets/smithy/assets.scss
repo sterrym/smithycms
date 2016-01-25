@@ -7,7 +7,7 @@ table#assets {
   td { vertical-align:middle; }
   .preview a {
     height:30px; width:30px; display:block; position:relative;
-    img { position:absolute; bottom:0; top:0; left:0; right:0; margin:auto; }
+    img { position:absolute; bottom:0; top:0; left:0; right:0; margin:auto; max-width:100%; max-height:100%; }
   }
 }
 
