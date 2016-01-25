@@ -1,6 +1,5 @@
 require "refile/rails"
-require "refile/image_processing"
-require "refile/backend/s3"
+require "refile/s3"
 
 # Manually mount Refile before Smithy Engine
 Refile.automount = false
@@ -17,5 +16,5 @@ if ENV['AWS_ACCESS_KEY_ID'].present? && ENV['AWS_SECRET_ACCESS_KEY'].present? &&
   Refile.cache = Refile::Backend::S3.new(prefix: "cache", **aws)
   Refile.store = Refile::Backend::S3.new(prefix: "store", **aws)
 else
-  Refile.store = Refile::Backend::FileSystem.new(Rails.root.join('public/system/refile', Rails.env))
+  Refile.store = Refile::Backend::FileSystem.new(Rails.root.join('public/smithy', Rails.env))
 end
