@@ -2,6 +2,7 @@ require_dependency "smithy/base_controller"
 
 module Smithy
   class PageContentsController < BaseController
+    include Smithy::Liquid::Rendering
     before_filter :load_page
     before_filter :load_page_content, :only => [ :edit, :update, :destroy, :preview ]
     before_filter :build_content_block, :only => [ :edit, :update ]
@@ -50,7 +51,7 @@ module Smithy
 
     def preview
       respond_with @page_content do |format|
-        format.html { render :text => @page_content.render, :layout => 'smithy/modal' }
+        format.html { render :text => @page_content.render(liquid_context), :layout => 'smithy/modal' }
       end
     end
 
