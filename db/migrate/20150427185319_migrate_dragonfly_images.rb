@@ -1,6 +1,6 @@
 class MigrateDragonflyImages < ActiveRecord::Migration
   def change
-    if Refile.store.is_a? Refile::Backend::S3
+    if Refile.store.is_a? Refile::S3
       prefix = Refile.store.instance_variable_get(:@prefix)
       bucket = Refile.store.instance_variable_get(:@bucket)
       Smithy::Asset.where('file_id LIKE ?', 'uploads/%').each do |asset|

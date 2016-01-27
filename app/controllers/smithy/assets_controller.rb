@@ -10,7 +10,7 @@ module Smithy
       @asset_source = AssetSource.first
       respond_with @assets, :layout => 'smithy/wide' do |format|
         format.html
-        format.json { render json: ::Smithy::AssetsDatatable.new(view_context) }
+        format.json { render json: ::Smithy::AssetsDatatable.new(view_context, params[:type]) }
       end
     end
 
@@ -48,6 +48,12 @@ module Smithy
       @asset = Asset.find(params[:id])
       @asset.destroy
       respond_with @asset
+    end
+
+    def selector_modal
+      respond_to do |format|
+        format.html { render :layout => 'smithy/modal' }
+      end
     end
 
     def batch_destroy

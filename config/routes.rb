@@ -8,6 +8,7 @@ Smithy::Engine.routes.draw do
     resources :assets do
       collection do
         post :batch_destroy
+        get :selector_modal
       end
     end
     resources :asset_sources do

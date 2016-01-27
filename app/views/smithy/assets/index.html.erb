@@ -1,6 +1,6 @@
 <% content_for :title, "Assets" %>
 
-<div class="well">
+<div class="well" id="upload_assets">
   <%= semantic_form_for @asset_source, remote: true, multipart: true do |f| %>
     <%= f.inputs do %>
       <a id="choose-files" data-presigned-upload-field-url="<%= presigned_upload_field_asset_source_path(@asset_source) %>" class="btn btn-default" href="javascript:void(0);"><%= icon('cloud-upload') %> Upload files</a>
@@ -17,12 +17,12 @@
   <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
     <thead>
       <tr>
-        <th style="width:20px;" class="column_delete"><%= check_box_tag "assets_table_select_all" %></th>
-        <th style="width:30px;">&nbsp;</th>
+        <%= content_tag :th, check_box_tag("assets_table_select_all"), class: 'column_delete', style: 'width:20px;', data: { orderable: false, searchable: false } %>
+        <%= content_tag :th, "", style: 'width:30px;', data: { orderable: false, searchable: false, class_name: 'preview' } %>
         <th>Name</th>
         <th>Size</th>
         <th>Type</th>
-        <th>Actions</th>
+        <%= content_tag :th, "Actions", data: { orderable: false, searchable: false } %>
       </tr>
     </thead>
   <% end %>

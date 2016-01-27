@@ -3,8 +3,9 @@ module Smithy
     include AssetsHelper
     delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, :check_box_tag, :render, to: :@view
 
-    def initialize(view)
+    def initialize(view, view_type)
       @view = view
+      @view_type = view_type
     end
 
     def as_json(options = {})
@@ -31,14 +32,17 @@ module Smithy
     end
 
     def render_asset(asset)
-      [
-        check_box_tag('ids[]', asset.id, false, class: "delete"),
+      asset_json = [
         asset_preview_link(asset),
         asset.name,
         number_to_human_size(asset.file_size),
-        asset.file_content_type,
-        "#{render(partial: '/smithy/assets/actions', formats: :html, locals: { asset: asset })}"
+        asset.file_content_type
       ]
+      if @view_type != 'selector_view'
+        asset_json.unshift check_box_tag('ids[]', asset.id, false, class: "delete")
+        asset_json << render(partial: '/smithy/assets/actions', formats: :html, locals: { asset: asset })
+      end
+      asset_json
     end
 
     def assets

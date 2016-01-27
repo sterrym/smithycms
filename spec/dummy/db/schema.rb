@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427201628) do
+ActiveRecord::Schema.define(version: 20160125143255) do
+
+  create_table "smithy_asset_sources", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "smithy_assets", force: true do |t|
     t.string   "name"
@@ -25,7 +31,10 @@ ActiveRecord::Schema.define(version: 20150427201628) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "file_content_type"
+    t.integer  "asset_source_id"
   end
+
+  add_index "smithy_assets", ["asset_source_id"], name: "index_smithy_assets_on_asset_source_id"
 
   create_table "smithy_content_block_templates", force: true do |t|
     t.integer  "content_block_id"

@@ -6,6 +6,7 @@ var ace_edit = function(id, template_type, name) {
   var editor = ace.edit(editor_id);
   var $textarea = $('#'+textarea_id);
   $textarea.hide()
+  ace_edit_toolbar(editor, $textarea.attr('data-assets-url'));
   var session = editor.getSession();
   session.setMode("ace/mode/" + template_type);
   session.setValue($textarea.val());
@@ -24,4 +25,8 @@ var ace_edit = function(id, template_type, name) {
     readOnly: false
   });
   return editor;
+}
+
+var ace_edit_toolbar = function(editor, assets_modal_url) {
+  $(editor.container).before("<div class='toolbar'><a href='" + assets_modal_url + "' class='asset-selector-toggle'>Insert Image</a></div>");
 }
