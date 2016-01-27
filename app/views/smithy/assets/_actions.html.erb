@@ -1,4 +1,4 @@
-<%- full_url = image_url(attachment_url(asset, :file)) -%>
+<%- full_url = attachment_url(asset, :file) -%>
 <%= link_to "Copy URL", full_url, class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => full_url } %>
 <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
 <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>
