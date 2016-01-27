@@ -83,11 +83,8 @@ Pay close attention to the database migration. If any warnings come up, make sur
 There are two different errors that might occur:
 
 1. Dragonfly asset not found. If this occurs, you need to find the asset on S3, and manually move it to the new path provided in the message. If the asset no longer exists, you will need to remove it manually from the console for the smithy assets page to load properly.
-
 `[WARNING] Asset Not Found in S3`
-
 2. Direct link found in the content. This message will point out places in the smithy content that link directly to S3 images. Replace these links in the content with the links provided in the message to fix.
-
 `[WARNING] Direct Link found in the page`
 
 ### Templates
