@@ -13,6 +13,7 @@ spec/dummy/.sass-cache
 spec/dummy/.rvmrc
 spec/dummy/.env
 spec/dummy/public/system/
+spec/dummy/public/smithy/
 Gemfile.lock
 tmp/
 .rbenv-gemsets

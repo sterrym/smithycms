@@ -21,7 +21,7 @@ if ENV['AWS_ACCESS_KEY_ID'].present? && ENV['AWS_SECRET_ACCESS_KEY'].present? &&
   aws = {
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
     secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-    region: ENV['AWS_S3_REGION'],
+    region: ENV['AWS_REGION'] || 'us-east-1',
     bucket: ENV['AWS_S3_BUCKET'],
   }
   Refile.cache = Refile::S3.new(prefix: "cache", **aws)
