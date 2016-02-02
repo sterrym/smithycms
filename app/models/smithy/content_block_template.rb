@@ -12,10 +12,14 @@ module Smithy
     default_scope -> { order(:name) }
 
     def liquid_template
-      @liquid_template ||= ::Liquid::Template.parse(self.content)
+      @liquid_template ||= ::Liquid::Template.parse(content_with_fixed_asset_links)
     end
 
     private
+      def content_with_fixed_asset_links
+        content.gsub(/\/smithy\/assets\/([0-9]+)/) { Smithy::Asset.find($1).url }
+      end
+
       def touch_page_contents
         self.page_contents.each(&:touch)
       end

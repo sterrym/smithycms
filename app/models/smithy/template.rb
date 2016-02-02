@@ -30,11 +30,11 @@ module Smithy
       end
     end
 
-    private
-      def content_with_fixed_asset_links
-        content.gsub(/\/smithy\/assets\/([0-9]+)/) { Smithy::Asset.find($1).url }
-      end
+    def content_with_fixed_asset_links
+      content.gsub(/\/smithy\/assets\/([0-9]+)/) { Smithy::Asset.find($1).url }
+    end
 
+    private
       def load_containers
         return unless self.template_type == 'template'
         container_names = liquid_template.root.nodelist.select{|n| n.is_a?(::Liquid::Variable) && n.name.match(/^page\.container\.(.*)/) }.map{|n| n.name.match(/^page\.container\.(.*)/)[1] }
