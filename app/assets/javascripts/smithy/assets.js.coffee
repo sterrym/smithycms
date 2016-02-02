@@ -15,7 +15,7 @@ window.load_assets_table = ->
     "order": [[2, 'asc']],
     "language": {
       "emptyTable": "No assets have been added yet. Upload files above to create new assets.",
-      "processing": "<span>Processing...</span>"
+      "processing": "<span><i class='fa fa-spinner fa-spin fa-large'></i></span>"
     },
     "dom": 'l<"toolbar">frtip'
   }

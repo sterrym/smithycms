@@ -15,13 +15,6 @@ table#assets {
 }
 
 #assets_wrapper {
-  position:relative;
-  #assets_processing {
-    width:100%; height:100%; top:0; left:0; text-align:center; margin:0; padding:0;
-    &:before { display:inline-block; vertical-align:middle; content:""; height:100%; }
-    span { display:inline-block; vertical-align:middle; }
-  }
-
   #assets_length,
   .toolbar { float:left; margin-right:10px; }
   th.column_delete {
