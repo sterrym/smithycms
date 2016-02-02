@@ -1,3 +1,3 @@
-<%= link_to "Copy URL", asset.url, class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => asset.url } %>
+<%= link_to "Copy URL", asset_path(asset), class: "btn btn-primary btn-xs copy-to-clipboard", data: { 'clipboard-text' => asset_path(asset) } %>
 <%= link_to "Edit", [:edit, asset], class: "btn btn-primary btn-xs" %>
 <%= link_to "Delete", asset, class: "btn btn-danger btn-xs", method: :delete, data: { confirm: "Are you sure?" } %>

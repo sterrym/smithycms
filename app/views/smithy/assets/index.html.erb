@@ -5,7 +5,7 @@
     <%= f.inputs do %>
       <a id="choose-files" data-presigned-upload-field-url="<%= presigned_upload_field_asset_source_path(@asset_source) %>" class="btn btn-default" href="javascript:void(0);"><%= icon('cloud-upload') %> Upload files</a>
       <div id="presigned_upload_field" style="display:none;"><%= f.attachment_field :assets_files, multiple: true, direct: true, presigned: true %></div>
-      <%= f.action :submit, label: 'Upload All', button_html: { style: 'display:none;' } %>
+      <%= f.action :submit, button_html: { style: 'display:none;' } %>
     <% end %>
   <% end %>
 </div>

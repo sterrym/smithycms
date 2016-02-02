@@ -3,7 +3,7 @@ module Smithy
     include AssetsHelper
     delegate :params, :link_to, :image_tag, :number_to_human_size, :attachment_url, :attachment_image_tag, :file_type_icon, :check_box_tag, :render, to: :@view
 
-    def initialize(view, view_type)
+    def initialize(view, view_type='index_view')
       @view = view
       @view_type = view_type
     end
