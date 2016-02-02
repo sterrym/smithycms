@@ -2,7 +2,7 @@ module Smithy
   class Formatter < ::Slodown::Formatter
 
     def render
-      fix_asset_links.complete
+      fix_asset_links.complete.to_s
     end
 
     private
