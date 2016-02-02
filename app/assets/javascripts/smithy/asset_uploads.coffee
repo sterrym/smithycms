@@ -20,14 +20,14 @@ upload_files = (e) ->
     total_size = 0; (total_size += file.size for file in files)
     $progress_bar.parent().show()
 
-$(document).on 'change', $upload_form, upload_files
+$(document).on 'change', file_input_selector, upload_files
 $(document).on "upload:success", $upload_form, (e) ->
   total_uploaded += e.originalEvent.detail.file.size
   progress = parseInt(total_uploaded/total_size * 100, 10)
   $progress_bar.css('width', "#{progress}%").attr('aria-valuenow', progress)
   if !$upload_form.find("input.uploading").length
     $upload_form.submit()
-    setTimeout((-> $progress_bar.css('width', "0%").parent().hide()), 2000)
+    setTimeout((-> $progress_bar.css('width', "0%").parent().hide()), 1000)
 $(document).on "upload:failure", $upload_form, (e) ->
   $(this).addClass("upload-failed").append("<p>Something went wrong, please check your connection and try again</p>")
 $(document).on "upload:complete", $upload_form, (e) ->

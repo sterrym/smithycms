@@ -46,7 +46,7 @@ create_ace_toolbar = (editor, assets_modal_url, pages_modal_url) ->
   ]
   actions = [
     $("<a href='javascript:void(0);' data-command='bold'><i class='fa fa-bold'></i></a>"),
-    $("<a href='javascript:void(0);' data-command='bold'><i class='fa fa-italic'></i></a>"),
+    $("<a href='javascript:void(0);' data-command='italic'><i class='fa fa-italic'></i></a>"),
     heading_dropdown,
     $("<a href='javascript:void(0);'><i class='fa fa-link'></i></a>").click(-> open_link_selector(pages_modal_url, editor))
     $("<a href='javascript:void(0);'>Image</a>").click(-> open_asset_selector(assets_modal_url, editor))
@@ -89,9 +89,15 @@ open_link_selector = (url, editor) ->
     $form = $modal.find('form')
     $label_field = $form.find('input[name="label"]')
 
+    $label_field.on 'keypress', ->
+      $(this).data('custom-text', true)
+
     $modal.on 'shown.bs.modal', ->
-      $label_field.val(editor.getSelectedText()) if !editor.selection.isEmpty()
+      $label_field.val(editor.getSelectedText()).trigger('keypress') if !editor.selection.isEmpty()
     .trigger('shown.bs.modal')
+
+    $modal.on 'hidden.bs.modal', ->
+      $modal.find('form').trigger('reset')
 
     $url_fields = $form.find('select[name="page"], input[name="url"]')
     $form.find('select[name="type"]').on 'change', (e) ->
@@ -100,7 +106,7 @@ open_link_selector = (url, editor) ->
     .change()
 
     $form.find('select[name="page"]').on 'change', (e) ->
-      $label_field.val($(this).find('option:selected').text().replace(/^[- ]+/, '')) if !$label_field.val().length
+      $label_field.val($(this).find('option:selected').text().replace(/^[- ]+/, '')) if !$label_field.data('custom-text')
 
     $modal.find('.btn.select').click ->
       $form.submit()
@@ -113,7 +119,6 @@ open_link_selector = (url, editor) ->
       link_string = link_string + '{:target="_blank"}' if form.open_in_new_tab.checked
       editor.insert(link_string)
       $modal.modal('toggle')
-      $form.trigger('reset')
       editor.focus()
       return false
 
