@@ -15,3 +15,16 @@ textarea[name="content[content]"],
     min-height:10em;
   }
 }
+
+.ace_editor .ace_content { padding:10px; }
+.ace-editor-toolbar {
+  background:#f9f9f9; border:1px solid darken(#f9f9f9,10%); border-radius:$border-radius-base $border-radius-base 0 0; line-height:40px; width:97%; margin:0; padding:0;
+  li {
+    list-style-type:none; margin:0; display:inline-block;
+    a {
+      color:inherit; padding:0 10px; display:block; margin:0 !important;
+      &:hover { background:darken(#f9f9f9,10%); text-decoration:none; }
+    }
+  }
+  .dropdown li { display:list-item; }
+}

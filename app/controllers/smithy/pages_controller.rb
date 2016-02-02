@@ -7,7 +7,7 @@ module Smithy
     before_filter :load_page_from_path, :only => [ :show ]
     before_filter :initialize_page, :only => [ :new, :create ]
     before_filter :load_page, :only => [ :edit, :update, :destroy ]
-    before_filter :load_parent, :except => [ :index, :show, :order ]
+    before_filter :load_parent, :except => [ :index, :show, :order, :selector_modal ]
     before_filter :load_root, :only => [ :index ]
     respond_to :html, :json
 
@@ -63,6 +63,12 @@ module Smithy
       end
       render :nothing => true, :status => 200 and return if request.xhr?
       redirect_to pages_path
+    end
+
+    def selector_modal
+      respond_to do |format|
+        format.html { render :layout => 'smithy/modal' }
+      end
     end
 
     private

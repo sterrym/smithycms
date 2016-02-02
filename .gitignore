@@ -2,6 +2,7 @@
 log/*.log
 pkg/
 vendor/engines
+vendor/cache
 .rvmrc
 .powrc
 .ruby-version

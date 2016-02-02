@@ -23,6 +23,17 @@ module Smithy
     attr_accessor :publish
     attr_reader :liquid_context
 
+    def self.page_selector_options
+      items = Array(self.roots)
+      result = []
+      items.each do |root|
+        result += Page.associate_parents(root.self_and_descendants).map do |i|
+          ["#{'-' * i.level} #{i.title}", i.url]
+        end.compact
+      end
+      result
+    end
+
     def container?(container_name)
       containers.where(:name => container_name).count > 0
     end

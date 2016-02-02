@@ -1,15 +1,20 @@
-<%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json", type: :selector_view) }" } do %>
-  <thead>
-    <tr>
-      <%= content_tag :th, "", style: 'width:30px;', data: { orderable: false, searchable: false, class_name: 'preview' } %>
-      <th>Name</th>
-      <th>Size</th>
-      <th>Type</th>
-    </tr>
-  </thead>
+<%= content_for :title do %>
+  Insert Image(s)
 <% end %>
-
+<div>
+  <%= content_tag :table, id: "assets", class: "table table-striped no-wrap display", data: { source: "#{ assets_url(format: "json", type: :selector_view) }" } do %>
+    <thead>
+      <tr>
+        <%= content_tag :th, "", data: { orderable: false, searchable: false, visible: false } %>
+        <%= content_tag :th, "", style: 'width:30px;', data: { orderable: false, searchable: false, class_name: 'preview' } %>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+  <% end %>
+</div>
 <%= content_for :footer do %>
-  <button class='btn btn-default select' disabled="disabled">Select</button>
+  <button class='btn btn-primary select' disabled="disabled">Select</button>
 <% end %>
 

@@ -21,6 +21,7 @@ Smithy::Engine.routes.draw do
     resources :pages do
       collection do
         get :order
+        get :selector_modal
       end
       resources :contents, :controller => "page_contents", :except => [ :index ] do
         member do

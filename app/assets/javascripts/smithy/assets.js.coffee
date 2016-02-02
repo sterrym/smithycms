@@ -1,21 +1,7 @@
 $ ->
   load_assets_table()
 
-  $(".asset-selector-toggle").on 'click', (e) ->
-    e.preventDefault()
-    url = $(this).attr('href')
-    if $('#asset_selector_modal').length > 0
-      $('#asset_selector_modal').modal('toggle')
-    else
-      $.get url, (data) ->
-        $('<div id="asset_selector_modal" class="modal fade">' + data + '</div>').appendTo('body').modal()
-        $select_button = $('#asset_selector_modal').find('.btn.select')
-        $select_button.on 'click', ->
-          selected_assets = assets_table_api.rows({ selected: true }).data()
-          debugger
-        load_assets_table($select_button)
-
-load_assets_table = ($select_button) ->
+window.load_assets_table = ->
   return if $('#assets').length == 0
   $select_all_checkbox = $('#assets_table_select_all')
   $delete_selected_button = $('#delete_selected_assets')
@@ -39,23 +25,22 @@ load_assets_table = ($select_button) ->
 
   $('#assets_wrapper').find('.toolbar').append($delete_selected_button.remove())
 
+  assets_table_api.on "select", (e, dt, type, indexes) ->
+    $(assets_table_api.rows(indexes).nodes()).find('input[type="checkbox"]').prop('checked', true) if type == "row"
+    $delete_selected_button.show() if assets_table_api.rows({ selected: true }).any()
+  assets_table_api.on "deselect", (e, dt, type, indexes) ->
+    $(assets_table_api.rows(indexes).nodes()).find('input[type="checkbox"]').prop('checked', false) if type == "row"
+    $delete_selected_button.hide() unless assets_table_api.rows({ selected: true }).any()
+
   $(document).on 'click', '#assets_table_select_all', (e) ->
     $checkbox = $(e.target)
-    $assets_table.find('input.delete').prop('checked', $checkbox.prop('checked'))
-
-  $(document).on 'click', '#assets_wrapper input[type="checkbox"]', (e) ->
-    if $('#assets_wrapper input[type="checkbox"]:checked').length > 0
-      $delete_selected_button.show()
+    if $checkbox.prop('checked')
+      assets_table_api.rows().select()
     else
-      $delete_selected_button.hide()
+      assets_table_api.rows().deselect()
 
   $assets_table.on 'draw.dt', ->
     $(document).trigger('updateCopyLinks')
-
-  assets_table_api.on 'select', (e, dt, type, indexes) ->
-    console.log(type)
-    if type == 'row'
-      $select_button.attr('disabled', assets_table_api.rows({ selected: true}).size > 0)
 
 
 window.assets_table_add_rows = (rows) ->

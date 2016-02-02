@@ -16,8 +16,6 @@ module Smithy
     scope :for_container, ->(container) { where(:container => container) }
     scope :publishable, -> { where(:publishable => true) }
 
-    delegate :name, to: :content_block, prefix: :content_block
-
     def attributes=(attributes = {})
       self.content_block_type = attributes[:content_block_type]
       super

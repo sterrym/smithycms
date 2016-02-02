@@ -14,22 +14,17 @@ module Smithy
       end
     end
 
+    def show
+      @asset = Asset.find(params[:id])
+      respond_with @asset do |format|
+        format.html { redirect_to @asset.url }
+      end
+    end
+
     def new
       @asset = Asset.new(filtered_params)
       respond_with @asset
     end
-
-    # def create
-    #   @asset = Asset.new(filtered_params)
-    #   @asset.save
-    #   respond_with @asset do |format|
-    #     format.html {
-    #       flash.notice = "Your asset was created" if @asset.persisted?
-    #       redirect_to assets_path
-    #     }
-    #     format.js { render json: ::Smithy::AssetsDatatable.new(view_context).new_row(@asset), callback: 'assets_table_add_row' }
-    #   end
-    # end
 
     def edit
       @asset = Asset.find(params[:id])

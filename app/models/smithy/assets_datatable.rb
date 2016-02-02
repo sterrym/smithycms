@@ -32,17 +32,24 @@ module Smithy
     end
 
     def render_asset(asset)
-      asset_json = [
-        asset_preview_link(asset),
-        asset.name,
-        number_to_human_size(asset.file_size),
-        asset.file_content_type
-      ]
-      if @view_type != 'selector_view'
-        asset_json.unshift check_box_tag('ids[]', asset.id, false, class: "delete")
-        asset_json << render(partial: '/smithy/assets/actions', formats: :html, locals: { asset: asset })
+      if @view_type == 'selector_view'
+        [
+          "/smithy/assets/#{asset.id}",
+          asset_preview_link(asset),
+          asset.name,
+          number_to_human_size(asset.file_size),
+          asset.file_content_type
+        ]
+      else
+        [
+          check_box_tag('ids[]', asset.id, false, class: "delete"),
+          asset_preview_link(asset),
+          asset.name,
+          number_to_human_size(asset.file_size),
+          asset.file_content_type,
+          render(partial: '/smithy/assets/actions', formats: :html, locals: { asset: asset })
+        ]
       end
-      asset_json
     end
 
     def assets
