@@ -2,7 +2,7 @@
   Insert Image(s)
 <% end %>
 <div>
-  <%= content_tag :table, id: "assets", class: "table table-striped no-wrap display", data: { source: "#{ assets_url(format: "json", type: :selector_view) }" } do %>
+  <%= content_tag :table, id: "assets", class: "table table-striped no-wrap display", data: { source: "#{ assets_url(format: "json", type: :selector_view) }", order: '[[ 5, "desc" ]]' } do %>
     <thead>
       <tr>
         <%= content_tag :th, "", data: { orderable: false, searchable: false, visible: false } %>
@@ -10,6 +10,7 @@
         <th>Name</th>
         <th>Size</th>
         <th>Type</th>
+        <th>Last Updated</th>
       </tr>
     </thead>
   <% end %>

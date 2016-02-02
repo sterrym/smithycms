@@ -38,7 +38,8 @@ module Smithy
           asset_preview_link(asset),
           asset.name,
           number_to_human_size(asset.file_size),
-          asset.file_content_type
+          asset.file_content_type,
+          asset.updated_at.strftime('%b %e, %Y %H:%M:%S')
         ]
       else
         [
@@ -47,6 +48,7 @@ module Smithy
           asset.name,
           number_to_human_size(asset.file_size),
           asset.file_content_type,
+          asset.updated_at.strftime('%b %e, %Y %H:%M:%S'),
           render(partial: '/smithy/assets/actions', formats: :html, locals: { asset: asset })
         ]
       end
@@ -75,7 +77,11 @@ module Smithy
     end
 
     def sort_column
-      columns = %w[delete preview name file_size file_content_type actions]
+      if @view_type == 'selector_view'
+        columns = %w[url preview name file_size file_content_type updated_at]
+      else
+        columns = %w[delete preview name file_size file_content_type updated_at actions]
+      end
       columns[params[:order][:"0"][:column].to_i]
     end
 

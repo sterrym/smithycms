@@ -14,7 +14,7 @@
 <%= semantic_form_for 'Asset', as: "assets", url: batch_destroy_assets_path, remote: true do |f| %>
   <%= f.action :submit, label: 'Delete Selected', button_html: { id: "delete_selected_assets", class: 'btn btn-danger', style: "display:none;" } %>
 
-  <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }" } do %>
+  <%= content_tag :table, id: "assets", class: "table table-striped responsive no-wrap display", data: { source: "#{ assets_url(format: "json") }", order: '[[ 5, "desc" ]]' } do %>
     <thead>
       <tr>
         <%= content_tag :th, check_box_tag("assets_table_select_all"), class: 'column_delete', style: 'width:20px;', data: { orderable: false, searchable: false } %>
@@ -22,6 +22,7 @@
         <th>Name</th>
         <th>Size</th>
         <th>Type</th>
+        <th>Last Updated</th>
         <%= content_tag :th, "Actions", data: { orderable: false, searchable: false } %>
       </tr>
     </thead>
