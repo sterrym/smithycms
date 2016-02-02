@@ -14,6 +14,13 @@ module Smithy
       respond_with @asset
     end
 
+    def show
+      @asset = Asset.find(params[:id])
+      respond_with @asset do |format|
+        format.html { redirect_to @asset.url }
+      end
+    end
+
     def create
       @asset = Asset.new(filtered_params)
       @asset.save
