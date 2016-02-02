@@ -25,7 +25,7 @@ upload_files = (e) ->
       total_uploaded += e.originalEvent.detail.file.size
       progress = parseInt(total_uploaded/total_size * 100, 10)
       $progress_bar.css('width', "#{progress}%").attr('aria-valuenow', progress)
-      setTimeout((-> $progress_bar.parent().remove()), 2000) if progress >= 100
+      setTimeout((-> $progress_bar.parent().remove()), 2000) !$upload_form.find("input.uploading").length
     $(document).on "upload:failed", $upload_form, (e) ->
       $(this).addClass("upload-failed").append("<p>Something went wrong, please check your connection and try again</p>")
 
