@@ -1,7 +1,4 @@
-require 'smithycms'
-require 'smithy/content'
-require 'smithy/template'
-namespace :smithy do
+namespace :smithy => :environment do
   desc "Track down any usage of linking directly to Smithy Assets. Use /smithy/assets/1 instead"
   task :find_direct_asset_links do
     Smithy::Template.where('content LIKE ? OR content LIKE ?', '%s3.amazonaws.com%', '%/uploads/assets/%').each do |template|
