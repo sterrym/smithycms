@@ -19,7 +19,7 @@ module Smithy
     def to_liquid
       {
         'id' => self.id,
-        'content' => self.content,
+        'content' => Smithy::AssetLink.fix(self.content),
         'formatted_content' => self.formatted_content
       }
     end
