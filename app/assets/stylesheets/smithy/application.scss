@@ -9,14 +9,14 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= depend_on smithy/bootstrap_and_overrides.css.scss
- *= depend_on smithy/assets.css.scss
- *= depend_on smithy/content_blocks.css.scss
- *= depend_on smithy/layout.css.scss
- *= depend_on smithy/forms.css.scss
- *= depend_on smithy/guides.css.scss
- *= depend_on smithy/pages.css.scss
- *= depend_on smithy/templates.css.scss
+ *= depend_on smithy/bootstrap_and_overrides.scss
+ *= depend_on smithy/assets.scss
+ *= depend_on smithy/content_blocks.scss
+ *= depend_on smithy/layout.scss
+ *= depend_on smithy/forms.scss
+ *= depend_on smithy/guides.scss
+ *= depend_on smithy/pages.scss
+ *= depend_on smithy/templates.scss
  */
 
 @import 'bootstrap_and_overrides';
