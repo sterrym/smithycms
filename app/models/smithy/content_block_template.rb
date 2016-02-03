@@ -17,7 +17,7 @@ module Smithy
 
     private
       def content_with_fixed_asset_links
-        content.gsub(/\/smithy\/assets\/([0-9]+)/) { Smithy::Asset.find($1).url }
+        Smithy::AssetLink.fix(self.content)
       end
 
       def touch_page_contents

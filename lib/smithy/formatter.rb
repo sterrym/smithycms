@@ -7,7 +7,7 @@ module Smithy
 
     private
       def fix_asset_links
-        @current = @current.gsub(/\/smithy\/assets\/([0-9]+)/) { Smithy::Asset.find($1).url }
+        @current = Smithy::AssetLink.fix(@current)
         self
       end
 
