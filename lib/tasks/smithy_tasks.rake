@@ -1,3 +1,6 @@
+require 'smithycms'
+require 'smithy/content'
+require 'smithy/template'
 namespace :smithy do
   desc "Track down any usage of linking directly to Smithy Assets. Use /smithy/assets/1 instead"
   task :find_direct_asset_links do
