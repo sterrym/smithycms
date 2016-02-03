@@ -1,6 +1,6 @@
-namespace :smithy => :environment do
+namespace :smithy do
   desc "Track down any usage of linking directly to Smithy Assets. Use /smithy/assets/1 instead"
-  task :find_direct_asset_links do
+  task :find_direct_asset_links => :environment do
     Smithy::Template.where('content LIKE ? OR content LIKE ?', '%s3.amazonaws.com%', '%/uploads/assets/%').each do |template|
       puts "[WARNING] Direct Link found in the Template: #{template.name}"
       find_and_print_matches(template.content)
