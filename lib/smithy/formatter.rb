@@ -2,16 +2,16 @@ module Smithy
   class Formatter < ::Slodown::Formatter
 
     def render
-      fix_asset_links.complete
+      fix_asset_links.complete.to_s
     end
 
     private
       def fix_asset_links
-        @current = @current.gsub(/\/smithy\/assets\/([0-9]+)/) { Smithy::Asset.find($1).url }
+        @current = Smithy::AssetLink.fix(@current)
         self
       end
 
-     def kramdown_options
+      def kramdown_options
         { coderay_css: 'style' }
       end
 

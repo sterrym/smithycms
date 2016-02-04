@@ -26,7 +26,7 @@ module Smithy
 
     def liquid_template
       @liquid_template ||= Rails.cache.fetch("#{self.cache_key}-liquid_template") do
-        ::Liquid::Template.parse(self.content)
+        ::Liquid::Template.parse(Smithy::AssetLink.fix(self.content))
       end
     end
 

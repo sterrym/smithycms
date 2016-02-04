@@ -63,7 +63,7 @@ module Smithy
       assets = assets.page(page).per(per_page)
       # TODO: need to check for regex flag
       if params[:search][:value].present?
-        assets = assets.where("name like :search or content_type like :search", search: "%#{params[:search][:value]}%")
+        assets = assets.where("LOWER(name) LIKE LOWER(:search) or LOWER(content_type) LIKE LOWER(:search)", search: "%#{params[:search][:value]}%")
       end
       assets
     end

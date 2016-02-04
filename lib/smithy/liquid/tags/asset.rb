@@ -30,7 +30,12 @@ module Smithy
           Syntax = /(#{::Liquid::Expression}+)?/
           def initialize(tag_name, markup, tokens)
             if markup =~ Syntax
-              @variable = $1.gsub('\'', '')
+              @asset_id = $1.gsub('\'', '')
+              if @asset = ::Smithy::Asset.find_by_id(@asset_id)
+                @url = @asset.url
+              else
+                @url = controller.smithy_asset_path(@asset_id)
+              end
             else
               raise ::Liquid::SyntaxError.new("Syntax Error in '#{@tag_name}' - Valid syntax: asset_file_path <asset_id|path>")
             end
