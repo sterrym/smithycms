@@ -3,7 +3,7 @@ class MigrateDragonflyImages < ActiveRecord::Migration
     if Refile.store.is_a? Refile::S3
       prefix = Refile.store.instance_variable_get(:@prefix)
       bucket = Refile.store.instance_variable_get(:@bucket)
-      Smithy::Asset.where('file_id LIKE ?', 'uploads/%').each do |asset|
+      Smithy::Asset.where('file_id LIKE ? OR file_id ~ ?', 'uploads/%', '\d{4}\/\d{2}\/\d{2}\/').each do |asset|
         new_file_id = asset.file_id.gsub(/([^a-z0-9]|(uploads\/)|(assets\/))/i, '')
         s3_object = bucket.object(asset.file_id)
         new_s3_object = bucket.object([*prefix, new_file_id].join('/'))
