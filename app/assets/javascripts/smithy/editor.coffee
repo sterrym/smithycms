@@ -2,13 +2,15 @@ window.ace_edit = (id, template_type, name) ->
   name = 'template_content' if !name
   textarea_id = name + '-' + id
   editor_id = name + '_editor-' + id
-  $('#'+editor_id).show()
-  editor = ace.edit(editor_id)
-  $textarea = $('#'+textarea_id)
+  $editor = $("##{editor_id}")
+  $textarea = $("##{textarea_id}")
+  $editor.show();
   $textarea.hide()
-  create_ace_toolbar(editor, $textarea.attr('data-assets-url'), $textarea.attr('data-pages-url'))
+  editor = ace.edit(editor_id)
+  create_ace_toolbar(editor, $editor.attr('data-assets-url'), $editor.attr('data-pages-url'))
   session = editor.getSession()
   session.setMode("ace/mode/" + template_type)
+  editor.renderer.setShowGutter(false) if template_type == 'markdown'
   session.setValue($textarea.val())
   session.setTabSize(2)
   session.setUseSoftTabs(true)
@@ -145,3 +147,8 @@ edit_selection = (editor, command) ->
     when 'h4'
       session.insert({ row: current_row, column: 0 }, '#### ')
   editor.focus()
+
+$ ->
+  $('.ace_editor').each ->
+    return unless $(this).data('id') && $(this).data('type') && $(this).data('name')
+    ace_edit($(this).data('id'), $(this).data('type'), $(this).data('name'))
