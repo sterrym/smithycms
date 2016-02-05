@@ -9,7 +9,8 @@ module Smithy
       end
     end
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    # app/inputs for formtastic
+    config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/inputs)
 
     config.to_prepare do
       # include the Smithy helpers in the host application

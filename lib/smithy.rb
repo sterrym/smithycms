@@ -1,4 +1,4 @@
-require "smithy/engine"
+require 'smithy/engine'
 # libraries
 require 'smithy/dependencies'
 # config
