@@ -28,8 +28,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails'
   s.add_dependency 'font-awesome-sass', '~> 4.2'
   s.add_dependency 'fog', '~> 1.36'
-  s.add_dependency 'formtastic', '~> 2.3.1' # as of writing, formtastic-bootstrap is only compatible with 2.3.x
-  s.add_dependency 'formtastic-bootstrap', '~> 3.0.0'
+  s.add_dependency 'formtastic', '~> 3.1.3'
+  s.add_dependency 'formtastic-bootstrap', '~> 3.1.1'
   s.add_dependency 'friendly_id', '~> 5.0.4'
   s.add_dependency 'httparty', '~> 0.13.1'
   s.add_dependency 'rails-assets-datatables'
