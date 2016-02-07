@@ -7,6 +7,11 @@ Rails.application.routes.prepend do
   mount Refile.app, at: Refile.mount_point, as: :refile_app
 end
 
+# use a CDN/asset host if the main rails app is using one
+if Rails.application.config.action_controller.asset_host.present?
+  Refile.cdn_host = Rails.application.config.action_controller.asset_host
+end
+
 if ENV['AWS_ACCESS_KEY_ID'].present? && ENV['AWS_SECRET_ACCESS_KEY'].present? && ENV['AWS_S3_BUCKET'].present?
   aws = {
     access_key_id: ENV['AWS_ACCESS_KEY_ID'],
