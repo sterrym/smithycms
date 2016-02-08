@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails-assets-datatables'
   s.add_dependency 'rails-assets-datatables-select', '~> 1.1.0'
   s.add_dependency 'rails-assets-datatables-responsive'
+  s.add_dependency 'rails-assets-jquery', '< 2.0' # don't use the 2.0 jquery and up
   s.add_dependency 'json', '~> 1.8.1'
   s.add_dependency 'kaminari', '~> 0.16.1'
   s.add_dependency 'liquid', '~> 2.6.1'
