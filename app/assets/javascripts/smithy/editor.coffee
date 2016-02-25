@@ -32,7 +32,9 @@ window.ace_edit = (id, template_type, name) ->
   return editor
 
 create_ace_toolbar = (editor, assets_modal_url, pages_modal_url) ->
-  $toolbar = $("<ul class='nav ace-editor-toolbar'></ul>").insertBefore($(editor.container))
+  $container = $(editor.container)
+  $container.closest('.form-wrapper').find('.ace-editor-toolbar').remove()
+  $toolbar = $("<ul class='nav ace-editor-toolbar'></ul>").insertBefore($container)
   heading_dropdown = $("
     <li class='dropdown'>
       <a class='dropdown-toggle' data-toggle='dropdown' href='javascript:void(0)' role='button' aria-haspopup='true' aria-expanded='false'><i class='fa fa-header'></i><span class='caret'></span></a>
@@ -50,8 +52,8 @@ create_ace_toolbar = (editor, assets_modal_url, pages_modal_url) ->
     $("<a href='javascript:void(0);' data-command='bold'><i class='fa fa-bold'></i></a>"),
     $("<a href='javascript:void(0);' data-command='italic'><i class='fa fa-italic'></i></a>"),
     heading_dropdown,
-    $("<a href='javascript:void(0);'><i class='fa fa-link'></i></a>").click(-> open_link_selector(pages_modal_url, editor))
-    $("<a href='javascript:void(0);'>Image</a>").click(-> open_asset_selector(assets_modal_url, editor))
+    $("<a href='javascript:void(0);'><i class='fa fa-link'></i></a>").on('click', -> open_link_selector(pages_modal_url, editor))
+    $("<a href='javascript:void(0);'>Image</a>").on('click', -> open_asset_selector(assets_modal_url, editor))
   ]
   for $action in actions
     $toolbar.append($action)
@@ -59,7 +61,7 @@ create_ace_toolbar = (editor, assets_modal_url, pages_modal_url) ->
     $toolbar.find('ul').append($action)
   $toolbar.find('a').each ->
     if $(this).attr('data-command')
-      $(this).click(-> edit_selection(editor, $(this).attr('data-command')))
+      $(this).on('click', -> edit_selection(editor, $(this).attr('data-command')))
   $toolbar.find('> a, ul > a').wrap("<li></li>")
 
 open_asset_selector = (url, editor) ->
@@ -149,6 +151,4 @@ edit_selection = (editor, command) ->
   editor.focus()
 
 $ ->
-  $('.ace_editor').each ->
-    return unless $(this).data('id') && $(this).data('type') && $(this).data('name')
-    ace_edit($(this).data('id'), $(this).data('type'), $(this).data('name'))
+  $('.ace_editor').smithy_editor()

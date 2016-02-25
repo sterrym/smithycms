@@ -35,6 +35,9 @@ $(function() {
     content     = content.replace(regexp, new_id)
 
     $(this).parent().append(content);
+    $(content).find('[data-init]').each(function() {
+      eval($(this).data('init'));
+    });
     return false;
   });
 
