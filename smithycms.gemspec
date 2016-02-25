@@ -40,7 +40,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'refile-s3'
   s.add_dependency 'remotipart', '~> 1.2'
   s.add_dependency 'sass-rails'
-  s.add_dependency 'slodown'
+  s.add_dependency 'slodown', '0.1.3'
   s.add_dependency 'rack-cache'
 
   s.add_development_dependency 'byebug'
