@@ -19,9 +19,10 @@ namespace :smithy do
     asset_regex = /(?:https?:\/\/.*s3\.amazonaws\.com|\/uploads\/assets)[a-z0-9\/\._-]+/i
     content.scan(asset_regex) do |match|
       puts "  #{match}\n"
-      if Smithy::Asset.where("file_name LIKE ?", "%#{File.basename(match)}%").size > 0
+      file_column = Smithy::Asset.column_names.include?('file_filename') ? 'file_filename' : 'file_name'
+      if Smithy::Asset.where("#{file_column} LIKE ?", "%#{File.basename(match)}%").size > 0
         puts "    Possible Match(es):"
-        Smithy::Asset.where("file_name LIKE ?", "%#{File.basename(match)}%").map{|a| "/smithy/assets/#{a.id}"}.each do |link|
+        Smithy::Asset.where("#{file_column} LIKE ?", "%#{File.basename(match)}%").map{|a| "/smithy/assets/#{a.id}"}.each do |link|
           puts "    #{link}"
         end
       end
