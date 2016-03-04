@@ -19,14 +19,14 @@ module Smithy
     def to_liquid
       {
         'id' => self.id,
-        'content' => Smithy::AssetLink.fix(self.content),
+        'content' => Smithy::AssetLink.fix(self.content.to_s),
         'formatted_content' => self.formatted_content
       }
     end
 
     private
       def render_markdown_content
-        formatter = Smithy::Formatter.new(self.content)
+        formatter = Smithy::Formatter.new(self.content.to_s)
         self.markdown_content = formatter.render
       end
   end
