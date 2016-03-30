@@ -39,7 +39,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'kaminari', '~> 0.16.1'
   s.add_dependency 'liquid', '~> 2.6.1'
   s.add_dependency 'sass-rails'
-  s.add_dependency 'slodown'
+  s.add_dependency 'slodown', '0.1.3'
   s.add_dependency 'rack-cache'
 
   s.add_development_dependency 'byebug'
