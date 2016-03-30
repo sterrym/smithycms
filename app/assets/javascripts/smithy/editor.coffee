@@ -7,10 +7,11 @@ window.ace_edit = (id, template_type, name) ->
   $editor.show();
   $textarea.hide()
   editor = ace.edit(editor_id)
-  create_ace_toolbar(editor, $editor.attr('data-assets-url'), $editor.attr('data-pages-url'))
   session = editor.getSession()
   session.setMode("ace/mode/" + template_type)
-  editor.renderer.setShowGutter(false) if template_type == 'markdown'
+  if template_type == 'markdown'
+    create_ace_toolbar(editor, $editor.attr('data-assets-url'), $editor.attr('data-pages-url'))
+    editor.renderer.setShowGutter(false)
   session.setValue($textarea.val())
   session.setTabSize(2)
   session.setUseSoftTabs(true)
