@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = "smithycms"
   s.version     = Smithy::VERSION
   s.authors     = ["Tim Glen"]
-  s.email       = ["tim@tag.ca"]
-  s.homepage    = "http://tag.ca/"
+  s.email       = ["tim@tagstudios.io"]
+  s.homepage    = "http://tagstudios.io/"
   s.summary     = "A good CMS written in Rails."
   s.description = "Smithy CMS is a Rails Engine built to manage your content easily and play nicely with other parts of your app."
 
