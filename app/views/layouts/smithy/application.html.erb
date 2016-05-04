@@ -2,24 +2,31 @@
 <body>
 <%= render :partial => "layouts/smithy/shared/nav" %>
 <div class="container-fluid">
-  <div class="row">
-    <nav id="side" class="col-xs-5 col-sm-3 col-md-2">
-      <%= yield :secondary_nav %>
-    </nav>
-    <div id="main" class="col-xs-7 col-sm-9 col-md-10">
+  <%- classes = 'row' -%>
+  <%- classes += ' with-sidebar' if content_for?(:secondary_nav) -%>
+  <%- classes += ' with-related' if content_for?(:related) -%>
+  <div id="body" class="<%= classes %>">
+    <% if content_for? :secondary_nav %>
+      <nav id="side" class="">
+        <%= yield :secondary_nav %>
+      </nav>
+    <% end %>
+    <div id="main">
       <% if content_for? :title %><h1><%= yield :title %></h1><% end %>
       <%= render :partial => "layouts/smithy/shared/flash", :locals => { flash: flash } %>
       <%= yield :top_content %>
       <div class="container-fluid">
         <section class="row" id="content-container">
 
-          <article id="content" class="col-md-9">
+          <article id="content">
             <%= yield %>
           </article>
 
-          <aside id="related" class="col-md-3">
-            <%= yield :related %>
-          </aside>
+          <% if content_for? :related %>
+            <aside id="related">
+              <%= yield :related %>
+            </aside>
+          <% end %>
 
         </section>
       </div>

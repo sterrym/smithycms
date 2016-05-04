@@ -8,7 +8,7 @@ module Smithy
 
     def index
       @asset_source = AssetSource.first
-      respond_with @assets, :layout => 'smithy/wide' do |format|
+      respond_with @assets do |format|
         format.html
         format.json { render json: ::Smithy::AssetsDatatable.new(view_context, params[:type]) }
       end

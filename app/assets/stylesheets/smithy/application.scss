@@ -19,6 +19,8 @@
  *= depend_on smithy/templates.scss
  */
 
+$tag-orange: #faa61a;
+$tag-red:    #C6311D;
 @import 'bootstrap_and_overrides';
 @import 'datatables/dataTables.bootstrap';
 @import 'datatables-responsive';

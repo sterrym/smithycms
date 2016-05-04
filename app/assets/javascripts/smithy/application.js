@@ -20,4 +20,5 @@
 //= require zeroclipboard-2.2.0/ZeroClipboard.min.js
 //= require refile
 //= require smithy/smithy_editor
+//= require smithy/layout
 //= require_tree .

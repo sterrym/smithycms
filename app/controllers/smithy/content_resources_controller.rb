@@ -11,7 +11,7 @@ class Smithy::ContentResourcesController < Smithy::BaseController
 
   def index
     @records = find_records
-    respond_with @records, :layout => 'smithy/wide'
+    respond_with @records
   end
 
   def show
