@@ -13,38 +13,23 @@
 <% end %>
 
 <%= semantic_form_for @page, :url => ( @page.persisted? ? page_path(@page.id) : pages_path ) do |f| %>
-  <%= f.inputs "Page Information" do %>
-    <%= f.input :title %>
-    <%= f.input :permalink, :hint => "This will be auto-created if blank. Only fill it in if you know what you're doing" %>
-    <%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? %>
-    <%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
-    <%= f.input :template, :as => :select, :collection => Smithy::Template.templates, :include_blank => false %>
-    <%= render :partial => "smithy/pages/page_fields", :locals => { :f => f } if File.exists?(Rails.root.join('app', 'views', 'smithy', 'pages', '_page_fields.html.erb')) %>
-  <% end %>
-  <% if @page.persisted? && @page.external_link.blank? %>
-    <h3>Content</h3>
-    <%= render :partial => "container", :collection => @page.containers, :locals => { :f => f } %>
-  <% elsif @page.external_link? %>
-    <%= f.inputs "Redirect" do %>
-      <%= f.input :external_link, :hint => "This page is currently being redirected to #{link_to @page.external_link, @page.external_link}".html_safe %>
-    <% end %>
-  <% end %>
-  <h3 data-toggle="collapse" data-target="#page-meta">Meta <i class="fa fa-caret-down"></i></h3>
-  <%= content_tag :div, :id => "page-meta", :class => "collapse" do %>
-    <%= f.inputs do %>
-      <%= f.input(:external_link) unless @page.external_link? %>
-      <%= f.input :cache_length, :hint => "In seconds (eg. 600 is 10 minutes)" %>
-      <%= render :partial => "smithy/pages/meta_fields", :locals => { :f => f } if File.exists?(Rails.root.join('app', 'views', 'smithy', 'pages', '_meta_fields.html.erb')) %>
-    <% end %>
-  <% end %>
-  <h3 data-toggle="collapse" data-target="#page-seo">SEO <i class="fa fa-caret-down"></i></h3>
-  <%= content_tag :div, :id => "page-seo", :class => "collapse" do %>
-    <%= f.inputs do %>
-      <%= f.input :browser_title %>
-      <%= f.input :keywords, as: :string, input_html: { maxlength: nil } %>
-      <%= f.input :description %>
-    <% end %>
-  <% end %>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#page_content" role="tab" data-toggle="tab">Content</a></li>
+    <li><a href="#meta" role="tab" data-toggle="tab">Meta</a></li>
+    <li><a href="#seo" role="tab" data-toggle="tab">SEO</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="page_content">
+      <%= render partial: 'smithy/pages/content_tab', locals: { f: f } %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="meta">
+      <%= render partial: 'smithy/pages/meta_tab', locals: { f: f } %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="seo">
+      <%= render partial: 'smithy/pages/seo_tab', locals: { f: f } %>
+    </div>
+  </div>
 
   <%= f.actions do %>
     <% if @page.published? %>

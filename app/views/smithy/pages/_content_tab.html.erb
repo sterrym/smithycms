@@ -1,0 +1,8 @@
+<%= f.input :title %>
+<% if @page.persisted? && @page.external_link.blank? %>
+  <%= render :partial => "container", :collection => @page.containers, :locals => { :f => f } %>
+<% elsif @page.external_link? %>
+  <%= f.inputs "Redirect" do %>
+    <%= f.input :external_link, :hint => "This page is currently being redirected to #{link_to @page.external_link, @page.external_link}".html_safe %>
+  <% end %>
+<% end %>
