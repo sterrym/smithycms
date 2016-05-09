@@ -6,7 +6,7 @@ module Smithy
     include Smithy::Liquid::Rendering
     before_filter :load_page_from_path, :only => [ :show ]
     before_filter :initialize_page, :only => [ :new, :create ]
-    before_filter :load_page, :only => [ :edit, :update, :destroy ]
+    before_filter :load_page, :only => [ :edit, :update, :destroy, :duplicate ]
     before_filter :load_parent, :except => [ :index, :show, :order, :selector_modal ]
     before_filter :load_root, :only => [ :index ]
     respond_to :html, :json
@@ -48,6 +48,20 @@ module Smithy
     def destroy
       @page.destroy
       respond_with @page.parent ? @page.parent : @page
+    end
+
+    def duplicate
+      old_page = @page
+      @page = old_page.dup
+      @page.duplicate_page = old_page.id
+      @page.title << " (Copy)"
+      @page.permalink.clear
+      @page.browser_title.clear
+      @page.keywords.clear
+      @page.description.clear
+      respond_with @page do |format|
+        format.html { render(action: :new) }
+      end
     end
 
     def order

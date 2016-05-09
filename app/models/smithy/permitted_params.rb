@@ -38,7 +38,7 @@ module Smithy
     end
 
     def page_attributes
-      [ :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id ]
+      [ :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id, :duplicate_page ]
     end
 
     def page_content_attributes

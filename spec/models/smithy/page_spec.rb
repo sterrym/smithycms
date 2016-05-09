@@ -209,4 +209,17 @@ RSpec.describe Smithy::Page, :type => :model do
       end
     end
   end
+
+  context "duplication" do
+    subject { build(:page, duplicate_page: duplicate_page.id, parent: home) }
+    let(:home) { create(:page) }
+    let(:duplicate_page) { create(:page, parent: home) }
+    context "on create" do
+      before do
+        duplicate_page.contents << create(:page_content, page: duplicate_page)
+        subject.save
+      end
+      it { expect(subject.contents.size).to eql duplicate_page.contents.size }
+    end
+  end
 end

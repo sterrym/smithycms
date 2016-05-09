@@ -3,6 +3,7 @@ module Smithy
     validates_presence_of :template, :title
     validate :validate_one_root
     validate :validate_exclusion_of_reserved_words
+    validate :validate_duplicate_page_exists
 
     belongs_to :template
     has_many :containers, :through => :template
@@ -14,13 +15,14 @@ module Smithy
 
     before_save :build_permalink
     before_save :set_published_at
+    before_save :copy_content_from_duplicate, on: :create, if: -> { self.duplicate_page.present? }
 
     accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
 
     scope :included_in_navigation, -> { where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
     scope :published, -> { where('published_at <= ?', Time.now) }
 
-    attr_accessor :publish
+    attr_accessor :publish, :duplicate_page
     attr_reader :liquid_context
 
     def self.page_selector_options
@@ -96,9 +98,20 @@ module Smithy
         self.permalink = self.root? ? title.parameterize : path.split('/').last unless self.permalink?
       end
 
+      def copy_content_from_duplicate
+        duplicate_page = Page.find(self.duplicate_page)
+        duplicate_page.contents.each do |content|
+          self.contents << content.dup
+        end
+      end
+
       def set_published_at
         self.published_at = Time.now if self.publish.present?
         self.published_at = nil if self.publish == false
+      end
+
+      def validate_duplicate_page_exists
+        errors.add(:duplicate_page, "this page could not be found. Please choose another and try again.") if self.duplicate_page.present? && Page.find_by(id: self.duplicate_page).blank?
       end
 
       def validate_exclusion_of_reserved_words

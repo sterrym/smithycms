@@ -1,8 +1,14 @@
 <%= f.input :title %>
+<%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? %>
+<%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
+<%= f.input :template, :as => :select, :collection => Smithy::Template.templates, :include_blank => false %>
+
 <% if @page.persisted? && @page.external_link.blank? %>
   <%= render :partial => "container", :collection => @page.containers, :locals => { :f => f } %>
 <% elsif @page.external_link? %>
   <%= f.inputs "Redirect" do %>
     <%= f.input :external_link, :hint => "This page is currently being redirected to #{link_to @page.external_link, @page.external_link}".html_safe %>
   <% end %>
+<% else %>
+  <%= f.input :duplicate_page, as: :select, label: "Copy Content From", collection: tree_for_select %>
 <% end %>

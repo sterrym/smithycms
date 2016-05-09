@@ -19,6 +19,9 @@ Smithy::Engine.routes.draw do
     resources :content_blocks
     resources :guides, :only => :show
     resources :pages do
+      member do
+        post :duplicate
+      end
       collection do
         get :order
         get :selector_modal
