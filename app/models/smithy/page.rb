@@ -3,7 +3,7 @@ module Smithy
     validates_presence_of :template, :title
     validate :validate_one_root
     validate :validate_exclusion_of_reserved_words
-    validate :validate_duplicate_page_exists
+    validate :validate_page_to_copy_exists
 
     belongs_to :template
     has_many :containers, :through => :template
@@ -15,14 +15,13 @@ module Smithy
 
     before_save :build_permalink
     before_save :set_published_at
-    before_save :copy_content_from_duplicate, on: :create, if: -> { self.duplicate_page.present? }
 
-    accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block'].blank? }, :allow_destroy => true
+    accepts_nested_attributes_for :contents, :reject_if => lambda {|a| a['label'].blank? || a['container'].blank? || a['content_block_type'].blank? }, :allow_destroy => true
 
     scope :included_in_navigation, -> { where("show_in_navigation=? AND published_at <= ?", true, Time.now) }
     scope :published, -> { where('published_at <= ?', Time.now) }
 
-    attr_accessor :publish, :duplicate_page
+    attr_accessor :publish, :copy_content_from
     attr_reader :liquid_context
 
     def self.page_selector_options
@@ -42,6 +41,15 @@ module Smithy
 
     def contents_for_container_name(container_name)
       self.contents.publishable.for_container(container_name)
+    end
+
+    def duplicate_content_from(page_id)
+      page = Page.find(page_id)
+      self.contents = page.contents.map(&:amoeba_dup)
+      self.contents.each do |content|
+        content.content_block = content.content_block.amoeba_dup
+      end
+      self
     end
 
     def normalize_friendly_id(value) # normalize_friendly_id overrides the default creator for friendly_id
@@ -67,6 +75,16 @@ module Smithy
       return '' unless container?(container_name)
       Rails.cache.fetch(self.container_cache_key(container_name)) do
         self.contents_for_container_name(container_name).map{|c| c.render(liquid_context) }.join("\n\n")
+      end
+    end
+
+    def shallow_copy
+      self.dup.tap do |p|
+        p.title << " (Copy)"
+        p.permalink.clear
+        p.browser_title.clear
+        p.keywords.clear
+        p.description.clear
       end
     end
 
@@ -98,20 +116,13 @@ module Smithy
         self.permalink = self.root? ? title.parameterize : path.split('/').last unless self.permalink?
       end
 
-      def copy_content_from_duplicate
-        duplicate_page = Page.find(self.duplicate_page)
-        duplicate_page.contents.each do |content|
-          self.contents << content.dup
-        end
-      end
-
       def set_published_at
         self.published_at = Time.now if self.publish.present?
         self.published_at = nil if self.publish == false
       end
 
-      def validate_duplicate_page_exists
-        errors.add(:duplicate_page, "this page could not be found. Please choose another and try again.") if self.duplicate_page.present? && Page.find_by(id: self.duplicate_page).blank?
+      def validate_page_to_copy_exists
+        errors.add(:copy_content_from, "this page could not be found. Please choose another and try again.") if self.copy_content_from.present? && Page.find_by(id: self.copy_content_from).blank?
       end
 
       def validate_exclusion_of_reserved_words

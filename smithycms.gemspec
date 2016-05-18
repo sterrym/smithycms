@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rails', '>= 4.0.0', '< 5'
   s.add_dependency 'jquery-rails'
 
+  s.add_dependency 'amoeba' # deep copying
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
   s.add_dependency 'bootstrap-sass', '~> 3.2.0'

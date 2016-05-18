@@ -10,5 +10,5 @@
     <%= f.input :external_link, :hint => "This page is currently being redirected to #{link_to @page.external_link, @page.external_link}".html_safe %>
   <% end %>
 <% else %>
-  <%= f.input :duplicate_page, as: :select, label: "Copy Content From", collection: tree_for_select %>
+  <%= f.input :copy_content_from, as: :select, label: "Copy Content From", collection: tree_for_select %>
 <% end %>

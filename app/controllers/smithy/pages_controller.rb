@@ -27,6 +27,7 @@ module Smithy
     end
 
     def create
+      @page.duplicate_content_from(params[:page][:copy_content_from]) if params[:page][:copy_content_from].present?
       @page.save
       flash.notice = "Your page was created #{@page.published? ? 'and published' : 'as a draft'}" if @page.persisted?
       respond_with @page do |format|
@@ -52,13 +53,8 @@ module Smithy
 
     def duplicate
       old_page = @page
-      @page = old_page.dup
-      @page.duplicate_page = old_page.id
-      @page.title << " (Copy)"
-      @page.permalink.clear
-      @page.browser_title.clear
-      @page.keywords.clear
-      @page.description.clear
+      @page = @page.shallow_copy
+      @page.copy_content_from = old_page.id
       respond_with @page do |format|
         format.html { render(action: :new) }
       end
@@ -92,7 +88,7 @@ module Smithy
       end
 
       def load_page
-        @page = Page.includes(:contents).find(params[:id])
+        @page = Page.includes(contents: [:content_block, :content_block_template]).find(params[:id])
         @root = @page if Page.root == @page
         set_publish
       end

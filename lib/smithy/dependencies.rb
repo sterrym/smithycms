@@ -1,5 +1,6 @@
 require 'rack/cache'
 
+require 'amoeba'
 require 'awesome_nested_set'
 require 'bootstrap-sass'
 require 'awesome_nested_set'
