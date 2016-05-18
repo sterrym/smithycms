@@ -25,8 +25,16 @@ module Smithy
     end
 
     def content_block_attributes
-      # [ :name, templates_attributes: [ :id, :name, :content, :_destroy ] ]
-      :all
+      content_block_attributes = [ :name, templates_attributes: [ :id, :name, :content, :_destroy ] ]
+      association_attributes = []
+      ContentBlocks::Registry.content_blocks.each do |content_block_type|
+        klass = content_block_type.safe_constantize || "Smithy::#{content_block_type}".safe_constantize
+        content_block_attributes += klass.column_names.delete_if { |n| n.presence_in [:updated_at, :created_at] }.map(&:to_sym)
+        klass.reflections.delete_if{|k,v| k.presence_in [:page_contents, :pages] }.each do |name,association|
+          association_attributes << {"#{name}_attributes".to_sym => association.klass.column_names.delete_if { |n| n.presence_in [:updated_at, :created_at] }.map(&:to_sym) + [:_destroy] }
+        end
+      end
+      content_block_attributes += association_attributes
     end
 
     def content_block_template_attributes
@@ -38,12 +46,16 @@ module Smithy
     end
 
     def page_attributes
-      [ :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id, :duplicate_page ]
+      # :all
+      [
+        :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id, :copy_content_from,
+        contents_attributes: page_content_attributes + [ :id, :_destroy ]
+      ]
     end
 
     def page_content_attributes
-      # [ :label, :container, :content_block_type, :content_block_template_id, :position ]
-      :all
+      # :all
+      [ :label, :container, :content_block_type, :content_block_template_id, :position, content_block_attributes: content_block_attributes + [ :id, :_destroy ] ]
     end
 
     def page_list_attributes

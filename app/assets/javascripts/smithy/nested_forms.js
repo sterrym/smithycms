@@ -5,7 +5,7 @@ $(function() {
   $('form').on('click', 'a.add_nested_fields', function() {
     // Setup
     var assoc   = $(this).attr('data-association');           // Name of child
-    var content = $('#' + assoc + '_fields_blueprint').html(); // Fields template
+    var content = $(this).attr('data-fields-blueprint');      // Fields template
 
     // Make the context correct by replacing new_<parents> with the generated ID
     // of each of the parent objects

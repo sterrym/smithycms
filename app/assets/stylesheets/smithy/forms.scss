@@ -1,3 +1,15 @@
 #template_content,
 #content_content,
 #content_block_content { height:100%; width:97%; }
+
+
+.pageContent {
+  @extend .panel;
+  @extend .panel-default;
+
+  .pageContent-heading { @extend .panel-heading; }
+  .pageContent-fields {
+    @extend .panel-collapse;
+    > div { @extend .panel-body; }
+  }
+}
