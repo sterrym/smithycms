@@ -27,7 +27,7 @@ module Smithy
     end
 
     def create
-      @page.duplicate_content_from(params[:page][:copy_content_from]) if params[:page][:copy_content_from].present?
+      @page.duplicate_content_from(params[:page][:copy_content_from]) if params[:page][:copy_content_from].present? && @page.valid?
       @page.save
       flash.notice = "Your page was created #{@page.published? ? 'and published' : 'as a draft'}" if @page.persisted?
       respond_with @page do |format|

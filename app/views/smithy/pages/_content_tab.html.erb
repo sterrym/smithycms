@@ -1,5 +1,5 @@
 <%= f.input :title %>
-<%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? %>
+<%= f.input :parent, :include_blank => false, :collection => tree_for_select unless !@page.parent_id? && @page.persisted? %>
 <%= f.input :show_in_navigation, :label => "Show page in site navigation" %>
 <%= f.input :template, :as => :select, :collection => Smithy::Template.templates, :include_blank => false %>
 
