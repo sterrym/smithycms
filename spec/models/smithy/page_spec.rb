@@ -210,16 +210,14 @@ RSpec.describe Smithy::Page, :type => :model do
     end
   end
 
-  context "duplication" do
-    subject { build(:page, duplicate_page: duplicate_page.id, parent: home) }
-    let(:home) { create(:page) }
-    let(:duplicate_page) { create(:page, parent: home) }
-    context "on create" do
-      before do
-        duplicate_page.contents << create(:page_content, page: duplicate_page)
-        subject.save
-      end
-      it { expect(subject.contents.size).to eql duplicate_page.contents.size }
-    end
+  context "#duplicate_content_from" do
+    let!(:home) { create(:page) }
+    let!(:duplicate_page) { create(:page, parent: home) }
+    let!(:page_content) { create(:page_content, page: duplicate_page) }
+    subject(:page) { build(:page, parent: home).duplicate_content_from(duplicate_page) }
+    specify { expect(page.contents.size).to eql duplicate_page.contents.size }
+    specify { expect(page.contents.first).to_not be_persisted }
+    specify { expect(page.contents.first.content_block).to_not be_persisted }
+    specify { expect(page.contents.first.content_block.content).to eql duplicate_page.contents.first.content_block.content }
   end
 end
