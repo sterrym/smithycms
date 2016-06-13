@@ -88,7 +88,7 @@ module Smithy
       end
 
       def load_page
-        @page = Page.includes(contents: [:content_block, :content_block_template]).find(params[:id])
+        @page = Page.includes(contents: [:content_block_template]).find(params[:id])
         @root = @page if Page.root == @page
         set_publish
       end
