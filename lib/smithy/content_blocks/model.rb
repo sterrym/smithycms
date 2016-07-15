@@ -3,7 +3,7 @@ module Smithy
     module Model
       extend ActiveSupport::Concern
       included do
-        has_many :page_contents, :as => :content_block, class_name: '::Smithy::PageContent'
+        has_many :page_contents, :as => :content_block, class_name: '::Smithy::PageContent', dependent: :destroy
         has_many :pages, through: :page_contents, class_name: '::Smithy::Page'
         Smithy::ContentBlocks::Registry.register self
         amoeba do
