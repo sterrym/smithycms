@@ -26,7 +26,8 @@ module Smithy
     end
 
     initializer :assets do |config|
-      Rails.application.config.assets.precompile += %w( ZeroClipboard.swf smithy/logo-sm.png )
+      icons = %w(_blank _page doc pdf ppt txt xls xlsx)
+      Rails.application.config.assets.precompile += %w( ZeroClipboard.swf smithy/logo-sm.png) + icons.map{|icon| "smithy/icons/#{icon}.png" }
     end
 
     config.after_initialize do
