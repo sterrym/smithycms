@@ -25,13 +25,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'amoeba' # deep copying
   s.add_dependency 'autoprefixer-rails' # for bootstrap-sass
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
-  s.add_dependency 'bootstrap-sass', '~> 3.2.0'
+  s.add_dependency 'bootstrap-sass', '~> 3.3.6'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'font-awesome-sass', '~> 4.2'
   s.add_dependency 'fog', '~> 1.36'
   s.add_dependency 'formtastic', '~> 3.1.3'
   s.add_dependency 'formtastic-bootstrap', '~> 3.1.1'
-  s.add_dependency 'friendly_id', '~> 5.0.4'
+  s.add_dependency 'friendly_id', '~> 5.1.0'
   s.add_dependency 'httparty', '~> 0.13.1'
   s.add_dependency 'json', '~> 1.8.1'
   s.add_dependency 'kaminari', '~> 0.16.1'

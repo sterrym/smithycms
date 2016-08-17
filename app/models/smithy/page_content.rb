@@ -5,7 +5,7 @@ module Smithy
     validates_presence_of :label, :container, :page
 
     belongs_to :page, :touch => true
-    belongs_to :content_block, :polymorphic => true, :dependent => :destroy
+    belongs_to :content_block, :polymorphic => true
     belongs_to :content_block_template
 
     before_update :set_publishable
