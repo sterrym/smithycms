@@ -1,22 +1,24 @@
-<div class="pageContent">
+<div class="page_content">
 <%= f.semantic_fields_for :contents, page_content do |f| %>
-  <div class="pageContent-heading">
-    <a href="javascript:void(0)" data-toggle="collapse">
-      <%= page_content.content_block_type.demodulize %>
-      <%= page_content.updated_at.strftime('%b %e, %Y %H:%M:%S') %>
+  <div class="page_content-heading">
+    <a href="#page_content-<%= page_content.id %>" class="page_content-toggle" id="page_content-<%= page_content.id %>" data-toggle="collapse">
+      <span class="name"><%= page_content.label %></span>
+      <span class="type"><%= page_content.content_block_type.demodulize.underscore.humanize %></span>
+      <span class="lastupdated">Last Updated: <%= page_content.updated_at.strftime('%b %e, %Y %H:%M') %></span>
     </a>
   </div>
-  <div class="pageContent-fields collapse" role="tabpanel">
+  <div class="page_content-fields collapse" role="tabpanel">
     <div>
       <%= f.inputs do %>
-        <%= f.input :label, :hint => "Internal CMS usage only" %>
-        <%= f.input :container, :as => :hidden %>
-        <%= f.input :content_block_type, :as => :hidden %>
+        <%= f.input :label, hint: "Internal CMS usage only - so you can identify it later" %>
+        <%= f.input :css_classes, label: 'CSS Classes', hint: 'If you need a hook to apply special styles' %>
+        <%= f.input :container, as: :hidden %>
+        <%= f.input :content_block_type, as: :hidden %>
       <% end %>
       <div class="well">
-        <%= f.input :content_block_template, :collection => page_content.templates, :include_blank => false %>
+        <%= f.input :content_block_template, collection: page_content.templates, include_blank: false %>
         <%= f.semantic_fields_for(:content_block) do |builder| %>
-          <%= render :partial => "#{page_content.content_block_type.underscore.pluralize}/form_fields", :locals => { :f => builder } %>
+          <%= render partial: "#{page_content.content_block_type.underscore.pluralize}/form_fields", locals: { f: builder } %>
         <% end %>
       </div>
     </div>

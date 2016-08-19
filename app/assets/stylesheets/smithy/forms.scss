@@ -3,13 +3,24 @@
 #content_block_content { height:100%; width:97%; }
 
 
-.pageContent {
+.page_content {
   @extend .panel;
   @extend .panel-default;
+  margin-bottom:8px;
 
-  .pageContent-heading { @extend .panel-heading; }
-  .pageContent-fields {
+  .page_content-heading { @extend .panel-heading; }
+  .page_content-fields {
     @extend .panel-collapse;
     > div { @extend .panel-body; }
+  }
+  .page_content-toggle {
+    color:$text-color; display:inline-block; width:100%;
+    &:hover,
+    &:active,
+    &:focus { text-decoration: none; }
+    .name { font-weight: bold; }
+    .type,
+    .lastupdated { color:#BBB; font-size:$font-size-small; padding-left:1em; }
+    .lastupdated { float:right; font-style:italic; padding-top:$font-size-base - $font-size-small; }
   }
 }

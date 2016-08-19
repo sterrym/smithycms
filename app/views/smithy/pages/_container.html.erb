@@ -1,8 +1,6 @@
-<div class="well">
+<div class="page-container">
 <%= f.inputs container.display_name do %>
-  <!-- <table class="table table-striped page-contents" data-reorder-href="<%= order_page_contents_path(@page.id) %>"> -->
   <%= render :partial => "page_content", :collection => @page.contents.for_container(container.name), :locals => { :f => f } %>
-  <!-- </table> -->
   <div><%= link_to "Add to #{container.display_name}", new_page_content_path(@page.id, page_content: { container: container.name }), class: "btn btn-primary btn-sm" %></div>
 <% end %>
 </div>
