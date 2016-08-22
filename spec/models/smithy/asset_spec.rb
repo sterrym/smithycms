@@ -22,8 +22,6 @@ RSpec.describe Smithy::Asset, :type => :model, :focus => true do
   context "when loading a file, the" do
     subject { create(:asset, :file => File.open(file)) }
 
-    it { debugger }
-
     describe '#name' do
       subject { super().name }
       it { is_expected.to eql 'Treats And Stuff' }
