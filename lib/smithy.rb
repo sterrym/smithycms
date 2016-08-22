@@ -6,6 +6,7 @@ require 'smithy/logger'
 require 'smithy/liquid'
 # content formatting
 require 'smithy/asset_link'
+require 'smithy/page_content_wrapper'
 require 'smithy/formatter'
 #
 require 'smithy/content_blocks'
