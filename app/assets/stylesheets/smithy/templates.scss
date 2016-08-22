@@ -8,14 +8,9 @@ textarea[name="content[content]"],
 .template_content_editor,
 .ace_editor {
   display:none;
-  min-height:40em;
-  width:97%;
+  width:100%;
   position:relative;
-  &.short {
-    min-height:10em;
-  }
 }
-
 .ace-editor-toolbar {
   background:#f9f9f9; border:1px solid darken(#f9f9f9,10%); border-radius:$border-radius-base $border-radius-base 0 0; line-height:40px; width:97%; margin:0; padding:0;
   li {

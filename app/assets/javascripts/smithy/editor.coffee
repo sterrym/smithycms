@@ -26,10 +26,11 @@ window.ace_edit = (id, template_type, name) ->
     ,
     readOnly: false
   })
-  editor.setOptions({
-    enableBasicAutocompletion: true,
+  editor.setOptions
+    enableBasicAutocompletion: true
     enableSnippets: true
-  })
+    maxLines: 40
+    minLines: 2
   return editor
 
 create_ace_toolbar = (editor, assets_modal_url, pages_modal_url) ->
