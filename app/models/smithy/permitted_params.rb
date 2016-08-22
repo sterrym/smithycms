@@ -55,7 +55,7 @@ module Smithy
 
     def page_content_attributes
       # :all
-      [ :label, :container, :content_block_type, :content_block_template_id, :position, content_block_attributes: content_block_attributes + [ :id, :_destroy ] ]
+      [ :label, :css_classes, :container, :content_block_type, :content_block_template_id, :position, content_block_attributes: content_block_attributes + [ :id, :_destroy ] ]
     end
 
     def page_list_attributes

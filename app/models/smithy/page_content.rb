@@ -41,7 +41,10 @@ module Smithy
         # scopes as the original values as well, but this ensures they don't get clobbered
         liquid_context.merge('smithy' => liquid_context.scopes.last)
         liquid_context.merge(self.to_liquid)
-        content_block_template.liquid_template.render(liquid_context)
+        output = content_block_template.liquid_template.render(liquid_context)
+        # auto-wrap every page content in a div with the page_content-#id and the page_content#css_classes
+        wrapper = Smithy::PageContentWrapper.new(self)
+        wrapper.wrap(output)
       end
     end
 

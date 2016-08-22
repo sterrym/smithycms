@@ -3,9 +3,12 @@ class MarkdownInput < FormtasticBootstrap::Inputs::TextInput
   def to_html
     self.options[:hint] = markdown_hint if self.options[:hint].blank?
     bootstrap_wrapping do
-      builder.text_area(method, form_control_input_html_options) +
-      builder.template.content_tag(:div, nil, id: editor_id, class: 'ace_editor', data: { id: id, type: :markdown, name: dom_id, init: "$('##{editor_id}').smithy_editor()".html_safe, assets_url: builder.template.selector_modal_assets_path, pages_url: builder.template.selector_modal_pages_path }) +
-      builder.template.content_tag(:div, nil, id: 'content-guide')
+      text_area = builder.text_area(method, form_control_input_html_options)
+      editor = builder.template.content_tag :div do
+        builder.template.content_tag(:div, nil, id: editor_id, class: 'ace_editor', data: { id: id, type: :markdown, name: dom_id, init: "$('##{editor_id}').smithy_editor()".html_safe, assets_url: builder.template.selector_modal_assets_path, pages_url: builder.template.selector_modal_pages_path }) +
+        builder.template.content_tag(:div, nil, id: 'content-guide')
+      end
+      text_area + editor
     end
   end
 
