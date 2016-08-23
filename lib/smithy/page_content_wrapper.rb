@@ -8,6 +8,7 @@ module Smithy
     end
 
     def wrap(output)
+      return output if !page_content.persisted?
       content_tag(:div, output.html_safe, id: "page_content_#{page_content.id}", class: page_content.css_classes)
     end
   end

@@ -57,7 +57,7 @@ module Smithy
             controller = context.registers[:controller]
             stylesheet = Smithy::Template.stylesheets.find_by(name: tag_without_ext('css'))
             path = "/templates/stylesheets/#{tag_with_ext('css')}"
-            path += "?#{javascript.updated_at.to_s(:number)}" if stylesheet.present?
+            path += "?#{stylesheet.updated_at.to_s(:number)}" if stylesheet.present?
             controller.view_context.send(:stylesheet_link_tag, path)
           end
         end
