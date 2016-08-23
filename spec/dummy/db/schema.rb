@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125143255) do
+ActiveRecord::Schema.define(version: 20160823172058) do
 
-  create_table "smithy_asset_sources", force: true do |t|
+  create_table "smithy_asset_sources", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "smithy_assets", force: true do |t|
+  create_table "smithy_assets", force: :cascade do |t|
     t.string   "name"
     t.string   "uploaded_file_url"
     t.string   "content_type"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20160125143255) do
 
   add_index "smithy_assets", ["asset_source_id"], name: "index_smithy_assets_on_asset_source_id"
 
-  create_table "smithy_content_block_templates", force: true do |t|
+  create_table "smithy_content_block_templates", force: :cascade do |t|
     t.integer  "content_block_id"
     t.string   "name"
     t.text     "content"
@@ -46,20 +46,20 @@ ActiveRecord::Schema.define(version: 20160125143255) do
 
   add_index "smithy_content_block_templates", ["content_block_id"], name: "index_smithy_content_block_templates_on_content_block_id"
 
-  create_table "smithy_content_blocks", force: true do |t|
+  create_table "smithy_content_blocks", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "smithy_contents", force: true do |t|
+  create_table "smithy_contents", force: :cascade do |t|
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "markdown_content"
   end
 
-  create_table "smithy_images", force: true do |t|
+  create_table "smithy_images", force: :cascade do |t|
     t.integer  "asset_id"
     t.string   "alternate_text"
     t.integer  "width"
@@ -74,16 +74,16 @@ ActiveRecord::Schema.define(version: 20160125143255) do
 
   add_index "smithy_images", ["asset_id"], name: "index_smithy_images_on_asset_id"
 
-  create_table "smithy_page_contents", force: true do |t|
+  create_table "smithy_page_contents", force: :cascade do |t|
     t.integer  "page_id"
     t.string   "label"
     t.string   "container"
     t.string   "content_block_type"
     t.integer  "content_block_id"
+    t.integer  "content_block_template_id"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "content_block_template_id"
     t.boolean  "publishable",               default: false
   end
 
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20160125143255) do
   add_index "smithy_page_contents", ["page_id"], name: "index_smithy_page_contents_on_page_id"
   add_index "smithy_page_contents", ["position"], name: "index_smithy_page_contents_on_position"
 
-  create_table "smithy_page_lists", force: true do |t|
+  create_table "smithy_page_lists", force: :cascade do |t|
     t.integer  "parent_id"
     t.integer  "page_template_id"
     t.boolean  "include_children"
@@ -107,10 +107,10 @@ ActiveRecord::Schema.define(version: 20160125143255) do
   add_index "smithy_page_lists", ["page_template_id"], name: "index_smithy_page_lists_on_page_template_id"
   add_index "smithy_page_lists", ["parent_id"], name: "index_smithy_page_lists_on_parent_id"
 
-  create_table "smithy_pages", force: true do |t|
+  create_table "smithy_pages", force: :cascade do |t|
     t.string   "title",                             null: false
     t.string   "browser_title"
-    t.string   "keywords"
+    t.text     "keywords"
     t.string   "description"
     t.integer  "cache_length",       default: 600
     t.datetime "published_at"
@@ -133,14 +133,14 @@ ActiveRecord::Schema.define(version: 20160125143255) do
   add_index "smithy_pages", ["rgt"], name: "index_smithy_pages_on_rgt"
   add_index "smithy_pages", ["template_id"], name: "index_smithy_pages_on_template_id"
 
-  create_table "smithy_settings", force: true do |t|
+  create_table "smithy_settings", force: :cascade do |t|
     t.string   "name"
     t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "smithy_template_containers", force: true do |t|
+  create_table "smithy_template_containers", force: :cascade do |t|
     t.integer  "template_id"
     t.string   "name"
     t.datetime "created_at"
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20160125143255) do
 
   add_index "smithy_template_containers", ["template_id"], name: "index_smithy_template_containers_on_template_id"
 
-  create_table "smithy_templates", force: true do |t|
+  create_table "smithy_templates", force: :cascade do |t|
     t.string   "name"
     t.string   "template_type", default: "template"
     t.text     "content"
@@ -158,20 +158,11 @@ ActiveRecord::Schema.define(version: 20160125143255) do
     t.datetime "updated_at"
   end
 
-  create_table "smithy_users", force: true do |t|
+  create_table "smithy_users", force: :cascade do |t|
     t.string   "email"
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "users", force: true do |t|
-    t.string  "email",                          default: "",    null: false
-    t.string  "encrypted_password", limit: 128, default: "",    null: false
-    t.string  "login"
-    t.boolean "smithy_admin",                   default: false
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

@@ -47,14 +47,18 @@ module Smithy
           def render(context)
             controller = context.registers[:controller]
             javascript = Smithy::Template.javascripts.find_by(name: tag_without_ext('js'))
-            controller.view_context.send(:javascript_include_tag, "/templates/javascripts/#{tag_with_ext('js')}?#{javascript.updated_at.to_s(:number) if javascript.present?}")
+            path = "/templates/javascripts/#{tag_with_ext('js')}"
+            path += "?#{javascript.updated_at.to_s(:number)}" if javascript.present?
+            controller.view_context.send(:javascript_include_tag, path)
           end
         end
         class SmithyStylesheetLinkTag < Base
           def render(context)
             controller = context.registers[:controller]
             stylesheet = Smithy::Template.stylesheets.find_by(name: tag_without_ext('css'))
-            controller.view_context.send(:stylesheet_link_tag, "/templates/stylesheets/#{tag_with_ext('css')}?#{stylesheet.updated_at.to_s(:number) if stylesheet.present?}")
+            path = "/templates/stylesheets/#{tag_with_ext('css')}"
+            path += "?#{javascript.updated_at.to_s(:number)}" if stylesheet.present?
+            controller.view_context.send(:stylesheet_link_tag, path)
           end
         end
       end
