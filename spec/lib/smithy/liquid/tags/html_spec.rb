@@ -1,34 +1,34 @@
 require 'rails_helper'
 
 RSpec.describe Smithy::Liquid::Tags::Html do
-  it 'renders the stylesheet link tag' do
+  it '#stylesheet_link_tag renders the stylesheet link tag' do
     html = render_tag('stylesheet_link_tag', 'application')
-    expect(html).to eql '<link href="/assets/application.css" media="screen" rel="stylesheet" />'
+    expect(html).to match /href=\"\/assets\/application-[a-z0-9]+\.css\"/
   end
 
-  it 'renders the javascript include tag' do
+  it '#javascript_include_tag renders the javascript include tag' do
     html = render_tag('javascript_include_tag', 'application')
-    expect(html).to eql '<script src="/assets/application.js"></script>'
+    expect(html).to match /src=\"\/assets\/application-[a-z0-9]+\.js\"/
   end
 
-  it 'renders the smithy javascript include tag' do
+  it '#smithy_javascript_include_tag renders the smithy javascript include tag' do
     html = render_tag('smithy_javascript_include_tag', 'application')
-    expect(html).to eql '<script src="/templates/javascripts/application.js"></script>'
+    expect(html).to match /src=\"\/templates\/javascripts\/application\.js\"/
   end
 
-  it 'doesn\'t add ".js" if it\'s already there' do
+  it '#smithy_javascript_include_tag doesn\'t add ".js" if it\'s already there' do
     html = render_tag('smithy_javascript_include_tag', 'application.js')
-    expect(html).to eql '<script src="/templates/javascripts/application.js"></script>'
+    expect(html).to match /src=\"\/templates\/javascripts\/application\.js\"/
   end
 
-  it 'renders the smithy stylesheet link tag' do
+  it '#smithy_stylesheet_link_tag renders the smithy stylesheet link tag' do
     html = render_tag('smithy_stylesheet_link_tag', 'application')
-    expect(html).to eql '<link href="/templates/stylesheets/application.css" media="screen" rel="stylesheet" />'
+    expect(html).to match /href=\"\/templates\/stylesheets\/application\.css\"/
   end
 
-  it 'doesn\'t add ".css" if it\'s already there' do
+  it '#smithy_stylesheet_link_tag doesn\'t add ".css" if it\'s already there' do
     html = render_tag('smithy_stylesheet_link_tag', 'application.css')
-    expect(html).to eql '<link href="/templates/stylesheets/application.css" media="screen" rel="stylesheet" />'
+    expect(html).to match /href=\"\/templates\/stylesheets\/application\.css\"/
   end
 
   def render_tag(tag_name, param)

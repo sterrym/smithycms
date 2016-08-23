@@ -21,7 +21,7 @@ RSpec.describe Smithy::PermittedParams, :type => :model do
     content_block: :all,
     content_block_template:  [ :content, :name ],
     image: [ :alternate_text, :asset_id, :height, :html_attributes, :image_scaling, :link_url, :width, :content ],
-    page:  [ :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id ],
+    page:  [ :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id, :copy_content_from],
     page_content: :all,
     page_list: [ :count, :page_template_id, :parent_id, :include_children, :sort ],
     setting: [ :name, :value ],

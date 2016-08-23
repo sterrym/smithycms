@@ -8,7 +8,7 @@ RSpec.describe Smithy::Template, :type => :model do
   it { is_expected.not_to validate_presence_of(:content) }
   context "on update" do
     subject { create(:template) }
-    it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name).scoped_to(:template_type) }
     it { is_expected.to validate_presence_of :content }
   end
 
