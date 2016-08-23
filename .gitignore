@@ -18,3 +18,4 @@ spec/dummy/public/smithy/
 Gemfile.lock
 tmp/
 .rbenv-gemsets
+.byebug_history
