@@ -41,7 +41,7 @@ module Smithy
       # we need to require all our model files so that ContentBlocks
       # are registered with the engine
       Dir[Smithy::Engine.root.join('app', 'models', 'smithy', '*.rb')].each do |file|
-        table_name = File.basename(file, '.rb').pluralize
+        table_name = "smithy_#{File.basename(file, '.rb').pluralize}"
         require file if ActiveRecord::Base.connection.table_exists?(table_name)
       end
     end
