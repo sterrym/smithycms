@@ -2,7 +2,7 @@ module Smithy
   class TemplateContainer < ActiveRecord::Base
     validates_presence_of :name, :template
 
-    belongs_to :template
+    belongs_to :template, inverse_of: :containers
     has_many :pages, :through => :template
 
     default_scope -> { order([:position, :name]) }

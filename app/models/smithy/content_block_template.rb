@@ -1,6 +1,6 @@
 module Smithy
   class ContentBlockTemplate < ActiveRecord::Base
-    belongs_to :content_block, :touch => true
+    belongs_to :content_block, :touch => true, inverse_of: :templates
     has_many :page_contents
 
     validates_presence_of :name

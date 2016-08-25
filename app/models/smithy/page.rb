@@ -5,7 +5,7 @@ module Smithy
     validate :validate_exclusion_of_reserved_words
     validate :validate_page_to_copy_exists
 
-    belongs_to :template
+    belongs_to :template, inverse_of: :pages
     has_many :containers, :through => :template
     has_many :contents, :class_name => "PageContent"
 

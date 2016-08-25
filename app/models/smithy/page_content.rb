@@ -4,9 +4,9 @@ module Smithy
     validates_presence_of :content_block_type, :on => :create
     validates_presence_of :label, :container, :page
 
-    belongs_to :page, :touch => true
-    belongs_to :content_block, :polymorphic => true
-    belongs_to :content_block_template
+    belongs_to :page, :touch => true, inverse_of: :contents
+    belongs_to :content_block, :polymorphic => true, inverse_of: :page_contents
+    belongs_to :content_block_template, inverse_of: :page_contents
 
     before_update :set_publishable
 

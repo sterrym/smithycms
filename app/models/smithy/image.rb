@@ -4,7 +4,7 @@ module Smithy
 
     validates_presence_of :asset
 
-    belongs_to :asset
+    belongs_to :asset, inverse_of: :images
 
     class << self
       def content_block_description
