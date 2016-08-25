@@ -42,7 +42,7 @@ module Smithy
       # are registered with the engine
       Dir[Smithy::Engine.root.join('app', 'models', 'smithy', '*.rb')].each do |file|
         table_name = File.basename(file, '.rb').pluralize
-        require_dependency file if ActiveRecord::Base.connection.table_exists?(table_name)
+        require file if ActiveRecord::Base.connection.table_exists?(table_name)
       end
     end
 
