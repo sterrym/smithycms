@@ -16,10 +16,11 @@ RSpec.describe Smithy::PermittedParams, :type => :model do
   end
 
   shared_examples "specific permitted_params" do |param_name, allowed_attributes|
-    let(:param_name) { param_name }
     let(:allowed_attributes) { allowed_attributes }
-    let(:param) { param_name.to_sym }
     let(:attributes) { fetch_attributes param }
+    let(:param) { param_name.to_sym }
+    let(:param_name) { param_name }
+    let(:params) { ActionController::Parameters.new( param => attributes ) }
     describe "##{param_name}_attributes" do
       subject { permitted_params.send("#{param_name}_attributes") }
       it { is_expected.to eq(allowed_attributes) }
