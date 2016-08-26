@@ -11,6 +11,7 @@ module Smithy
     before_update :set_publishable
 
     accepts_nested_attributes_for :content_block, :allow_destroy => true
+
     amoeba do
       enable
       include_association :content_block
