@@ -44,6 +44,7 @@ module Smithy
     end
 
     def duplicate_content_from(page_id)
+      page_id = page_id.id if page_id.is_a?(Smithy::Page)
       page = Page.find(page_id)
       self.contents = page.contents.map(&:amoeba_dup)
       self.contents.each do |content|
