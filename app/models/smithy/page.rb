@@ -55,7 +55,7 @@ module Smithy
     def normalize_friendly_id(value) # normalize_friendly_id overrides the default creator for friendly_id
       return "/" if self.parent.blank?
       value = self.permalink? ? self.permalink.parameterize : value.to_s.parameterize
-      [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/')
+      [(self.parent.present? && !self.parent.root? ? self.parent.path : nil), value].join('/').downcase
     end
 
     def should_generate_new_friendly_id?

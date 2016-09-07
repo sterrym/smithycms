@@ -112,7 +112,7 @@ module Smithy
 
       def page_path
         params[:path] = '' if params[:id].nil? && params[:path].nil? # sets the root path when nothing else is passed
-        params[:path].nil? ? params[:id] : "/#{params[:path]}"
+        params[:path].nil? ? params[:id] : "/#{params[:path]}".downcase
       end
 
       def render_page
