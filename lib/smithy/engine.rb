@@ -38,18 +38,19 @@ module Smithy
       # So we wait until after initialization is complete to do one final reload.
       # This then makes the appended/prepended routes available to the application.
       Rails.application.routes_reloader.reload!
-      # we need to require all our model files so that ContentBlocks
-      # are registered with the engine
-      Dir[Smithy::Engine.root.join('app', 'models', 'smithy', '*.rb')].each do |file|
-        table_name = "smithy_#{File.basename(file, '.rb').pluralize}"
-        require file if ActiveRecord::Base.connection.table_exists?(table_name)
-      end
     end
 
-    # TODO: Abstract out the configuration
-    # initializer "smithy.config", :before => :load_config_initializers do |app|
-    #   Smithy::Config = app.config.smithy.preferences
-    # end
+    initializer :content_blocks, :before => :load_config_initializers do |config|
+      # register our default ContentBlocks with the engine
+      Smithy::ContentBlocks::Registry.register Content
+      Smithy::ContentBlocks::Registry.register Image
+      Smithy::ContentBlocks::Registry.register PageList
+    end
+
+    initializer "smithy.config", :before => :load_config_initializers do |app|
+      # TODO: Abstract out the configuration
+      # Smithy::Config = app.config.smithy.preferences
+    end
 
   end
 end
