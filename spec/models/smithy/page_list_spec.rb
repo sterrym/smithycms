@@ -1,5 +1,5 @@
 require 'rails_helper'
-
+require 'smithy/page_list'
 module Smithy
   RSpec.describe PageList, :type => :model do
     include_context "a tree of pages" # see spec/support/shared_contexts/tree.rb
