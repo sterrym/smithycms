@@ -49,6 +49,7 @@ module Smithy
         association_attributes += nested_content_block_attributes_for(content_block_type)
       end
       attributes << { content_block_attributes: content_block_attributes + [:id, :_destroy] } if content_block_attributes.present?
+      byebug
       attributes
     end
 
@@ -71,10 +72,11 @@ module Smithy
     private
       def content_block_attributes_for(content_block_type)
         attributes_method = "#{content_block_type.underscore}_attributes".to_sym
+        byebug
         if self.respond_to?(attributes_method)
           public_send(attributes_method)
         else
-          klass = "Smithy::#{content_block_type.camelize}".safe_constantize || content_block_type.camelize.safe_constantize
+          klass = "Smithy::#{content_block_type.singularize.camelize}".safe_constantize || content_block_type.singularize.camelize.safe_constantize
           klass.present? ? klass.column_names.delete_if { |n| n.to_s.presence_in %w(id updated_at created_at) }.map(&:to_sym) : []
         end
       end
@@ -84,8 +86,9 @@ module Smithy
         association_attributes = []
         reflected_content_block_associations(content_block_type).each do |reflection|
           name, association = reflection
+          byebug
           next if association.active_record.nested_attributes_options[name.to_sym].blank?
-          allowed_attributes = content_block_attributes_for(content_block_type) + [:id]
+          allowed_attributes = content_block_attributes_for(name) + [:id]
           allowed_attributes += [:_destroy] if association.active_record.nested_attributes_options[name.to_sym][:allow_destroy] == true
           association_attributes << {"#{name}_attributes".to_sym => allowed_attributes }
         end
