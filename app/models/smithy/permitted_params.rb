@@ -37,18 +37,18 @@ module Smithy
     end
 
     def page_attributes
-      # :all
       [
         :browser_title, :cache_length, :description, :external_link, :keywords, :permalink, :publish, :published_at, :show_in_navigation, :title, :parent_id, :template_id, :copy_content_from,
-        contents_attributes: nested_attributes(:page_content)
+        contents_attributes: page_content_attributes + [:id, :_destroy]
       ]
     end
 
     def page_content_attributes
       attributes = [ :label, :css_classes, :container, :content_block_type, :content_block_template_id, :position ]
-      if params[:content_block_type].present?
-        attributes << { content_block_attributes: [:id] + content_block_attributes + content_block_attributes_for(params[:content_block_type]) + [ :_destroy ] }
+      content_block_attributes = ::Smithy::ContentBlocks::Registry.content_blocks.inject([]) do |association_attributes, content_block_type|
+        association_attributes += nested_content_block_attributes_for(content_block_type)
       end
+      attributes << { content_block_attributes: content_block_attributes + [:id, :_destroy] } if content_block_attributes.present?
       attributes
     end
 
@@ -68,23 +68,35 @@ module Smithy
       [ :name, :position ]
     end
 
-    def content_block_attributes_for(content_block_type)
-      klass = content_block_type.safe_constantize || "Smithy::#{content_block_type}".safe_constantize
-      content_block_attributes += klass.column_names.delete_if { |n| n.to_s.presence_in %w(id updated_at created_at) }.map(&:to_sym)
-      klass.reflections.delete_if{|k,v| k.to_s.presence_in %w(id page_contents pages) }.each do |name,association|
-        association_attributes << {"#{name}_attributes".to_sym => association.klass.column_names.delete_if { |n| n.to_s.presence_in %w(updated_at created_at) }.map(&:to_sym) + [:_destroy] }
+    private
+      def content_block_attributes_for(content_block_type)
+        attributes_method = "#{content_block_type.underscore}_attributes".to_sym
+        if self.respond_to?(attributes_method)
+          public_send(attributes_method)
+        else
+          klass = "Smithy::#{content_block_type.camelize}".safe_constantize || content_block_type.camelize.safe_constantize
+          klass.present? ? klass.column_names.delete_if { |n| n.to_s.presence_in %w(id updated_at created_at) }.map(&:to_sym) : []
+        end
       end
-      # ContentBlocks::Registry.content_blocks.inject([]) do |association_attributes, content_block_type|
-      #   klass = content_block_type.safe_constantize || "Smithy::#{content_block_type}".safe_constantize
-      #   content_block_attributes += klass.column_names.delete_if { |n| n.to_s.presence_in %w(id updated_at created_at) }.map(&:to_sym)
-      #   klass.reflections.delete_if{|k,v| k.to_s.presence_in %w(id page_contents pages) }.each do |name,association|
-      #     association_attributes << {"#{name}_attributes".to_sym => association.klass.column_names.delete_if { |n| n.to_s.presence_in %w(updated_at created_at) }.map(&:to_sym) + [:_destroy] }
-      #   end
-      # end
-    end
 
-    def nested_attributes(object_name)
-      send("#{object_name}_attributes".to_sym) + [ :id, :_destroy ]
-    end
+      def nested_content_block_attributes_for(content_block_type)
+        content_block_attributes = content_block_attributes_for(content_block_type)
+        association_attributes = []
+        reflected_content_block_associations(content_block_type).each do |reflection|
+          name, association = reflection
+          next if association.active_record.nested_attributes_options[name.to_sym].blank?
+          allowed_attributes = content_block_attributes_for(content_block_type) + [:id]
+          allowed_attributes += [:_destroy] if association.active_record.nested_attributes_options[name.to_sym][:allow_destroy] == true
+          association_attributes << {"#{name}_attributes".to_sym => allowed_attributes }
+        end
+        content_block_attributes += association_attributes
+        content_block_attributes.uniq
+      end
+
+      def reflected_content_block_associations(content_block_type)
+        klass = "Smithy::#{content_block_type}".safe_constantize || content_block_type.safe_constantize
+        reflections = klass.reflections.delete_if{|k,v| k.to_s.presence_in %w(id page_contents pages) }
+      end
+
   end
 end

@@ -42,7 +42,7 @@ RSpec.describe Smithy::PermittedParams, :type => :model do
   let(:setting_attributes) { [ :name, :value ] }
   let(:template_attributes) { [ :name, :content, :template_type ] }
   let(:template_container_attributes) { [ :name, :position ] }
-  let(:extra_nested_attribtues) { [:id, :_destroy] }
+  let(:extra_nested_attributes) { [:_destroy] }
 
   describe "asset attributes" do
     it_should_behave_like "returning permitted_params" do
@@ -75,15 +75,46 @@ RSpec.describe Smithy::PermittedParams, :type => :model do
     end
   end
   describe "page attributes" do
+    # page allowed_attributes need to include all of the content_attributes, including the nested content_block_attributes
     it_should_behave_like "returning permitted_params" do
-     let(:param_name) { "page" }
-      let(:allowed_attributes) { page_attributes << { contents_attributes: page_content_attributes + extra_nested_attribtues } }
+      let(:param_name) { "page" }
+      let(:allowed_attributes) do
+        contents_attributes = page_content_attributes
+        content_block_attributes = content_attributes + image_attributes + page_list_attributes + [:id, :_destroy]
+        contents_attributes << { content_block_attributes: content_block_attributes }
+        contents_attributes += [:id, :_destroy]
+        page_attributes << { contents_attributes: contents_attributes }
+      end
     end
   end
+  # page_content allowed_attributes need to include all of the nested content_block_attributes
   describe "page_content attributes" do
     it_should_behave_like "returning permitted_params" do
       let(:param_name) { "page_content" }
-      let(:allowed_attributes) { page_content_attributes }
+      let(:allowed_attributes) do
+        allowed_attributes = page_content_attributes
+        # the default content blocks pieces
+        content_block_attributes = content_attributes + image_attributes + page_list_attributes + [:id, :_destroy]
+        allowed_attributes << {content_block_attributes: content_block_attributes }
+        allowed_attributes
+      end
+    end
+    context "with #content_block_type" do
+      it_should_behave_like "returning permitted_params" do
+        let(:param_name) { "page_content" }
+        let(:attributes) do
+          attributes = FactoryGirl.build(param, page: Smithy::Page.first).attributes.select{|k, v| page_content_attributes.include?(k.to_sym) }
+          attributes[:content_block_attributes] = FactoryGirl.build(:content).attributes.select{|k,v| (content_attributes + extra_nested_attributes + [:id]).include?(k.to_sym) }
+          ActionController::Parameters.new(attributes)
+        end
+        let(:allowed_attributes) do
+          allowed_attributes = page_content_attributes
+          # the default content blocks pieces
+          content_block_attributes = content_attributes + image_attributes + page_list_attributes + [:id, :_destroy]
+          allowed_attributes << {content_block_attributes: content_block_attributes }
+          allowed_attributes
+        end
+      end
     end
   end
   describe "page_list attributes" do
@@ -112,6 +143,6 @@ RSpec.describe Smithy::PermittedParams, :type => :model do
   end
 
   def fetch_attributes(model)
-    ActionController::Parameters.new(attributes_for(model))
+    ActionController::Parameters.new(FactoryGirl.build(model))
   end
 end
