@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823172058) do
+ActiveRecord::Schema.define(version: 20160823193106) do
 
   create_table "smithy_asset_sources", force: :cascade do |t|
     t.string   "name"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160823172058) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "publishable",               default: false
+    t.string   "css_classes"
   end
 
   add_index "smithy_page_contents", ["container"], name: "index_smithy_page_contents_on_container"
